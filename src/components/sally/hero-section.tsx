@@ -27,7 +27,7 @@ export function HeroSection() {
 
         <RotatingHeadline />
 
-        <p className="mt-3 max-w-2xl text-lg md:text-xl text-muted-foreground">
+        <p className="mt-2 max-w-2xl text-lg md:text-xl text-muted-foreground">
           You can’t be everywhere at once. Sally keeps your WhatsApp
           conversations moving and turns your time into outcomes.
         </p>

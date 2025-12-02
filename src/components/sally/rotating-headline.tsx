@@ -49,10 +49,10 @@ export function RotatingHeadline() {
   }, []);
 
   return (
-    <div className="relative mt-1 h-20 md:h-24 lg:h-28">
+    <div className="relative mt-[-0.5rem] h-20 md:h-24 lg:h-28">
       <span
         ref={longestWordRef}
-        className="font-headline font-extrabold text-4xl md:text-5xl lg:text-6xl invisible absolute -z-10 whitespace-nowrap tracking-wider italic"
+        className="font-headline font-extrabold text-4xl md:text-5xl lg:text-6xl invisible absolute -z-10 whitespace-nowrap tracking-tight italic"
         style={{ fontStretch: 'condensed' }}
       >
         {longestWord}
