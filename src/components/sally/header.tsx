@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ArrowRight, Circle } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
-const navItems = ['Product', 'Playbooks', 'Pricing', 'Resources'];
+const navItems = ['Why Sally?', 'How it works?', 'Pricing'];
 
 export function Header() {
   return (
@@ -45,13 +45,6 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-2">
-          <Button
-            variant="ghost"
-            asChild
-            className="text-base font-medium text-muted-foreground hover:text-foreground"
-          >
-            <Link href="#">Log in</Link>
-          </Button>
           <Button
             asChild
             className="relative text-sm font-semibold rounded-full group transition-all duration-300 overflow-hidden px-5 py-2.5"

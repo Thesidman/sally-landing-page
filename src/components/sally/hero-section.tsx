@@ -56,7 +56,7 @@ export function HeroSection() {
             className="h-14 px-8 text-base font-semibold rounded-full bg-white/50 border border-black/10 text-foreground/80 backdrop-blur-sm hover:bg-white/80 hover:border-primary/50 group transition-all duration-300 shadow-sm hover:shadow-md"
           >
             <Play className="mr-2 size-4 fill-foreground/80 text-foreground/80 transition-all duration-300 group-hover:text-primary group-hover:scale-110 group-hover:fill-primary" />
-            Watch 90-second demo
+            How Sally works?
           </Button>
         </div>
 
