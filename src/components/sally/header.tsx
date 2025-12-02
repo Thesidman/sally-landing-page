@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Circle } from 'lucide-react';
+import { ArrowRight, Circle } from 'lucide-react';
 
 const navItems = ['Product', 'Playbooks', 'Pricing', 'Resources'];
 
@@ -54,9 +54,22 @@ export function Header() {
           </Button>
           <Button
             asChild
-            className="font-semibold text-base rounded-full bg-foreground text-background hover:bg-foreground/80 shadow-lg shadow-gray-300/40 transition-all duration-300"
+            className="relative text-sm font-semibold rounded-full group transition-all duration-300 overflow-hidden px-5 py-2.5"
+            style={{
+              background: 'linear-gradient(to right, #25D366, #0FBF80)',
+              boxShadow: '0 4px 15px rgba(37, 211, 102, 0.2), inset 0 1px 2px rgba(255,255,255,0.25)',
+              border: '1px solid rgba(0,0,0,0.08)'
+            }}
           >
-            <Link href="#">Get early access</Link>
+            <Link href="#">
+              <span className="absolute inset-0 bg-gradient-to-b from-white/30 to-transparent"></span>
+              <span className="relative z-10 text-black flex items-center">
+                Get early access
+                <span className="ml-2 size-5 flex items-center justify-center rounded-full bg-white/70">
+                  <ArrowRight className="size-3 text-black transition-transform duration-300 group-hover:translate-x-0.5" />
+                </span>
+              </span>
+            </Link>
           </Button>
         </div>
       </nav>
