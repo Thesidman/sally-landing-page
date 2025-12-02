@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Play, Sparkles } from 'lucide-react';
 import { SallyUICard } from '@/components/sally/sally-ui-card';
+import { RotatingHeadline } from './rotating-headline';
 
 export function HeroSection() {
   return (
@@ -13,14 +14,10 @@ export function HeroSection() {
           </span>
         </div>
 
-        <h1 className="font-headline text-5xl md:text-6xl max-w-4xl font-bold text-foreground !leading-tight tracking-tighter">
-          Never let a <span className="text-primary">sales conversation</span> go
-          cold <i className="font-serif not-italic font-normal">again.</i>
-        </h1>
+        <RotatingHeadline />
 
         <p className="mt-6 max-w-2xl text-lg md:text-xl text-muted-foreground">
-          SALLY reads your WhatsApps, remembers every detail, and follows up on
-          your behalf so every lead keeps moving towards a demo or a deal.
+          You can’t be everywhere at once. Sally keeps your WhatsApp conversations moving and turns your time into outcomes.
         </p>
 
         <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
