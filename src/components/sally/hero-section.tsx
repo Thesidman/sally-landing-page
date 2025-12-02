@@ -7,7 +7,7 @@ export function HeroSection() {
   return (
     <section className="relative w-full h-full pt-40 pb-20 overflow-hidden">
       <div className="container mx-auto px-6 text-center flex flex-col items-center">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 bg-gradient-to-r from-accent/50 to-secondary/50 rounded-full border border-primary/20">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 bg-gradient-to-r from-accent/50 to-secondary/50 rounded-full border border-primary/20">
           <Sparkles className="size-4 text-primary" />
           <span className="text-xs font-medium tracking-widest uppercase text-accent-foreground">
             NEW • WHATSAPP-NATIVE AI SALES AGENT
@@ -27,19 +27,21 @@ export function HeroSection() {
 
         <RotatingHeadline />
 
-        <p className="mt-2 max-w-2xl text-lg md:text-xl text-muted-foreground">
+        <p className="mt-6 max-w-2xl text-lg md:text-xl text-muted-foreground">
           You can’t be everywhere at once. Sally keeps your WhatsApp
           conversations moving and turns your time into outcomes.
         </p>
 
-        <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
+        <div className="mt-12 flex flex-col sm:flex-row items-center gap-4">
           <Button
             size="lg"
-            className="relative h-14 px-8 text-base font-semibold rounded-full group transition-all duration-300 overflow-hidden"
+            className="relative h-14 px-6 text-base font-semibold rounded-full group transition-all duration-300 overflow-hidden"
             style={{
-              background: 'linear-gradient(to right, #25D366, #0FBF80)',
-              boxShadow: '0 4px 25px rgba(37, 211, 102, 0.3), inset 0 2px 4px rgba(255,255,255,0.2)',
-              border: '1px solid rgba(0,0,0,0.08)'
+              background:
+                'linear-gradient(to right, #25D366, #0FBF80)',
+              boxShadow:
+                '0 6px 20px rgba(37, 211, 102, 0.25), inset 0 2px 4px rgba(255,255,255,0.4), 0 1px 2px rgba(0,0,0,0.08)',
+              border: '1px solid rgba(0,0,0,0.08)',
             }}
           >
             <span className="absolute inset-0 bg-gradient-to-b from-white/30 to-transparent"></span>
@@ -60,7 +62,7 @@ export function HeroSection() {
           </Button>
         </div>
 
-        <div className="mt-8 text-sm text-muted-foreground/70">
+        <div className="mt-4 text-sm text-muted-foreground/70">
           Trusted by fast-growing SaaS and B2B teams
         </div>
       </div>
