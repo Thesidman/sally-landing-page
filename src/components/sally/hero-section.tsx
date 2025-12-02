@@ -14,6 +14,10 @@ export function HeroSection() {
           </span>
         </div>
 
+        <h1 className="font-headline text-4xl md:text-5xl lg:text-6xl font-medium text-foreground !leading-tight tracking-tighter max-w-4xl">
+          Sally gets you <span className="font-semibold text-primary">more</span>
+        </h1>
+        
         <RotatingHeadline />
 
         <p className="mt-8 max-w-2xl text-lg md:text-xl text-muted-foreground">
@@ -23,15 +27,15 @@ export function HeroSection() {
         <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
           <Button
             size="lg"
-            className="h-14 px-8 text-base font-semibold rounded-full bg-gradient-to-r from-white to-secondary/70 text-foreground border border-primary/20 shadow-[0_8px_30px_hsl(var(--primary)/0.15)] hover:shadow-[0_10px_35px_hsl(var(--primary)/0.25)] hover:scale-105 transition-all duration-300 ease-in-out group"
+            className="h-14 px-8 text-base font-semibold rounded-full bg-gradient-to-r from-secondary to-primary text-foreground border border-primary/20 shadow-[0_8px_20px_hsl(var(--primary)/0.2)] hover:shadow-[0_10px_30px_hsl(var(--primary)/0.3)] hover:scale-105 transition-all duration-300 ease-in-out group"
           >
             Get early access
-            <ArrowRight className="ml-2 size-5 text-primary transition-transform duration-300 group-hover:translate-x-1" />
+            <ArrowRight className="ml-2 size-5 text-foreground transition-transform duration-300 group-hover:translate-x-1" />
           </Button>
           <Button
             size="lg"
             variant="outline"
-            className="h-14 px-8 text-base font-semibold rounded-full bg-white/50 border-primary/30 text-muted-foreground backdrop-blur-sm hover:bg-white/80 hover:border-primary/50 group transition-all duration-300"
+            className="h-14 px-8 text-base font-semibold rounded-full bg-white/50 border-border text-muted-foreground backdrop-blur-sm hover:bg-white/80 hover:border-primary/50 group transition-all duration-300"
           >
             <Play className="mr-2 size-4 fill-foreground text-foreground transition-all duration-300 group-hover:text-primary group-hover:scale-110 group-hover:fill-primary" />
             Watch 90-second demo
