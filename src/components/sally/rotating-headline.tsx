@@ -48,11 +48,11 @@ export function RotatingHeadline() {
   }, []);
 
   return (
-    <div className="relative mt-4">
+    <div className="relative mt-2">
       {/* Hidden element to measure the longest word and set a fixed width */}
       <span
         ref={longestWordRef}
-        className="font-headline font-semibold text-2xl md:text-3xl lg:text-4xl invisible absolute -z-10 whitespace-nowrap tracking-wider"
+        className="font-headline font-extrabold text-4xl md:text-5xl lg:text-6xl invisible absolute -z-10 whitespace-nowrap tracking-tight"
       >
         {longestWord}
       </span>
@@ -60,18 +60,17 @@ export function RotatingHeadline() {
       <div 
         style={{ width: containerWidth ? `${containerWidth}px` : 'auto' }}
         className={cn(
-          "inline-flex items-center justify-center h-10 md:h-12 lg:h-14",
+          "inline-flex items-center justify-center h-12 md:h-16 lg:h-20",
           "transition-all duration-300"
         )}
       >
         <span
           key={currentIndex}
           className={cn(
-            "font-headline font-semibold text-2xl md:text-3xl lg:text-4xl text-foreground whitespace-nowrap tracking-wider text-center",
-            "bg-gradient-to-b from-primary/80 to-accent-foreground/80 bg-clip-text text-transparent",
+            "font-headline font-extrabold text-4xl md:text-5xl lg:text-6xl text-foreground whitespace-nowrap tracking-tight text-center",
             "transition-all duration-500",
             isAnimatingOut ? 'animate-slide-down-fade' : 'animate-slide-up-fade',
-            "[text-shadow:0_4px_20px_hsl(var(--primary)/0.1)]"
+            "[text-shadow:0_4px_30px_hsl(var(--primary)/0.15)]"
           )}
         >
           {rotatingWords[currentIndex]}
