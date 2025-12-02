@@ -18,7 +18,7 @@ export function HeroSection() {
           <span className="font-normal">Sally</span>{' '}
           <span className="font-light text-foreground/80">gets you</span>{' '}
           <span
-            className="font-semibold bg-gradient-to-b from-primary/80 to-primary bg-clip-text text-transparent"
+            className="font-semibold bg-gradient-to-r from-primary to-teal-400 bg-clip-text text-transparent"
             style={{ fontSize: '1.05em' }}
           >
             more

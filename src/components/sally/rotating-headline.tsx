@@ -52,7 +52,7 @@ export function RotatingHeadline() {
     <div className="relative mt-1 h-20 md:h-24 lg:h-28">
       <span
         ref={longestWordRef}
-        className="font-headline font-extrabold text-4xl md:text-5xl lg:text-6xl invisible absolute -z-10 whitespace-nowrap tracking-wider"
+        className="font-headline font-extrabold text-4xl md:text-5xl lg:text-6xl invisible absolute -z-10 whitespace-nowrap tracking-wider italic"
         style={{ fontStretch: 'condensed' }}
       >
         {longestWord}
@@ -68,7 +68,7 @@ export function RotatingHeadline() {
         <span
           key={currentIndex}
           className={cn(
-            "font-headline font-extrabold text-4xl md:text-5xl lg:text-6xl bg-gradient-to-r from-primary to-teal-400 bg-clip-text text-transparent italic whitespace-nowrap tracking-tight text-center",
+            "font-headline font-extrabold text-4xl md:text-5xl lg:text-6xl text-foreground italic whitespace-nowrap tracking-tight text-center",
             "transition-all duration-500",
             isAnimatingOut ? 'animate-slide-down-fade' : 'animate-slide-up-fade',
             "drop-shadow-[0_4px_15px_hsl(var(--primary)/0.2)]"
