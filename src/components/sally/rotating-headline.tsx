@@ -18,14 +18,26 @@ const rotatingWords = [
   'happy customers',
 ];
 
+// Find the longest word to set a fixed width for the container
+const longestWord = rotatingWords.reduce(
+  (a, b) => (a.length > b.length ? a : b),
+  ''
+);
+
 export function RotatingHeadline() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [containerWidth, setContainerWidth] = useState<number | undefined>(undefined);
+  const [isAnimating, setIsAnimating] = useState(false);
   const longestWordRef = useRef<HTMLSpanElement>(null);
+  const wordRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % rotatingWords.length);
+      setIsAnimating(true);
+      setTimeout(() => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % rotatingWords.length);
+        setIsAnimating(false);
+      }, 250); // half of animation duration
     }, 5000);
 
     return () => clearInterval(interval);
@@ -42,30 +54,38 @@ export function RotatingHeadline() {
       {/* Hidden element to measure the longest word */}
       <span
         ref={longestWordRef}
-        className="font-headline text-4xl md:text-5xl lg:text-6xl invisible absolute -z-10 whitespace-nowrap px-3 py-1"
+        className="font-headline font-semibold text-4xl md:text-5xl lg:text-6xl invisible absolute -z-10 whitespace-nowrap px-6"
       >
-        {rotatingWords[7]}
+        {longestWord}
       </span>
 
       <h1 className="font-headline text-4xl md:text-5xl lg:text-6xl font-medium text-foreground !leading-tight tracking-tighter max-w-4xl">
-        Sally gets you <span className="font-bold text-primary">more</span>
+        Sally gets you <span className="font-semibold text-primary">more</span>
         <div 
           style={{ width: containerWidth ? `${containerWidth}px` : 'auto' }}
           className={cn(
-            "inline-flex items-center justify-center align-middle ml-2",
+            "inline-flex items-center justify-center align-bottom ml-2 h-[3.5rem] md:h-[4.5rem] lg:h-[5.5rem]",
             "transition-all duration-300"
           )}
         >
-          <span
+          <div
             className={cn(
-              "inline-flex items-center justify-center px-3 py-1",
-              "rounded-full border border-gray-200 bg-white/70 backdrop-blur-sm",
-              "text-sm md:text-base lg:text-lg font-medium whitespace-nowrap",
-              "shadow-sm shadow-[0_0_25px_rgba(0,0,0,0.04)]"
+              "flex items-center justify-center w-full h-full px-6",
+              "rounded-full border border-primary/10 bg-gradient-to-br from-white to-secondary/50 backdrop-blur-sm",
+              "shadow-sm shadow-[0_4px_30px_rgba(0,0,0,0.05)]"
             )}
           >
-            {rotatingWords[currentIndex]}
-          </span>
+            <span
+              ref={wordRef}
+              key={currentIndex}
+              className={cn(
+                "text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground whitespace-nowrap",
+                "animate-slide-up-fade"
+              )}
+            >
+              {rotatingWords[currentIndex]}
+            </span>
+          </div>
         </div>
       </h1>
     </div>

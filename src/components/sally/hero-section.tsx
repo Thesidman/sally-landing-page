@@ -16,17 +16,17 @@ export function HeroSection() {
 
         <RotatingHeadline />
 
-        <p className="mt-6 max-w-2xl text-lg md:text-xl text-muted-foreground">
+        <p className="mt-8 max-w-2xl text-lg md:text-xl text-muted-foreground">
           You can’t be everywhere at once. Sally keeps your WhatsApp conversations moving and turns your time into outcomes.
         </p>
 
         <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
           <Button
             size="lg"
-            className="h-14 px-8 text-base font-semibold rounded-full bg-gradient-to-r from-muted to-primary text-primary-foreground shadow-[0_8px_30px_hsl(var(--primary)/0.25)] hover:shadow-[0_10px_35px_hsl(var(--primary)/0.35)] hover:scale-105 transition-all duration-300 ease-in-out group"
+            className="h-14 px-8 text-base font-semibold rounded-full bg-gradient-to-r from-white to-secondary/70 text-foreground border border-primary/20 shadow-[0_8px_30px_hsl(var(--primary)/0.15)] hover:shadow-[0_10px_35px_hsl(var(--primary)/0.25)] hover:scale-105 transition-all duration-300 ease-in-out group"
           >
             Get early access
-            <ArrowRight className="ml-2 size-5 transition-transform duration-300 group-hover:translate-x-1" />
+            <ArrowRight className="ml-2 size-5 text-primary transition-transform duration-300 group-hover:translate-x-1" />
           </Button>
           <Button
             size="lg"
