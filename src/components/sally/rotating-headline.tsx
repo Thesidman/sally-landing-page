@@ -11,7 +11,8 @@ const rotatingWords = [
   'CUSTOMERS',
   'REPLIES',
   'RETENTION',
-  'CUSTOMER SUCCESS CONVERSATIONS',
+  'CUSTOMER SUCCESS',
+  'CONVERSATIONS',
   'REVENUE',
   'PIPELINE',
   'SPEED',
@@ -35,7 +36,7 @@ export function RotatingHeadline() {
       setTimeout(() => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % rotatingWords.length);
         setIsAnimatingOut(false);
-      }, 250); // half of animation duration
+      }, 500); // half of animation duration
     }, 5000);
 
     return () => clearInterval(interval);
