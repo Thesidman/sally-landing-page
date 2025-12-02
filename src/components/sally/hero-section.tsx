@@ -15,16 +15,21 @@ export function HeroSection() {
         </div>
 
         <h1 className="font-headline text-4xl md:text-5xl lg:text-6xl font-medium text-foreground !leading-tight tracking-tighter max-w-4xl">
-          <span className="font-normal">Sally</span> <span className="font-light">gets you</span>{' '}
-          <span className="font-semibold bg-gradient-to-b from-primary/80 to-primary bg-clip-text text-transparent" style={{fontSize: '1.05em'}}>
+          <span className="font-normal">Sally</span>{' '}
+          <span className="font-light text-foreground/80">gets you</span>{' '}
+          <span
+            className="font-semibold bg-gradient-to-b from-primary/80 to-primary bg-clip-text text-transparent"
+            style={{ fontSize: '1.05em' }}
+          >
             more
           </span>
         </h1>
-        
+
         <RotatingHeadline />
 
-        <p className="mt-6 max-w-2xl text-lg md:text-xl text-muted-foreground">
-          You can’t be everywhere at once. Sally keeps your WhatsApp conversations moving and turns your time into outcomes.
+        <p className="mt-3 max-w-2xl text-lg md:text-xl text-muted-foreground">
+          You can’t be everywhere at once. Sally keeps your WhatsApp
+          conversations moving and turns your time into outcomes.
         </p>
 
         <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
