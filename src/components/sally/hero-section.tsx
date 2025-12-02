@@ -35,10 +35,20 @@ export function HeroSection() {
         <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
           <Button
             size="lg"
-            className="h-14 px-8 text-base font-semibold rounded-full bg-gradient-to-r from-[#CFFBE6] to-[#25D366] text-[#050A08] border border-black/10 shadow-[0_4px_14px_rgba(0,0,0,0.12)] hover:shadow-[0_6px_20px_rgba(37,211,102,0.25)] hover:from-[#d9fcee] hover:to-[#35e07a] hover:scale-[1.02] group transition-all duration-300"
+            className="relative h-14 px-8 text-base font-semibold rounded-full group transition-all duration-300 overflow-hidden"
+            style={{
+              background: 'linear-gradient(to right, #25D366, #0FBF80)',
+              boxShadow: '0 4px 25px rgba(37, 211, 102, 0.3), inset 0 2px 4px rgba(255,255,255,0.2)',
+              border: '1px solid rgba(0,0,0,0.08)'
+            }}
           >
-            Get early access
-            <ArrowRight className="ml-2 size-5 transition-transform duration-300 group-hover:translate-x-1" />
+            <span className="absolute inset-0 bg-gradient-to-b from-white/30 to-transparent"></span>
+            <span className="relative z-10 text-black flex items-center">
+              Get early access
+              <span className="ml-2 size-6 flex items-center justify-center rounded-full bg-white">
+                <ArrowRight className="size-4 text-black transition-transform duration-300 group-hover:translate-x-1" />
+              </span>
+            </span>
           </Button>
           <Button
             size="lg"
