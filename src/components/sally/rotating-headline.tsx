@@ -49,7 +49,7 @@ export function RotatingHeadline() {
   }, []);
 
   return (
-    <div className="relative mt-1 h-20 md:h-24 lg:h-28 flex items-center justify-center">
+    <div className="relative mt-2 h-20 md:h-24 lg:h-28 flex items-center justify-center">
       <span
         ref={longestWordRef}
         className="font-headline font-black text-4xl md:text-5xl lg:text-6xl invisible absolute -z-10 whitespace-nowrap tracking-tight italic"
