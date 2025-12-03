@@ -1,5 +1,4 @@
 import { BotMessageSquare, BrainCircuit, GitBranch, Repeat, Scaling, Workflow } from "lucide-react";
-import { Card } from "@/components/ui/card";
 
 const features = [
   {
@@ -36,7 +35,7 @@ const features = [
 
 export function WhySallySection() {
   return (
-    <section className="py-20 sm:py-32">
+    <section className="py-20 sm:py-32 bg-white/50">
       <div className="container mx-auto px-6">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="font-headline text-4xl md:text-5xl font-medium text-foreground tracking-tighter">
@@ -47,24 +46,42 @@ export function WhySallySection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
-          {features.map((feature, index) => (
-            <Card key={index} className="p-8 rounded-3xl bg-gradient-to-br from-white to-secondary/40 border border-primary/10 shadow-[0_0_40px_rgba(37,211,102,0.05)] hover:shadow-[0_0_60px_rgba(37,211,102,0.1)] transition-shadow duration-300">
-              <div className="flex flex-col items-start text-left">
-                <div className="mb-3 flex items-center justify-center size-12 rounded-2xl bg-white border border-primary/20 shadow-sm">
-                  {feature.icon}
-                </div>
-                <h3 className="font-headline text-xl font-medium text-foreground mt-3 mb-2 tracking-tight">
-                  {feature.headline}
-                </h3>
-                <p className="text-base text-muted-foreground">
-                  {feature.explainer}
-                </p>
-              </div>
-            </Card>
-          ))}
+        <div className="mt-16 space-y-8">
+          {/* Row 1 */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <FeatureCard feature={features[0]} />
+            <FeatureCard feature={features[1]} />
+            <FeatureCard feature={features[2]} />
+          </div>
+          
+          {/* Row 2 */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <FeatureCard feature={features[3]} className="lg:col-span-1" />
+            <FeatureCard feature={features[4]} className="lg:col-span-1" />
+          </div>
+
+          {/* Row 3 */}
+          <div className="grid grid-cols-1 gap-8">
+            <FeatureCard feature={features[5]} className="lg:col-span-1" />
+          </div>
         </div>
       </div>
     </section>
   );
 }
+
+const FeatureCard = ({ feature, className }: { feature: typeof features[0], className?: string }) => (
+  <div className={`p-8 rounded-3xl bg-gradient-to-br from-white to-secondary/40 border border-primary/10 shadow-[0_0_40px_rgba(37,211,102,0.05)] hover:shadow-[0_0_60px_rgba(37,211,102,0.1)] transition-shadow duration-300 ${className}`}>
+    <div className="flex flex-col items-start text-left">
+      <div className="mb-3 flex items-center justify-center size-12 rounded-2xl bg-white border border-primary/20 shadow-sm">
+        {feature.icon}
+      </div>
+      <h3 className="font-headline text-xl font-medium text-foreground mt-3 mb-2 tracking-tight">
+        {feature.headline}
+      </h3>
+      <p className="text-base text-muted-foreground">
+        {feature.explainer}
+      </p>
+    </div>
+  </div>
+);
