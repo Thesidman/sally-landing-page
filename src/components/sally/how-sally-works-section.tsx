@@ -62,16 +62,14 @@ const Step = ({
   isActive: boolean;
 }) => {
   return (
-    <div className="relative flex items-start gap-5">
-       <div className="mt-1.5 flex flex-col items-center">
-        <div
-          className={cn(
-            'size-3 rounded-full border-2 transition-all duration-300',
-            isActive ? 'border-primary bg-primary shadow-[0_0_12px_hsl(var(--primary))]' : 'border-gray-300'
-          )}
-        />
+    <div className="relative flex items-start gap-4">
+       <div className="mt-1.5 flex flex-col items-center h-full">
+         <div className={cn(
+             "size-3.5 rounded-full border-2 transition-all duration-300",
+             isActive ? "bg-primary border-primary shadow-[0_0_12px_hsl(var(--primary))]" : "border-gray-300 bg-white"
+         )}></div>
       </div>
-      <div className="flex-1 pb-6">
+      <div className="flex-1 pb-8">
         <h3
           className={cn(
             'font-headline text-2xl font-semibold tracking-tighter transition-colors duration-300',
@@ -79,17 +77,6 @@ const Step = ({
           )}
         >
           {step.title}
-           <AnimatePresence>
-            {isActive && (
-              <motion.div
-                className="mt-1 h-0.5 w-1/4 bg-primary rounded-full"
-                initial={{ width: 0 }}
-                animate={{ width: '25%' }}
-                exit={{ width: 0 }}
-                transition={{ duration: 0.4, ease: 'easeOut' }}
-              />
-            )}
-          </AnimatePresence>
         </h3>
         <AnimatePresence initial={false}>
           {isActive && (
@@ -99,7 +86,7 @@ const Step = ({
               exit={{ opacity: 0, height: 0, marginTop: 0 }}
               transition={{ duration: 0.4, ease: [0.2, 0.9, 0.2, 1] }}
             >
-              <div className="p-4 rounded-xl bg-white/50 backdrop-blur-md border border-gray-200/70 shadow-sm">
+              <div className="p-4 rounded-xl bg-white/60 backdrop-blur-md border border-primary/10 shadow-sm">
                 <p className="text-muted-foreground leading-relaxed">
                   {step.text}
                 </p>
@@ -132,7 +119,7 @@ export function HowSallyWorksSection() {
           });
         },
         {
-          rootMargin: '-30% 0px -60% 0px',
+          rootMargin: '-20% 0px -75% 0px',
           threshold: 0,
         }
       );
@@ -183,7 +170,7 @@ export function HowSallyWorksSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 xl:gap-24 items-start">
           <div className="lg:max-w-md relative">
-            <div className="absolute left-[5px] top-1.5 bottom-0 w-px bg-gray-200"></div>
+            <div className="absolute left-[6px] top-1.5 bottom-0 w-0.5 bg-gray-200"></div>
             <div className="flex flex-col">
               {stepsData.steps.map((step, index) => (
                 <div
@@ -243,9 +230,9 @@ export function HowSallyWorksSection() {
                       index === activePanelIndex && (
                         <motion.div
                           key={panel.id}
-                          initial={{ opacity: 0, x: 20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          exit={{ opacity: 0, x: -20 }}
+                          initial={{ opacity: 0, scale: 0.98, y: 10 }}
+                          animate={{ opacity: 1, scale: 1, y: 0 }}
+                          exit={{ opacity: 0, scale: 0.98, y: -10 }}
                           transition={{
                             duration: 0.4,
                             ease: [0.2, 0.9, 0.2, 1],
