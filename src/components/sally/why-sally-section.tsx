@@ -8,10 +8,15 @@ import {
   Zap,
   Sparkles,
   Check,
+  MessageSquare,
+  ArrowUp,
+  ChevronRight,
+  Circle,
+  CheckCircle,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { WhatsappIcon } from '../icons/whatsapp-icon';
+import { WhatsappLogoIcon } from '../icons/whatsapp-logo-icon';
 
 
 const features = [
@@ -198,90 +203,91 @@ const IntelligenceVisual = () => {
 
 const OrbitVisual = () => {
     return (
-      <div className="relative w-full h-full flex items-center justify-center p-8 overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.02] mix-blend-multiply" style={{
-          backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")"
-        }} />
-
-        <div className="absolute w-96 h-96 right-0 bottom-0 translate-x-1/3 translate-y-1/3">
-            <div 
+        <div className="relative w-full h-full flex items-center justify-center p-8 overflow-hidden">
+          <div className="absolute inset-0 opacity-[0.02] mix-blend-multiply" style={{
+            backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")"
+          }} />
+    
+          <div className="absolute w-96 h-96 right-0 bottom-0 translate-x-1/3 translate-y-1/3">
+              <div 
+                  className="absolute inset-0 rounded-full"
+                  style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.15), transparent 60%)' }}
+              ></div>
+          </div>
+  
+          <div className="relative size-40 rounded-full flex items-center justify-center">
+            <motion.div
+              className="absolute inset-0"
+              initial={{ scale: 0.8, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.8, ease: 'easeOut' }}
+              viewport={{ once: true }}
+            >
+              <div 
                 className="absolute inset-0 rounded-full"
-                style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.15), transparent 60%)' }}
-            ></div>
+                style={{background: 'radial-gradient(circle, hsl(var(--primary) / 0.8), hsl(var(--primary) / 0.4))'}}
+              ></div>
+              <div className="absolute inset-0 rounded-full shadow-[inset_0_4px_20px_rgba(255,255,255,0.4)]"></div>
+              <div className="absolute inset-0 rounded-full border border-white/20"></div>
+              <div className="absolute size-40 rounded-full bg-primary/20 blur-3xl"></div>
+            </motion.div>
+            <motion.div
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.3, type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <WhatsappLogoIcon className="w-16 h-16 text-white/90" />
+            </motion.div>
+          </div>
+    
+          <motion.div
+            className="absolute top-10 left-12 size-20 rounded-full border border-primary/10 bg-white/20 backdrop-blur-sm flex flex-col items-center justify-center text-center p-2"
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
+            viewport={{ once: true }}
+          >
+               <p className="text-[10px] font-medium text-muted-foreground">Work</p>
+          </motion.div>
+          <motion.div
+            className="absolute top-1/3 right-8 size-16 rounded-full border border-primary/10 bg-white/20 backdrop-blur-sm flex flex-col items-center justify-center text-center p-2"
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
+            viewport={{ once: true }}
+          >
+               <p className="text-[10px] font-medium text-muted-foreground">Family</p>
+          </motion.div>
+          <motion.div
+            className="absolute bottom-1/4 left-4 size-[70px] rounded-full border border-primary/10 bg-white/20 backdrop-blur-sm flex flex-col items-center justify-center text-center p-2"
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.5, ease: 'easeOut' }}
+            viewport={{ once: true }}
+          >
+               <p className="text-[10px] font-medium text-muted-foreground">Friends</p>
+          </motion.div>
+          <motion.div
+            className="absolute bottom-8 right-1/4 size-[90px] rounded-full border border-primary/10 bg-white/20 backdrop-blur-sm flex flex-col items-center justify-center text-center p-2"
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.6, ease: 'easeOut' }}
+            viewport={{ once: true }}
+          >
+               <p className="text-xs font-medium text-muted-foreground">Clients</p>
+          </motion.div>
+          <motion.div
+            className="absolute top-1/2 left-1/3 size-14 rounded-full border border-primary/10 bg-white/20 backdrop-blur-sm flex flex-col items-center justify-center text-center p-2"
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.7, ease: 'easeOut' }}
+            viewport={{ once: true }}
+          >
+               <p className="text-[10px] font-medium text-muted-foreground">Leads</p>
+          </motion.div>
         </div>
-
-        <div className="absolute w-80 h-80 right-1/4 top-1/4">
-             <div 
-                className="absolute inset-0 rounded-full opacity-50"
-                style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.08), transparent 70%)' }}
-            ></div>
-        </div>
-  
-        <motion.div
-          className="relative size-40 rounded-full flex items-center justify-center"
-          initial={{ scale: 0.8, opacity: 0 }}
-          whileInView={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          viewport={{ once: true }}
-        >
-          <div 
-            className="absolute inset-0 rounded-full"
-            style={{background: 'radial-gradient(circle, hsl(var(--primary) / 0.8), hsl(var(--primary) / 0.4))'}}
-          ></div>
-           <div className="absolute inset-0 rounded-full shadow-[inset_0_4px_20px_rgba(255,255,255,0.4)]"></div>
-          <div className="absolute inset-0 rounded-full border border-white/20"></div>
-          <div className="absolute size-40 rounded-full bg-primary/20 blur-3xl"></div>
-          <WhatsappIcon className="size-16 text-white/90" />
-        </motion.div>
-  
-        <motion.div
-          className="absolute top-10 left-12 size-20 rounded-full border border-primary/10 bg-white/20 backdrop-blur-sm flex flex-col items-center justify-center text-center p-2"
-          initial={{ opacity: 0, scale: 0.5 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
-          viewport={{ once: true }}
-        >
-             <p className="text-[10px] font-medium text-muted-foreground">Work</p>
-        </motion.div>
-        <motion.div
-          className="absolute top-1/3 right-8 size-16 rounded-full border border-primary/10 bg-white/20 backdrop-blur-sm flex flex-col items-center justify-center text-center p-2"
-          initial={{ opacity: 0, scale: 0.5 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
-          viewport={{ once: true }}
-        >
-             <p className="text-[10px] font-medium text-muted-foreground">Family</p>
-        </motion.div>
-        <motion.div
-          className="absolute bottom-1/4 left-4 size-[70px] rounded-full border border-primary/10 bg-white/20 backdrop-blur-sm flex flex-col items-center justify-center text-center p-2"
-          initial={{ opacity: 0, scale: 0.5 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.5, ease: 'easeOut' }}
-          viewport={{ once: true }}
-        >
-             <p className="text-[10px] font-medium text-muted-foreground">Friends</p>
-        </motion.div>
-        <motion.div
-          className="absolute bottom-8 right-1/4 size-[90px] rounded-full border border-primary/10 bg-white/20 backdrop-blur-sm flex flex-col items-center justify-center text-center p-2"
-          initial={{ opacity: 0, scale: 0.5 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.6, ease: 'easeOut' }}
-          viewport={{ once: true }}
-        >
-             <p className="text-xs font-medium text-muted-foreground">Clients</p>
-        </motion.div>
-        <motion.div
-          className="absolute top-1/2 left-1/3 size-14 rounded-full border border-primary/10 bg-white/20 backdrop-blur-sm flex flex-col items-center justify-center text-center p-2"
-          initial={{ opacity: 0, scale: 0.5 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.7, ease: 'easeOut' }}
-          viewport={{ once: true }}
-        >
-             <p className="text-[10px] font-medium text-muted-foreground">Leads</p>
-        </motion.div>
-      </div>
-    );
-  };
+      );
+    };
 
 
 export function WhySallySection() {
