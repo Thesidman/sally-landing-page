@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
-const navItems = ['Why Sally?', 'How it works?', 'Pricing'];
+const navItems = ['Why Sally?', 'How it works?'];
 
 export function Header() {
   return (
