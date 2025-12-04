@@ -8,6 +8,13 @@ export default {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    container: {
+      center: true,
+      padding: '2rem',
+      screens: {
+        '2xl': '1400px',
+      },
+    },
     extend: {
       fontFamily: {
         body: ['Inter', 'sans-serif'],
@@ -16,6 +23,7 @@ export default {
       boxShadow: {
         'soft-glow': '0 4px 20px rgba(0, 190, 90, 0.1), 0 2px 5px rgba(0,0,0,0.05)',
         'inner-white': 'inset 0 1px 2px rgba(255,255,255,0.7)',
+        soft: '0 12px 30px rgba(6,22,15,0.04)',
       },
       colors: {
         background: 'hsl(var(--background))',
@@ -68,8 +76,15 @@ export default {
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))',
         },
+        mint: {
+            500: '#24D39A',
+            600: '#13B985'
+        },
+        textPrimary: '#0F1720',
+        bgPaper: '#F9FCF8'
       },
       borderRadius: {
+        xl: 'calc(var(--radius) + 4px)',
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 4px)',
         sm: 'calc(var(--radius) - 8px)',
