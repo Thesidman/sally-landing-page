@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, CheckCircle, Wifi, Signal } from 'lucide-react';
+import { ArrowRight, CheckCircle } from 'lucide-react';
 import { PhoneScreenQR } from './how-sally-panels/phone-screen-qr';
 import { PhoneScreenProfile } from './how-sally-panels/phone-screen-profile';
 import { PhoneScreenContacts } from './how-sally-panels/phone-screen-contacts';
@@ -13,36 +13,36 @@ import { PhoneScreenConversation } from './how-sally-panels/phone-screen-convers
 
 const stepsData = {
   header: 'How Sally works',
-  subhead:
-    'Link your WhatsApp. Define outcomes. Watch Sally handle the conversations.',
+  subhead: 'Link your WhatsApp. Define outcomes. Watch Sally handle the conversations.',
   label: 'No heavy integrations. Just scan and go.',
   steps: [
     {
       id: 's1',
       title: 'Connect by scanning a QR',
-      text: 'Open Sally, scan the QR with WhatsApp — your number links instantly. No approvals or extra numbers.',
+      text: 'Open Sally, scan the QR with WhatsApp — your number links instantly. No approvals, no extra numbers.',
     },
     {
       id: 's2',
       title: 'Set up your profile',
-      text: 'Tell Sally who you are: name, role, full bio, and how you want to appear. You can enable impersonation if you want Sally to speak as you.',
+      text: 'Tell Sally who you are: name, role, full bio, and how you want to appear. Enable the impersonation toggle to choose whether Sally speaks as you or as your representative.',
     },
     {
       id: 's3',
       title: 'Pick who to talk to',
-      text: 'Upload numbers, paste a CSV, or pick contacts from your phone. Select one or many — Sally dedupes automatically.',
+      text: 'Upload numbers, paste a CSV, or pick contacts from your phone. Select one person or an entire segment. Sally dedupes automatically.',
     },
     {
       id: 's4',
       title: 'Define objectives & context',
-      text: 'Set what you want from each conversation — demo, feedback, re-engage, intro, or custom. Add context notes for accuracy.',
+      text: 'Set what you want from the conversations — demo, feedback, re-engage, intro, or custom. Add context notes so Sally frames each chat accurately.',
     },
     {
       id: 's5',
       title: 'Sally runs the conversations',
-      text: 'Sally opens natural chats, understands replies, qualifies intent, and moves things forward. When something needs your input, Sally pings you on WhatsApp with a suggested reply.',
+      text: "Sally opens natural chats, understands replies, qualifies intent, and moves things forward. When something needs your touch, Sally sends a WhatsApp ping with context and a suggested reply. Your WhatsApp reply is automatically recorded inside Sally.",
     },
   ],
+  microcopy: 'No templates. No rigid workflows. Just real conversations that scale.',
   primaryCta: { text: 'Get early access' },
 };
 
@@ -57,32 +57,39 @@ const panels = [
 const Step = ({
   step,
   isActive,
-  isCompleted,
 }: {
   step: (typeof stepsData.steps)[0];
   isActive: boolean;
-  isCompleted: boolean;
 }) => {
   return (
-    <div className="relative flex gap-6">
-      <div className="flex flex-col items-center">
+    <div className="relative flex items-start gap-5">
+       <div className="mt-1.5 flex flex-col items-center">
         <div
           className={cn(
             'size-3 rounded-full border-2 transition-all duration-300',
-            isActive ? 'border-primary bg-primary' : 
-            isCompleted ? 'border-primary/50 bg-primary/50' : 'border-gray-300'
+            isActive ? 'border-primary bg-primary shadow-[0_0_12px_hsl(var(--primary))]' : 'border-gray-300'
           )}
         />
-        <div className={cn("w-px h-full", isCompleted ? "bg-primary/20" : "bg-gray-200")}></div>
       </div>
-      <div className="flex-1 pb-10">
+      <div className="flex-1 pb-6">
         <h3
           className={cn(
-            'font-headline text-2xl font-semibold tracking-tight transition-colors duration-300',
+            'font-headline text-2xl font-semibold tracking-tighter transition-colors duration-300',
             isActive ? 'text-foreground' : 'text-foreground/40'
           )}
         >
           {step.title}
+           <AnimatePresence>
+            {isActive && (
+              <motion.div
+                className="mt-1 h-0.5 w-1/4 bg-primary rounded-full"
+                initial={{ width: 0 }}
+                animate={{ width: '25%' }}
+                exit={{ width: 0 }}
+                transition={{ duration: 0.4, ease: 'easeOut' }}
+              />
+            )}
+          </AnimatePresence>
         </h3>
         <AnimatePresence initial={false}>
           {isActive && (
@@ -92,11 +99,11 @@ const Step = ({
               exit={{ opacity: 0, height: 0, marginTop: 0 }}
               transition={{ duration: 0.4, ease: [0.2, 0.9, 0.2, 1] }}
             >
-                <div className="p-4 rounded-xl bg-white/50 backdrop-blur-md border border-gray-200/70 shadow-sm">
-                   <p className="text-muted-foreground leading-relaxed">
-                     {step.text}
-                   </p>
-                </div>
+              <div className="p-4 rounded-xl bg-white/50 backdrop-blur-md border border-gray-200/70 shadow-sm">
+                <p className="text-muted-foreground leading-relaxed">
+                  {step.text}
+                </p>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -104,6 +111,7 @@ const Step = ({
     </div>
   );
 };
+
 
 export function HowSallyWorksSection() {
   const [activeStepId, setActiveStepId] = useState(stepsData.steps[0].id);
@@ -175,26 +183,26 @@ export function HowSallyWorksSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 xl:gap-24 items-start">
           <div className="lg:max-w-md relative">
+            <div className="absolute left-[5px] top-1.5 bottom-0 w-px bg-gray-200"></div>
             <div className="flex flex-col">
               {stepsData.steps.map((step, index) => (
                 <div
                   key={step.id}
                   id={step.id}
                   ref={(el) => (stepRefs.current[index] = el)}
+                  className="pl-2"
                 >
                   <Step
                     step={step}
                     isActive={activeStepId === step.id}
-                    isCompleted={
-                      stepsData.steps.findIndex((s) => s.id === activeStepId) > index
-                    }
                   />
                 </div>
               ))}
             </div>
 
-            <div className="mt-8">
+            <div className="mt-8 pl-8">
               <Button
+                asChild
                 size="lg"
                 className="relative h-14 px-6 text-base font-semibold rounded-full group transition-all duration-300 overflow-hidden"
                 style={{
@@ -204,42 +212,31 @@ export function HowSallyWorksSection() {
                   border: '1px solid rgba(0,0,0,0.08)',
                 }}
               >
-                <span className="absolute inset-0 bg-gradient-to-b from-white/30 to-transparent"></span>
-                <span className="relative z-10 text-black flex items-center">
-                  {stepsData.primaryCta.text}
-                  <span className="ml-2 size-6 flex items-center justify-center rounded-full bg-white">
-                    <ArrowRight className="size-4 text-black transition-transform duration-300 group-hover:translate-x-1" />
+                <a href="#">
+                  <span className="absolute inset-0 bg-gradient-to-b from-white/30 to-transparent"></span>
+                  <span className="relative z-10 text-black flex items-center">
+                    {stepsData.primaryCta.text}
+                    <span className="ml-2 size-6 flex items-center justify-center rounded-full bg-white">
+                      <ArrowRight className="size-4 text-black transition-transform duration-300 group-hover:translate-x-1" />
+                    </span>
                   </span>
-                </span>
+                </a>
               </Button>
+               <p className="mt-4 text-sm text-muted-foreground">{stepsData.microcopy}</p>
             </div>
           </div>
 
           <div className="relative lg:sticky top-24 h-full min-h-[680px]">
             <div
-              className="w-full max-w-md mx-auto aspect-[9/19] rounded-3xl p-4 bg-white/60 backdrop-blur-xl border border-white/80"
+              className="w-full max-w-[360px] mx-auto rounded-3xl p-3 bg-white/60 backdrop-blur-xl border border-white/80"
               style={{
                 boxShadow: '0 28px 60px rgba(6,22,15,0.08)',
                 backgroundImage:
                   'linear-gradient(120deg, rgba(36,211,154,0.12), rgba(19,185,133,0.04))',
               }}
             >
-              <div className="relative h-full w-full bg-black rounded-2xl overflow-hidden shadow-inner">
-                {/* Phone Notch */}
-                <div className="absolute top-4 left-1/2 -translate-x-1/2 h-7 w-1/3 bg-black/80 rounded-full z-20"></div>
+              <div className="relative h-[700px] w-full bg-black rounded-[18px] overflow-hidden shadow-inner">
                 
-                 {/* Top Bar */}
-                <div className="absolute top-0 left-0 right-0 h-12 px-4 flex justify-between items-center z-10 text-white">
-                  <span className="text-xs font-semibold">9:41</span>
-                  <div className="flex items-center gap-1">
-                    <Signal size={14} />
-                    <Wifi size={14} />
-                    <div className="w-5 h-2.5 border border-white/50 rounded-sm p-px flex items-center">
-                      <div className="w-full h-full bg-white rounded-xs"></div>
-                    </div>
-                  </div>
-                </div>
-
                 <AnimatePresence mode="wait">
                   {panels.map(
                     (panel, index) =>
