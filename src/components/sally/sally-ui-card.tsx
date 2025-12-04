@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
-import { CheckCircle2, Clock, Sparkles, Zap } from "lucide-react";
+import { CheckCircle2, CircleCheck, Clock, Sparkles, Zap } from "lucide-react";
 import { WhatsappIcon } from "@/components/icons/whatsapp-icon";
 import { Button } from "../ui/button";
 
@@ -97,7 +97,7 @@ export function SallyUICard() {
                       "bg-accent/70": action.variant === 'accent',
                       "bg-primary/20": action.variant === 'primary-ghost'
                     })}>
-                      {action.status === 'Done' ? <CheckCircle2 className="size-4 text-primary" /> : <Zap className="size-4 text-accent-foreground" />}
+                      {action.status === 'Done' ? <CircleCheck className="size-4 text-primary" /> : <Zap className="size-4 text-accent-foreground" />}
                     </div>
                     <div className="flex-1">
                       <p className="text-sm font-medium text-foreground">{action.text}</p>

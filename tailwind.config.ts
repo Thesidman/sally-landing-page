@@ -13,6 +13,10 @@ export default {
         body: ['Inter', 'sans-serif'],
         headline: ['Space Grotesk', 'sans-serif'],
       },
+      boxShadow: {
+        'soft-glow': '0 4px 20px rgba(0, 190, 90, 0.1), 0 2px 5px rgba(0,0,0,0.05)',
+        'inner-white': 'inset 0 1px 2px rgba(255,255,255,0.7)',
+      },
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
