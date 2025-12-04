@@ -74,81 +74,81 @@ const SectionHeader = () => (
 );
 
 const ConstellationVisual = () => {
-  const contacts = [
-    { name: 'Ananya S.', group: 'GrowthX group', status: 'High intent', selected: true },
-    { name: 'Ben Carter', group: 'GrowthX group', status: 'New', selected: false },
-    { name: 'Chloe Davis', group: 'GrowthX group', status: 'Warm', selected: true },
-    { name: 'David Chen', group: 'GrowthX group', status: 'New', selected: false },
-    { name: 'Eva Rodriguez', group: 'GrowthX group', status: 'New', selected: true },
-];
-  return (
-    <div className="relative w-full h-full flex items-center justify-center p-8 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-mint-500/5 opacity-50"></div>
-      <div className="absolute inset-0 opacity-[0.06]" style={{
-        backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")"
-      }} />
+    const contacts = [
+        { name: 'Ananya S.', group: 'GrowthX group', status: 'High intent', selected: true },
+        { name: 'Ben Carter', group: 'GrowthX group', status: 'New', selected: false },
+        { name: 'Chloe Davis', group: 'GrowthX group', status: 'Warm', selected: true },
+        { name: 'David Chen', group: 'GrowthX group', status: 'New', selected: false },
+        { name: 'Eva Rodriguez', group: 'GrowthX group', status: 'New', selected: true },
+    ];
+    return (
+        <div className="relative w-full h-full flex items-center justify-center p-8 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-mint-500/5 opacity-50"></div>
+        <div className="absolute inset-0 opacity-[0.06]" style={{
+            backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")"
+        }} />
 
-      <div className="relative w-full h-full flex items-center justify-center gap-4">
-        {/* Group List Panel */}
-        <motion.div
-          className="w-[40%] space-y-2"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          transition={{ staggerChildren: 0.1, delayChildren: 0.2 }}
-        >
-          {contacts.map((c, i) => (
+        <div className="relative w-full h-full flex items-center justify-center gap-4">
+            {/* Group List Panel */}
             <motion.div
-              key={i}
-              variants={{
-                hidden: { opacity: 0, x: -20 },
-                visible: { opacity: 1, x: 0 },
-              }}
-              className={cn(
-                "flex items-center gap-2 p-2 rounded-lg border bg-white/60 backdrop-blur-sm transition-all duration-300",
-                c.selected ? "border-primary/30 shadow-md" : "border-transparent"
-              )}
+            className="w-[40%] space-y-2"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            transition={{ staggerChildren: 0.1, delayChildren: 0.2 }}
             >
-              <Avatar className="size-8"><AvatarFallback>{c.name.charAt(0)}</AvatarFallback></Avatar>
-              <div className="flex-1 overflow-hidden">
-                <p className="text-xs font-medium text-foreground truncate">{c.name}</p>
-                <p className="text-[10px] text-muted-foreground truncate">{c.group}</p>
-              </div>
-              {c.selected && <Check className="size-4 text-primary flex-shrink-0" />}
-            </motion.div>
-          ))}
-        </motion.div>
-        
-        <div className="flex-shrink-0">
-          <motion.div 
-            initial={{opacity: 0, scale: 0.5}}
-            whileInView={{opacity: 1, scale: 1}}
-            transition={{delay: 0.5, type: 'spring', stiffness: 300, damping: 20}}
-            viewport={{once:true}}
-            className="size-14 rounded-full bg-gradient-to-br from-primary to-teal-400 flex items-center justify-center shadow-lg shadow-primary/20">
-            <Sparkles className="size-7 text-white/90"/>
-          </motion.div>
-        </div>
-
-        {/* Chat Stacks */}
-        <div className="w-[45%] relative h-full flex flex-col justify-around">
-            {[1,2,3].map(i => (
+            {contacts.map((c, i) => (
                 <motion.div
-                    key={i}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.6 + i * 0.15, ease: 'easeOut' }}
-                    viewport={{ once: true }}
-                    className="p-2.5 space-y-1.5 rounded-lg bg-white/50 backdrop-blur-sm border border-black/5 shadow-sm"
+                key={i}
+                variants={{
+                    hidden: { opacity: 0, x: -20 },
+                    visible: { opacity: 1, x: 0 },
+                }}
+                className={cn(
+                    "flex items-center gap-2 p-2 rounded-lg border bg-white/60 backdrop-blur-sm transition-all duration-300",
+                    c.selected ? "border-primary/30 shadow-md" : "border-transparent"
+                )}
                 >
-                    <div className="h-1.5 w-10/12 rounded-full bg-gray-200/80 ml-auto"></div>
-                    <div className="h-1.5 w-8/12 rounded-full bg-primary/20"></div>
+                <Avatar className="size-8"><AvatarFallback>{c.name.charAt(0)}</AvatarFallback></Avatar>
+                <div className="flex-1 overflow-hidden">
+                    <p className="text-xs font-medium text-foreground truncate">{c.name}</p>
+                    <p className="text-[10px] text-muted-foreground truncate">{c.group}</p>
+                </div>
+                {c.selected && <Check className="size-4 text-primary flex-shrink-0" />}
                 </motion.div>
             ))}
+            </motion.div>
+            
+            <div className="flex-shrink-0">
+            <motion.div 
+                initial={{opacity: 0, scale: 0.5}}
+                whileInView={{opacity: 1, scale: 1}}
+                transition={{delay: 0.5, type: 'spring', stiffness: 300, damping: 20}}
+                viewport={{once:true}}
+                className="size-14 rounded-full bg-gradient-to-br from-primary to-teal-400 flex items-center justify-center shadow-lg shadow-primary/20">
+                <Sparkles className="size-7 text-white/90"/>
+            </motion.div>
+            </div>
+
+            {/* Chat Stacks */}
+            <div className="w-[45%] relative h-full flex flex-col justify-around">
+                {[1,2,3].map(i => (
+                    <motion.div
+                        key={i}
+                        initial={{ opacity: 0, x: 20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, delay: 0.6 + i * 0.15, ease: 'easeOut' }}
+                        viewport={{ once: true }}
+                        className="p-2.5 space-y-1.5 rounded-lg bg-white/50 backdrop-blur-sm border border-black/5 shadow-sm"
+                    >
+                        <div className="h-1.5 w-10/12 rounded-full bg-gray-200/80 ml-auto"></div>
+                        <div className="h-1.5 w-8/12 rounded-full bg-primary/20"></div>
+                    </motion.div>
+                ))}
+            </div>
         </div>
-      </div>
-    </div>
-  );
+        </div>
+    );
 };
 
 
@@ -232,11 +232,12 @@ const OrbitVisual = () => {
               <div className="absolute size-40 rounded-full bg-primary/20 blur-3xl"></div>
             </motion.div>
             <motion.div
+              className="relative z-10"
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.3, type: "spring", stiffness: 300, damping: 20 }}
             >
-              <WhatsappLogoIcon className="w-16 h-16 text-white/90" />
+              <WhatsappLogoIcon className="w-16 h-16" />
             </motion.div>
           </div>
     
