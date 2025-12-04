@@ -3,11 +3,10 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import {
   Bot,
-  Check,
+  CheckCircle2,
   MessageCircle,
   TrendingUp,
   Zap,
-  CheckCircle2,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -15,43 +14,45 @@ const features = [
   {
     id: 'f1',
     heading: 'Get personalised conversations started on WhatsApp instantly.',
-    text: 'Sally finds the right people in your groups and opens natural, human-sounding chats with them. No effort, no prep, no manual typing.',
+    text: "Sally finds the right people in your groups and opens natural, human-sounding chats with them. No effort, no prep, no manual typing.",
     icon: Zap,
+    layout: 'text-left',
   },
   {
     id: 'f2',
     heading: 'It understands every reply and drives the conversation for you.',
     text: 'Sally reads context, picks up intent, asks the right questions, qualifies people, and keeps the chat moving. No workflows. No templates. Just smart, adaptive conversations.',
     icon: Bot,
+    layout: 'text-right',
   },
   {
     id: 'f3',
     heading: 'Built on the channel people trust the most.',
     text: 'WhatsApp gets faster, more honest replies than LinkedIn or email. Sally turns this trust into a real advantage — more responses, better conversations, higher conversions.',
     icon: MessageCircle,
+    layout: 'text-left',
   },
 ];
 
 const SectionTag = () => (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.1 }}
-      viewport={{ once: true }}
-      className="inline-flex items-center gap-2 rounded-full px-4 py-1.5"
-      style={{
-        background: 'linear-gradient(to bottom, #ECFBF4, #FFFFFF)',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.04)',
-        border: '1px solid rgba(205, 239, 225, 0.25)',
-      }}
-    >
-      <div className="size-2 rounded-full bg-[#36B57A] shadow-[0_0_8px_1px_#36B57A]"></div>
-      <span className="text-xs font-semibold tracking-wide uppercase text-black/70">
-        Why Sally
-      </span>
-    </motion.div>
-  );
-  
+  <motion.div
+    initial={{ opacity: 0, y: 10 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay: 0.1 }}
+    viewport={{ once: true }}
+    className="inline-flex items-center gap-2 rounded-full px-4 py-1.5"
+    style={{
+      background: 'linear-gradient(to bottom, #ECFBF4, #FFFFFF)',
+      boxShadow: '0 4px 12px rgba(0,0,0,0.04)',
+      border: '1px solid rgba(205, 239, 225, 0.25)',
+    }}
+  >
+    <div className="size-2 rounded-full bg-[#36B57A] shadow-[0_0_8px_1px_#36B57A]"></div>
+    <span className="text-xs font-semibold tracking-wide uppercase text-black/70">
+      WHY SALLY
+    </span>
+  </motion.div>
+);
 
 const SectionHeader = () => (
   <div className="text-center max-w-3xl mx-auto flex flex-col items-center">
@@ -62,7 +63,7 @@ const SectionHeader = () => (
       transition={{ duration: 0.5, delay: 0.2 }}
       viewport={{ once: true }}
       className="mt-6 font-headline text-4xl md:text-5xl font-semibold text-[#111111] tracking-tighter"
-      style={{ letterSpacing: "-0.02em" }}
+      style={{ letterSpacing: '-0.02em' }}
     >
       Conversations that feel natural, at scale
     </motion.h2>
@@ -80,46 +81,47 @@ const SectionHeader = () => (
 );
 
 const TextCard = ({
-  feature,
+  heading,
+  text,
 }: {
-  feature: (typeof features)[0];
+  heading: string;
+  text: string;
 }) => (
-    <div
-      className={cn(
-        'relative rounded-3xl bg-white p-8 md:p-10 border border-[#E7ECEA] shadow-[0_12px_30px_rgba(0,0,0,0.04)] h-full flex flex-col justify-center'
-      )}
-    >
-      <div className="absolute top-6 left-6 h-1 w-10 rounded-full bg-primary/20" />
-      <h3 className="font-headline text-2xl md:text-3xl font-semibold tracking-tight text-foreground mt-4">
-        {feature.heading}
-      </h3>
-      <p className="mt-4 text-base md:text-lg text-black/70 max-w-lg">
-        {feature.text}
-      </p>
+  <div className="relative rounded-3xl bg-white p-8 md:p-10 border border-[#E7ECEA] shadow-[0_12px_30px_rgba(0,0,0,0.04)] h-full flex flex-col justify-center">
+    <div className="absolute top-6 left-6 h-1 w-10 rounded-full bg-primary/20" />
+    <h3 className="font-headline text-2xl md:text-3xl font-semibold tracking-tight text-foreground mt-4">
+      {heading}
+    </h3>
+    <p className="mt-4 text-base md:text-lg text-black/70 max-w-lg">{text}</p>
+  </div>
+);
+
+const VisualCard = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => (
+  <div
+    className={cn(
+      'relative rounded-[32px] overflow-hidden p-8',
+      'bg-gradient-to-br from-[#E8FAF3] to-[#D8F4F4]',
+      'shadow-[0_24px_80px_rgba(7,80,55,0.1)]',
+      'h-full',
+      className
+    )}
+  >
+    <div className="absolute top-4 left-4 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium bg-white/40 text-black/50 backdrop-blur-sm border border-black/5 z-10">
+        Example
     </div>
-  );
-  
-  const VisualCard = ({
-    children,
-    className,
-  }: {
-    children: React.ReactNode;
-    className?: string;
-  }) => (
+    <div className="absolute inset-0 bg-white/20 backdrop-blur-xl"></div>
     <div
-      className={cn(
-        'relative rounded-[32px] overflow-hidden p-8',
-        'bg-gradient-to-br from-[#E8FAF3] to-[#D8F4F4]',
-        'shadow-[0_24px_80px_rgba(7,80,55,0.1)]',
-        'h-full',
-        className
-      )}
-    >
-       <div className="absolute inset-0 bg-white/20 backdrop-blur-xl"></div>
-       <div className="absolute inset-0 opacity-[0.02] bg-[url(\'data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%2240%22%20height=%2240%22%20viewBox=%220%200%2040%2040%22%3E%3Cg%20fill-rule=%22evenodd%22%3E%3Cg%20fill=%22%23000000%22%20fill-opacity=%221%22%3E%3Cpath%20d=%22M0%2038.59l2.83-2.83%201.41%201.41L1.41%2040H0v-1.41zM0%201.4l2.83%202.83%201.41-1.41L1.41%200H0v1.41zM38.59%2040l-2.83-2.83%201.41-1.41L40%2038.59V40h-1.41zM40%201.41l-2.83%202.83-1.41-1.41L38.59%200H40v1.41zM20%2018.6l2.83-2.83%201.41%201.41L21.41%2020l2.83%202.83-1.41%201.41L20%2021.41l-2.83%202.83-1.41-1.41L18.59%2020l-2.83-2.83%201.41-1.41L20%2018.59z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\')]"></div>
-      <div className="relative z-10 h-full">{children}</div>
-    </div>
-  );
+      className="absolute inset-0 opacity-[0.02] bg-[url('data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%2240%22%20height=%2240%22%20viewBox=%220%200%2040%2040%22%3E%3Cg%20fill-rule=%22evenodd%22%3E%3Cg%20fill=%22%23000000%22%20fill-opacity=%221%22%3E%3Cpath%20d=%22M0%2038.59l2.83-2.83%201.41%201.41L1.41%2040H0v-1.41zM0%201.4l2.83%202.83%201.41-1.41L1.41%200H0v1.41zM38.59%2040l-2.83-2.83%201.41-1.41L40%2038.59V40h-1.41zM40%201.41l-2.83%202.83-1.41-1.41L38.59%200H40v1.41zM20%2018.6l2.83-2.83%201.41%201.41L21.41%2020l2.83%202.83-1.41%201.41L20%2021.41l-2.83%202.83-1.41-1.41L18.59%2020l-2.83-2.83%201.41-1.41L20%2018.59z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"
+    ></div>
+    <div className="relative z-10 h-full">{children}</div>
+  </div>
+);
 
 const Feature1Visual = () => {
     const contacts = [
@@ -143,7 +145,6 @@ const Feature1Visual = () => {
                 <Bot className="size-8 text-primary" />
             </motion.div>
             
-            {/* Contact List */}
             <div className="absolute left-0 top-1/2 -translate-y-1/2 w-48 space-y-2">
                 {contacts.map((c,i) => (
                      <motion.div 
@@ -168,7 +169,6 @@ const Feature1Visual = () => {
                 ))}
             </div>
 
-             {/* Chat Snippets */}
              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-48 space-y-3">
                     {[1,2,3].map((i) => (
                          <motion.div 
@@ -288,7 +288,50 @@ const Feature3Visual = () => {
 };
 
 
+const FeatureSuperCard = ({
+  feature,
+  visual,
+  motionProps,
+}: {
+  feature: typeof features[0];
+  visual: React.ReactNode;
+  motionProps: any;
+}) => {
+  const isTextLeft = feature.layout === 'text-left';
+  return (
+    <motion.div
+      className="relative rounded-[36px] bg-gradient-to-br from-[#F9FDFB] to-[#F3FBF7] p-12 shadow-[0_24px_80px_rgba(0,0,0,0.04)]"
+      {...motionProps}
+    >
+      <div
+        className="absolute inset-0 opacity-40 bg-[url('data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%2240%22%20height=%2240%22%20viewBox=%220%200%2040%2040%22%3E%3Cg%20fill-rule=%22evenodd%22%3E%3Cg%20fill=%22%239C9C9C%22%20fill-opacity=%220.06%22%3E%3Cpath%20d=%22M0%2038.59l2.83-2.83%201.41%201.41L1.41%2040H0v-1.41zM0%201.4l2.83%202.83%201.41-1.41L1.41%200H0v1.41zM38.59%2040l-2.83-2.83%201.41-1.41L40%2038.59V40h-1.41zM40%201.41l-2.83%202.83-1.41-1.41L38.59%200H40v1.41zM20%2018.6l2.83-2.83%201.41%201.41L21.41%2020l2.83%202.83-1.41%201.41L20%2021.41l-2.83%202.83-1.41-1.41L18.59%2020l-2.83-2.83%201.41-1.41L20%2018.59z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"
+      ></div>
+      <div className="relative grid grid-cols-1 lg:grid-cols-10 gap-8 items-center">
+        <div
+          className={cn(
+            'lg:col-span-4',
+            isTextLeft ? 'lg:order-1' : 'lg:order-2'
+          )}
+        >
+          <TextCard heading={feature.heading} text={feature.text} />
+        </div>
+        <div
+          className={cn(
+            'lg:col-span-6',
+            isTextLeft ? 'lg:order-2' : 'lg:order-1'
+          )}
+        >
+          <VisualCard>{visual}</VisualCard>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+
 export function WhySallySection() {
+    const visuals = [<Feature1Visual />, <Feature2Visual />, <Feature3Visual />];
+    
     return (
       <section className="py-24 sm:py-32 bg-[#F9FAF8] relative overflow-hidden">
          <div className="absolute inset-0 -z-10 opacity-[0.03]" style={{
@@ -304,62 +347,20 @@ export function WhySallySection() {
         <div className="container mx-auto px-6 max-w-7xl">
           <SectionHeader />
           
-          <div className="mt-20 grid grid-cols-1 gap-8">
-
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-stretch">
-                <motion.div 
-                    className="lg:col-span-3"
-                    initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7, delay: 0.3 }} viewport={{ once: true }}
-                >
-                    <TextCard feature={features[0]} />
-                </motion.div>
-                <motion.div
-                     className="lg:col-span-2"
-                    initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7, delay: 0.4 }} viewport={{ once: true }}
-                >
-                     <VisualCard>
-                        <Feature1Visual />
-                     </VisualCard>
-                </motion.div>
-            </div>
-  
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-stretch">
-                <motion.div
-                     className="lg:col-span-2 lg:order-2"
-                    initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7, delay: 0.3 }} viewport={{ once: true }}
-                >
-                    <TextCard feature={features[1]} />
-                </motion.div>
-                <motion.div 
-                    className="lg:col-span-3 lg:order-1"
-                    initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7, delay: 0.4 }} viewport={{ once: true }}
-                >
-                     <VisualCard>
-                        <Feature2Visual />
-                     </VisualCard>
-                </motion.div>
-            </div>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-                 <motion.div
-                    initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7, delay: 0.3 }} viewport={{ once: true }}
-                >
-                    <TextCard feature={features[2]} />
-                </motion.div>
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7, delay: 0.4 }} viewport={{ once: true }}
-                >
-                    <VisualCard>
-                        <Feature3Visual />
-                    </VisualCard>
-                 </motion.div>
-            </div>
+          <div className="mt-20 grid grid-cols-1 gap-16 md:gap-24">
+            {features.map((feature, index) => (
+                <FeatureSuperCard 
+                    key={feature.id}
+                    feature={feature}
+                    visual={visuals[index]}
+                    motionProps={{
+                        initial: { opacity: 0, y: 20 },
+                        whileInView: { opacity: 1, y: 0 },
+                        transition: { duration: 0.7, delay: 0.2 + index * 0.1 },
+                        viewport: { once: true },
+                    }}
+                />
+            ))}
           </div>
         </div>
       </section>
