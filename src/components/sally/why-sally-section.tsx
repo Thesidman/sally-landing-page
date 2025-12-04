@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import {
   Bot,
@@ -7,21 +7,45 @@ import {
   MessageCircle,
   TrendingUp,
   Zap,
-  ArrowRight,
 } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 
+// --- Locked Copy ---
+const features = [
+  {
+    id: 'f1',
+    heading: 'Get personalised conversations started on WhatsApp instantly',
+    text: 'Sally finds the right people in your groups and opens natural, human-sounding chats with them. No effort, no prep, no manual typing.',
+    icon: Zap,
+    visual: 'constellation',
+  },
+  {
+    id: 'f2',
+    heading: 'It understands every reply and drives the conversation for you',
+    text: 'Sally reads context, picks up intent, asks the right questions, qualifies people, and keeps the chat moving. No workflows. No templates. Just smart, adaptive conversations.',
+    icon: Bot,
+    visual: 'intent',
+  },
+  {
+    id: 'f3',
+    heading: 'Built on the channel people trust the most',
+    text: 'WhatsApp gets faster, more honest replies than LinkedIn or email. Sally turns this trust into a real advantage — more responses, better conversations, higher conversions.',
+    icon: MessageCircle,
+    visual: 'trust',
+  },
+];
+
 // --- Main Component ---
 export function WhySallySection() {
   return (
-    <section className="relative overflow-hidden py-24 sm:py-32 bg-background">
+    <section className="relative overflow-hidden py-24 sm:py-32 bg-[#F9FAF8]">
       {/* Background elements */}
       <div
-        className="absolute inset-0 -z-10"
+        className="absolute inset-0 -z-20"
         style={{
           backgroundImage:
-            'radial-gradient(circle at 50% 0, hsl(160 50% 98% / 0.7), transparent 50%), radial-gradient(circle at 10% 20%, hsl(170 50% 96% / 0.6), transparent 40%), radial-gradient(circle at 90% 30%, hsl(155 55% 97% / 0.6), transparent 40%)',
+            'radial-gradient(circle at 50% 0, hsl(160 50% 98%), transparent 50%), radial-gradient(circle at 10% 20%, hsl(170 50% 96%), transparent 40%), radial-gradient(circle at 90% 30%, hsl(155 55% 97%), transparent 40%)',
         }}
       />
       <div
@@ -35,7 +59,6 @@ export function WhySallySection() {
       <div className="container mx-auto px-6 max-w-7xl">
         <SectionHeader />
         <div className="mt-16 grid grid-cols-1 gap-8">
-          {/* Row 1 */}
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
             <FeatureCard className="lg:col-span-3">
               <Feature1 />
@@ -44,7 +67,6 @@ export function WhySallySection() {
               <Feature2 />
             </FeatureCard>
           </div>
-          {/* Row 2 */}
           <FeatureCard>
             <Feature3 />
           </FeatureCard>
@@ -126,10 +148,10 @@ const Feature1 = () => {
         <div className="grid lg:grid-cols-2 gap-8 items-center">
             <div className="text-left">
                 <h3 className="font-headline text-2xl font-semibold tracking-tight text-foreground">
-                    Get personalised conversations started on WhatsApp instantly
+                    {features[0].heading}
                 </h3>
                 <p className="mt-3 text-base text-foreground/70 max-w-md">
-                    Celly finds the right people in your groups and opens natural, human-sounding chats with them. No effort, no prep, no manual typing.
+                    {features[0].text.replace(/Celly/g, 'Sally')}
                 </p>
             </div>
             <div className="relative flex items-center justify-center min-h-[250px]">
@@ -138,7 +160,6 @@ const Feature1 = () => {
                     className="relative w-full h-full"
                     whileHover="hover"
                 >
-                    {/* Central Celly icon */}
                     <motion.div 
                         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
                         variants={{ hover: { scale: 1.1 } }}
@@ -150,8 +171,6 @@ const Feature1 = () => {
                         </div>
                          <div className="absolute inset-0 rounded-full bg-primary/20 blur-lg animate-pulse"></div>
                     </motion.div>
-
-                    {/* Surrounding bubbles */}
                     {[...Array(7)].map((_, i) => {
                         const angle = (i / 7) * 2 * Math.PI;
                         const radius = 100 + (i % 2) * 20;
@@ -180,10 +199,10 @@ const Feature2 = () => {
     return (
         <div className="flex flex-col text-center h-full">
             <h3 className="font-headline text-2xl font-semibold tracking-tight text-foreground">
-                It understands every reply and drives the conversation for you
+                {features[1].heading}
             </h3>
             <p className="mt-3 text-base text-foreground/70 max-w-md mx-auto">
-                Celly reads context, picks up intent, asks the right questions, qualifies people, and keeps the chat moving. No workflows. No templates. Just smart, adaptive conversations.
+                {features[1].text.replace(/Celly/g, 'Sally')}
             </p>
             <div className="flex-1 flex items-center justify-center mt-6">
                 <div className="relative w-full max-w-xs h-48">
@@ -191,11 +210,8 @@ const Feature2 = () => {
                         <p className="text-xs text-foreground">Can you send pricing?</p>
                     </div>
                     <svg width="100%" height="100%" viewBox="0 0 200 100" className="absolute top-10 left-0">
-                        {/* Ghosted Paths */}
                         <motion.path d="M 100 0 Q 30 50, 10 90" stroke="hsl(var(--border) / 0.3)" fill="none" strokeWidth="1.5" strokeDasharray="3 3" />
                         <motion.path d="M 100 0 Q 170 50, 190 90" stroke="hsl(var(--border) / 0.3)" fill="none" strokeWidth="1.5" strokeDasharray="3 3" />
-
-                        {/* Highlighted Path */}
                         <motion.path
                             d="M 100 0 Q 100 50, 100 90"
                             stroke="url(#line-gradient-2)"
@@ -230,14 +246,13 @@ const Feature3 = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="text-left">
                 <h3 className="font-headline text-2xl font-semibold tracking-tight text-foreground">
-                    Built on the channel people trust the most
+                    {features[2].heading}
                 </h3>
                 <p className="mt-3 text-base text-foreground/70 max-w-md">
-                    WhatsApp gets faster, more honest replies than LinkedIn or email. Celly turns this trust into a real advantage — more responses, better conversations, higher conversions.
+                    {features[2].text.replace(/Celly/g, 'Sally')}
                 </p>
             </div>
              <div className="relative flex items-center justify-center min-h-[250px] overflow-hidden">
-                {/* Sphere */}
                 <motion.div 
                     className="absolute w-[400px] h-[400px] -bottom-48 bg-gradient-to-t from-primary/30 to-primary/10 rounded-full"
                     animate={{ y: [0, -10, 0] }}
@@ -248,7 +263,6 @@ const Feature3 = () => {
                      }}></div>
                 </motion.div>
                 
-                {/* Benefit Cards */}
                 <div className="relative z-10 w-full h-full">
                     <BenefitCard icon={Zap} text="Faster replies" className="absolute top-0 left-8" delay={0.4} />
                     <BenefitCard icon={MessageCircle} text="Honest conversations" className="absolute top-16 right-0" delay={0.6} />
