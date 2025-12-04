@@ -54,17 +54,16 @@ const panels = [
   { id: 's5', type: 'conversation', data: { messages: [{ from: 'Sally', text: 'Hi Aisha — are you open to a quick demo next week?' }, { from: 'Aisha', text: 'Yes — what times do you have?' }, { from: 'Sally', text: 'I can propose: Tue 10am, Wed 3pm — which works?' }, { from: 'Sally', flag: 'needs_touch', suggestedReply: 'Yes — Tue 10am works. Send calendar invite?' }] } },
 ];
 
-
 const ScrollIndicator = ({ steps, activeStepId }: { steps: typeof stepsData.steps; activeStepId: string }) => {
   const activeIndex = steps.findIndex(s => s.id === activeStepId);
   return (
-    <div className="absolute left-0 top-0 bottom-0 flex flex-col justify-between items-center w-8 py-10">
+    <div className="absolute left-0 top-0 bottom-0 flex flex-col justify-between items-center w-8">
       {steps.map((step, index) => {
         const isActive = index === activeIndex;
         const isCompleted = index < activeIndex;
         return (
-          <div key={step.id} className="flex-1 flex items-center justify-center relative">
-            {index > 0 && <div className={cn("absolute bottom-1/2 h-full w-[1.5px]", isCompleted || isActive ? "bg-primary/30" : "bg-gray-200" )} />}
+          <div key={step.id} className="h-full flex items-center justify-center relative">
+            {index > 0 && <div className={cn("absolute bottom-1/2 h-full w-[1.5px]", isCompleted ? "bg-primary/30" : "bg-gray-200" )} />}
             <div className={cn("size-3 rounded-full transition-all duration-300 z-10", 
               isActive ? "bg-primary shadow-[0_0_12px_3px_hsl(var(--primary)/0.5)]" :
               isCompleted ? "bg-primary/80" :
@@ -144,7 +143,7 @@ export function HowSallyWorksSection() {
           <div className="lg:max-w-md relative pl-8">
              <ScrollIndicator steps={stepsData.steps} activeStepId={activeStepId} />
              
-            <div>
+            <div className="space-y-4">
               {stepsData.steps.map((step, index) => (
                  <div
                  key={step.id}
@@ -163,8 +162,8 @@ export function HowSallyWorksSection() {
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.4, ease: 'easeOut' }}
+                        exit={{ opacity: 0, transition: { duration: 0.2 } }}
+                        transition={{ duration: 0.4, ease: 'easeOut', delay: 0.1 }}
                       >
                        <p className="mt-4 text-muted-foreground text-base leading-relaxed">
                          {step.text}
@@ -210,9 +209,9 @@ export function HowSallyWorksSection() {
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeStepId}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
+                  initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, y: -10 }}
                   transition={{ duration: 0.4, ease: [0.2, 0.9, 0.2, 1] }}
                   className="h-full"
                 >
