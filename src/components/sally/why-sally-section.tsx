@@ -7,363 +7,371 @@ import {
   MessageCircle,
   TrendingUp,
   Zap,
+  Users,
+  BrainCircuit,
+  ShieldCheck,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const features = [
   {
     id: 'f1',
+    tag: 'Compounding conversations',
+    icon: Users,
     heading: 'Get personalised conversations started on WhatsApp instantly.',
     text: "Sally finds the right people in your groups and opens natural, human-sounding chats with them. No effort, no prep, no manual typing.",
-    icon: Zap,
-    layout: 'text-left',
+    visual: 'constellation',
   },
   {
     id: 'f2',
+    tag: 'Intelligence layer',
+    icon: BrainCircuit,
     heading: 'It understands every reply and drives the conversation for you.',
     text: 'Sally reads context, picks up intent, asks the right questions, qualifies people, and keeps the chat moving. No workflows. No templates. Just smart, adaptive conversations.',
-    icon: Bot,
-    layout: 'text-right',
+    visual: 'triangulation',
   },
   {
     id: 'f3',
+    tag: 'Trusted channel',
+    icon: ShieldCheck,
     heading: 'Built on the channel people trust the most.',
     text: 'WhatsApp gets faster, more honest replies than LinkedIn or email. Sally turns this trust into a real advantage — more responses, better conversations, higher conversions.',
-    icon: MessageCircle,
-    layout: 'text-left',
+    visual: 'orbit',
   },
 ];
 
-const SectionTag = () => (
+const SectionHeader = () => (
   <motion.div
-    initial={{ opacity: 0, y: 10 }}
+    initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay: 0.1 }}
     viewport={{ once: true }}
-    className="inline-flex items-center gap-2 rounded-full px-4 py-1.5"
-    style={{
-      background: 'linear-gradient(to bottom, #ECFBF4, #FFFFFF)',
-      boxShadow: '0 4px 12px rgba(0,0,0,0.04)',
-      border: '1px solid rgba(205, 239, 225, 0.25)',
-    }}
+    className="text-center max-w-4xl mx-auto flex flex-col items-center"
   >
-    <div className="size-2 rounded-full bg-[#36B57A] shadow-[0_0_8px_1px_#36B57A]"></div>
-    <span className="text-xs font-semibold tracking-wide uppercase text-black/70">
-      WHY SALLY
-    </span>
+    <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6 bg-gradient-to-b from-[#E8FFF4] to-[#D6FBE9] border border-[#CDF5E2] shadow-sm">
+      <span className="text-xs font-semibold tracking-wider uppercase text-black/70">
+        WHY SALLY
+      </span>
+    </div>
+    <h2
+      className="font-headline text-4xl md:text-[42px] font-bold text-foreground tracking-tighter"
+      style={{ letterSpacing: '-0.01em' }}
+    >
+      Why Sally gives you unfair leverage.
+    </h2>
+    <p
+      className="mt-4 text-lg text-[#4D4D4D]"
+    >
+      Sally turns WhatsApp into a compounding engine your competitors simply don’t have.
+    </p>
   </motion.div>
 );
 
-const SectionHeader = () => (
-  <div className="text-center max-w-3xl mx-auto flex flex-col items-center">
-    <SectionTag />
-    <motion.h2
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.2 }}
-      viewport={{ once: true }}
-      className="mt-6 font-headline text-4xl md:text-5xl font-semibold text-[#111111] tracking-tighter"
-      style={{ letterSpacing: '-0.02em' }}
-    >
-      Conversations that feel natural, at scale
-    </motion.h2>
-    <motion.p
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.3 }}
-      viewport={{ once: true }}
-      className="mt-4 text-lg text-black/60"
-    >
-      Sally turns WhatsApp into a compounding engine your competitors simply
-      don’t have.
-    </motion.p>
-  </div>
-);
-
-const TextCard = ({
-  heading,
-  text,
-}: {
-  heading: string;
-  text: string;
-}) => (
-  <div className="relative rounded-3xl bg-white p-8 md:p-10 border border-[#E7ECEA] shadow-[0_12px_30px_rgba(0,0,0,0.04)] h-full flex flex-col justify-center">
-    <div className="absolute top-6 left-6 h-1 w-10 rounded-full bg-primary/20" />
-    <h3 className="font-headline text-2xl md:text-3xl font-semibold tracking-tight text-foreground mt-4">
-      {heading}
-    </h3>
-    <p className="mt-4 text-base md:text-lg text-black/70 max-w-lg">{text}</p>
-  </div>
-);
-
-const VisualCard = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => (
-  <div
-    className={cn(
-      'relative rounded-[32px] overflow-hidden p-8',
-      'bg-gradient-to-br from-[#E8FAF3] to-[#D8F4F4]',
-      'shadow-[0_24px_80px_rgba(7,80,55,0.1)]',
-      'h-full',
-      className
-    )}
-  >
-    <div className="absolute top-4 left-4 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium bg-white/40 text-black/50 backdrop-blur-sm border border-black/5 z-10">
-        Example
-    </div>
-    <div className="absolute inset-0 bg-white/20 backdrop-blur-xl"></div>
-    <div
-      className="absolute inset-0 opacity-[0.02] bg-[url('data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%2240%22%20height=%2240%22%20viewBox=%220%200%2040%2040%22%3E%3Cg%20fill-rule=%22evenodd%22%3E%3Cg%20fill=%22%23000000%22%20fill-opacity=%221%22%3E%3Cpath%20d=%22M0%2038.59l2.83-2.83%201.41%201.41L1.41%2040H0v-1.41zM0%201.4l2.83%202.83%201.41-1.41L1.41%200H0v1.41zM38.59%2040l-2.83-2.83%201.41-1.41L40%2038.59V40h-1.41zM40%201.41l-2.83%202.83-1.41-1.41L38.59%200H40v1.41zM20%2018.6l2.83-2.83%201.41%201.41L21.41%2020l2.83%202.83-1.41%201.41L20%2021.41l-2.83%202.83-1.41-1.41L18.59%2020l-2.83-2.83%201.41-1.41L20%2018.59z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"
-    ></div>
-    <div className="relative z-10 h-full">{children}</div>
-  </div>
-);
-
-const Feature1Visual = () => {
+const ConstellationVisual = () => {
     const contacts = [
         { name: 'Ananya S.', group: 'GrowthX group', selected: true },
         { name: 'Ben Carter', group: 'GrowthX group', selected: false },
         { name: 'Chloe Davis', group: 'GrowthX group', selected: true },
-        { name: 'David Chen', group: 'GrowthX group', selected: false },
-        { name: 'Eva Rodriguez', group: 'GrowthX group', selected: true },
+        { name: 'David Chen', group: 'GrowthX group', selected: true },
+        { name: 'Eva Rodriguez', group: 'GrowthX group', selected: false },
     ];
-
     return (
-        <div className="relative flex items-center justify-center h-full">
+        <div className="relative w-full h-full flex items-center justify-center p-4">
+            {/* Sally Node */}
             <motion.div 
-              className="absolute size-16 bg-primary/20 rounded-full flex items-center justify-center"
-              initial={{opacity: 0, scale: 0.5}}
-              whileInView={{opacity: 1, scale: 1}}
-              transition={{delay: 0.4, duration: 0.4, ease: 'easeOut'}}
-              viewport={{once: true}}
+                className="absolute z-10 size-14 bg-gradient-to-br from-[#79E6BF] to-[#41C58D] rounded-full shadow-[0_8px_24px_rgba(65,197,141,0.4)]"
+                initial={{ opacity: 0, scale: 0.5 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+                viewport={{ once: true }}
             >
-                <div className="absolute inset-0 rounded-full bg-primary/20 blur-lg animate-pulse"></div>
-                <Bot className="size-8 text-primary" />
+                <div className="absolute inset-0 rounded-full bg-white/20" />
+                <div className="absolute inset-0 rounded-full shadow-inner-soft-sm" />
+                <div className="absolute inset-0 bg-gradient-radial from-transparent to-black/10 rounded-full" />
+                <Bot className="absolute inset-0 m-auto size-7 text-white/90" />
             </motion.div>
             
-            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-48 space-y-2">
-                {contacts.map((c,i) => (
-                     <motion.div 
-                        key={i} 
-                        variants={{ initial: { opacity: 0, x: -20 }, animate: { opacity: 1, x: 0 } }}
-                        initial="initial"
-                        whileInView="animate"
-                        transition={{ delay: 0.2 + i * 0.1, duration: 0.5, ease: 'easeOut' }}
-                        viewport={{once: true}}
-                        className={cn(
-                            "flex items-center gap-2 p-2 rounded-lg transition-colors duration-300 bg-white/50 backdrop-blur-sm border border-black/5",
-                            c.selected ? "shadow-md" : ""
-                        )}
+            {/* Contact List */}
+            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[140px] space-y-2">
+                {contacts.map((c, i) => (
+                    <motion.div
+                        key={i}
+                        className={cn("flex items-center gap-2 p-1.5 rounded-lg border bg-white/60 backdrop-blur-sm transition-all duration-300", c.selected ? "border-primary/30 shadow-md" : "border-transparent")}
+                        initial={{ opacity: 0, x: -10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.4, delay: 0.2 + i * 0.05 }}
+                        viewport={{ once: true }}
                     >
-                        <div className="size-6 rounded-full bg-gray-200"></div>
-                        <div>
-                            <p className="text-xs font-medium text-foreground">{c.name}</p>
-                            <p className="text-[10px] text-muted-foreground">{c.group}</p>
+                        <div className="size-6 rounded-full bg-gray-200 flex-shrink-0"></div>
+                        <div className="flex-1 overflow-hidden">
+                            <p className="text-[11px] font-medium text-foreground truncate">{c.name}</p>
+                            <p className="text-[9px] text-muted-foreground truncate">{c.group}</p>
                         </div>
-                        {c.selected && <CheckCircle2 className="size-4 text-primary ml-auto flex-shrink-0" />}
+                        {c.selected && <div className="size-1.5 rounded-full bg-primary flex-shrink-0 mr-1 shadow-[0_0_4px_1px_hsl(var(--primary))]"/>}
                     </motion.div>
                 ))}
             </div>
 
-             <div className="absolute right-0 top-1/2 -translate-y-1/2 w-48 space-y-3">
-                    {[1,2,3].map((i) => (
-                         <motion.div 
-                            key={i}
-                            initial={{opacity: 0, x: 20}}
-                            whileInView={{opacity: 1, x: 0}}
-                            transition={{delay: 0.7 + i * 0.15, duration: 0.5, ease: 'easeOut'}}
-                            viewport={{once: true}}
-                            className="p-2 rounded-lg bg-white/50 border border-black/5 shadow-sm space-y-1.5"
-                         >
-                            <div className="w-10/12 h-2 rounded-full bg-gray-200/80"></div>
-                            <div className={cn("h-2 rounded-full", i % 2 === 0 ? 'bg-primary/30 w-full' : 'bg-gray-200/80 w-8/12 ml-auto' )}></div>
-                         </motion.div>
-                    ))}
-                </div>
+            {/* Chat Snippets */}
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[150px] space-y-3">
+                {[1,2,3].map((i) => (
+                     <motion.div 
+                        key={i}
+                        className="p-2 space-y-1.5 rounded-lg bg-white/50 backdrop-blur-sm border border-black/5 shadow-sm"
+                        initial={{ opacity: 0, x: 10 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.4, delay: 0.8 + i * 0.1 }}
+                        viewport={{ once: true }}
+                     >
+                         <div className="h-2 w-10/12 rounded-full bg-gray-200/80 ml-auto"></div>
+                         <div className="h-2 w-8/12 rounded-full bg-primary/20"></div>
+                     </motion.div>
+                ))}
+            </div>
+
+             <svg className="absolute inset-0 w-full h-full" aria-hidden="true">
+                <defs>
+                    <linearGradient id="line-grad-1" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#AAF4D8" />
+                        <stop offset="100%" stopColor="#6FDAA9" />
+                    </linearGradient>
+                </defs>
+                 {[0,2,3].map(i => (
+                    <motion.path 
+                        key={i}
+                        d={`M 140 ${62 + i*32} Q 190 ${62 + i*32}, 210 130`}
+                        stroke="url(#line-grad-1)" fill="none" strokeWidth="1.5"
+                        initial={{ pathLength: 0, opacity: 0 }}
+                        whileInView={{ pathLength: 1, opacity: 1 }}
+                        transition={{ duration: 0.6, delay: 0.6 + i * 0.1, ease: 'easeInOut' }}
+                        viewport={{ once: true }}
+                    />
+                 ))}
+                 {[0,1,2].map(i => (
+                    <motion.path 
+                        key={i}
+                        d={`M 238 130 Q 250 ${100 + i*30}, 300 ${80 + i * 54}`}
+                        stroke="hsl(var(--primary) / 0.3)" fill="none" strokeWidth="1"
+                        initial={{ pathLength: 0, opacity: 0 }}
+                        whileInView={{ pathLength: 1, opacity: 1 }}
+                        transition={{ duration: 0.5, delay: 1.2 + i * 0.1, ease: 'easeInOut' }}
+                        viewport={{ once: true }}
+                    />
+                 ))}
+            </svg>
         </div>
     );
 };
 
-const Feature2Visual = () => {
+const TriangulationVisual = () => {
+    const pillars = {
+        Intent: ["Pricing inquiry", "Timeline: next week", "Seat count"],
+        Context: ["Last interaction: 2mo ago", "Viewed pricing page", "Competitor: Salesforce"],
+        Objections: ["Budget uncertainty", "Decision stage: evaluating", "Needs stakeholder buy-in"],
+    };
+
     return(
-         <div className="relative flex flex-col items-center justify-center h-full p-4">
+        <div className="relative w-full h-full flex flex-col items-center justify-center p-4">
             <motion.div 
-                initial={{ opacity: 0, y: -10 }} 
-                whileInView={{ opacity: 1, y: 0 }} 
-                transition={{ delay: 0.2 }}
-                viewport={{once: true}}
-                className="p-3 bg-white rounded-xl shadow-md border border-gray-100"
+                className="p-2.5 bg-white rounded-xl shadow-md border border-gray-100/80"
+                initial={{opacity:0, y:-10}} whileInView={{opacity:1, y:0}} transition={{delay:0.2}} viewport={{once:true}}
             >
-                <p className="text-sm text-foreground">Can you send over pricing for the team plan?</p>
+                <p className="text-xs text-foreground">Can you send over pricing for the team plan?</p>
             </motion.div>
 
-            <div className="relative w-full h-24 mt-4">
-                <svg width="100%" height="100%" viewBox="0 0 200 100" preserveAspectRatio="none" className="absolute inset-0">
-                    <defs>
-                        <linearGradient id="line-gradient-2" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stopColor="hsl(var(--primary) / 0)" />
-                            <stop offset="100%" stopColor="hsl(var(--primary))" />
-                        </linearGradient>
-                    </defs>
-                    <motion.path d="M 100 0 Q 30 50, 10 90" stroke="hsl(var(--border))" fill="none" strokeWidth="1.5" strokeDasharray="3 3" 
-                     initial={{ pathLength: 0 }}
-                     whileInView={{ pathLength: 1 }}
-                     transition={{ duration: 0.8, delay: 0.4, ease: "easeInOut" }}
-                     viewport={{ once: true }}/>
-                    <motion.path d="M 100 0 Q 170 50, 190 90" stroke="hsl(var(--border))" fill="none" strokeWidth="1.5" strokeDasharray="3 3" 
-                     initial={{ pathLength: 0 }}
-                     whileInView={{ pathLength: 1 }}
-                     transition={{ duration: 0.8, delay: 0.4, ease: "easeInOut" }}
-                     viewport={{ once: true }}/>
-                    <motion.path
-                        d="M 100 0 Q 100 50, 100 90"
-                        stroke="url(#line-gradient-2)"
-                        fill="none"
-                        strokeWidth="2.5"
+            <div className="w-full flex justify-between mt-6 px-2">
+                {Object.entries(pillars).map(([pillar, items], pIndex) => (
+                    <div key={pillar} className="flex flex-col items-center space-y-2">
+                        <p className="text-[10px] font-semibold text-muted-foreground tracking-wider uppercase">{pillar}</p>
+                        <div className="space-y-1.5">
+                            {items.map((item, iIndex) => (
+                                <motion.div 
+                                    key={item} 
+                                    className={cn(
+                                        "px-2 py-0.5 rounded-full text-[10px] font-medium transition-colors",
+                                        pIndex === 0 && iIndex < 2 ? "bg-primary/20 text-primary-foreground shadow-sm" : "bg-gray-100 text-gray-500"
+                                    )}
+                                    initial={{opacity:0, scale:0.8}}
+                                    whileInView={{opacity:1, scale:1}}
+                                    transition={{delay: 0.4 + (pIndex * 3 + iIndex) * 0.05}}
+                                    viewport={{once:true}}
+                                >
+                                    {item}
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+                ))}
+            </div>
+            
+            <svg className="absolute inset-0 w-full h-full" aria-hidden="true">
+                 <defs>
+                    <linearGradient id="line-grad-2" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#65DBB1" />
+                        <stop offset="100%" stopColor="#AAF4D8" />
+                    </linearGradient>
+                </defs>
+                 <motion.path d="M 195 45 Q 90 100, 90 135 C 90 170, 150 190, 290 220"
+                    stroke="url(#line-grad-2)"
+                    fill="none" strokeWidth="2.5"
+                    pathLength="1"
+                    className="drop-shadow-[0_4px_8px_hsl(var(--primary)/0.5)]"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    whileInView={{ pathLength: 1, opacity: 1 }}
+                    transition={{ duration: 1, delay: 0.8, ease: "circOut" }}
+                    viewport={{ once: true }}
+                 />
+                 <motion.g initial={{opacity:0}} whileInView={{opacity:1}} transition={{delay:1.5}}>
+                    <circle cx="290" cy="220" r="3" fill="#65DBB1" />
+                 </motion.g>
+                {[
+                    "M 195 45 Q 195 90, 195 125",
+                    "M 195 45 Q 290 90, 295 145",
+                ].map((d,i) => (
+                     <motion.path key={i} d={d}
+                        stroke="hsl(var(--border) / 0.5)"
+                        fill="none" strokeWidth="1" strokeDasharray="2 3"
+                        initial={{ pathLength: 0, opacity: 0 }}
+                        whileInView={{ pathLength: 1, opacity: 1 }}
+                        transition={{ duration: 0.8, delay: 0.6 + i*0.1, ease: "easeInOut" }}
+                        viewport={{ once: true }}
+                     />
+                ))}
+            </svg>
+
+            <motion.div 
+                className="absolute bottom-4 right-4 flex items-start gap-1.5"
+                initial={{opacity:0, y:10}} whileInView={{opacity:1, y:0}} transition={{delay:1.2}} viewport={{once:true}}
+            >
+                <Bot className="size-4 text-primary mt-1.5 flex-shrink-0" />
+                <div className="p-2.5 bg-primary/10 rounded-xl shadow-sm border border-primary/20">
+                    <p className="text-xs text-foreground">Happy to share pricing — would you prefer annual or monthly?</p>
+                </div>
+            </motion.div>
+        </div>
+    )
+};
+
+
+const OrbitVisual = () => {
+    const moons = [
+        { icon: TrendingUp, text: 'Higher conversions', position: 'top-1/4 -left-4' },
+        { icon: MessageCircle, text: 'Honest conversations', position: 'top-0 right-10' },
+        { icon: Zap, text: 'Faster replies', position: 'top-1/2 -right-8' },
+    ];
+
+    return (
+        <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
+            <div className="absolute w-[400px] h-[400px] -bottom-48 -right-48">
+                 <motion.div
+                    className="absolute inset-0 bg-gradient-to-t from-[#22B36B] to-[#8FF2C5] rounded-full"
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                    viewport={{ once: true }}
+                 >
+                     <div className="absolute inset-0 rounded-full opacity-5" style={{
+                         backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.4' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")"
+                     }}></div>
+                 </motion.div>
+            </div>
+             <div className="absolute w-[280px] h-[280px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                <svg viewBox="0 0 100 100" className="w-full h-full absolute inset-0 opacity-20">
+                    <motion.circle cx="50" cy="50" r="45" stroke="hsl(var(--primary) / 0.5)" strokeWidth="0.5" fill="none"
                         initial={{ pathLength: 0 }}
                         whileInView={{ pathLength: 1 }}
-                        transition={{ duration: 1, delay: 0.6, ease: "easeInOut" }}
+                        transition={{ duration: 1, delay: 0.5 }}
                         viewport={{ once: true }}
                     />
                 </svg>
-            </div>
-            
-            <motion.div 
-                initial={{ opacity: 0, y: 10 }} 
-                whileInView={{ opacity: 1, y: 0 }} 
-                transition={{ delay: 1 }}
-                viewport={{once: true}}
-                className="flex items-start gap-2 max-w-md"
-            >
-                <div className="size-8 flex-shrink-0 flex items-center justify-center rounded-full bg-primary shadow-lg"><Bot className="size-4 text-white"/></div>
-                <div className="mt-1 p-3 bg-white/80 rounded-t-xl rounded-bl-xl shadow-md border border-gray-100">
-                    <p className="text-sm text-foreground">Of course. Are you looking to pay annually for a discount?</p>
-                </div>
-            </motion.div>
-        </div>
-    )
-};
 
-const Feature3Visual = () => {
-    const BenefitCard = ({ icon: Icon, text, delay }: { icon: React.ElementType, text: string, delay: number }) => (
-        <motion.div
-            className="flex items-center gap-3 p-4 bg-white/80 backdrop-blur-md rounded-2xl shadow-lg border-white/30"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay }}
-            viewport={{ once: true }}
-        >
-            <div className="flex size-9 items-center justify-center rounded-full bg-primary/10">
-                <Icon className="size-5 text-primary" />
+                 {moons.map((moon, i) => (
+                     <motion.div
+                        key={moon.text}
+                        className="absolute flex flex-col items-center gap-1.5"
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5, delay: 0.6 + i * 0.15, type: 'spring', stiffness: 300, damping: 20 }}
+                        viewport={{ once: true }}
+                        style={{ 
+                            transform: `rotate(${i * 120 - 90}deg) translate(140px) rotate(-${i * 120 - 90}deg)` 
+                        }}
+                    >
+                         <div className="flex size-16 items-center justify-center rounded-full bg-white/80 backdrop-blur-md shadow-lg border border-white/50">
+                            <moon.icon className="size-7 text-primary" strokeWidth={1.5}/>
+                         </div>
+                         <p className="text-xs font-medium text-foreground">{moon.text}</p>
+                     </motion.div>
+                 ))}
             </div>
-            <p className="font-medium text-foreground text-base">{text}</p>
-        </motion.div>
+        </div>
     );
-
-    return(
-        <div className="relative flex items-center justify-center h-full overflow-hidden">
-            <motion.div 
-                className="absolute w-[500px] h-[500px] -bottom-48 -right-48 bg-gradient-to-t from-primary/20 to-primary/5 rounded-full"
-                animate={{ scale: [1, 1.05, 1] }}
-                transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-            >
-                 <div className="absolute inset-0 rounded-full opacity-5" style={{
-                     backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.4' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")"
-                 }}></div>
-            </motion.div>
-            
-            <div className="relative z-10 w-full h-full max-w-sm mx-auto flex flex-col justify-center">
-                <div className="space-y-4">
-                    <BenefitCard icon={TrendingUp} text="Higher conversions" delay={0.4} />
-                    <BenefitCard icon={MessageCircle} text="Honest conversations" delay={0.6} />
-                    <BenefitCard icon={Zap} text="Faster replies" delay={0.8} />
-                </div>
-            </div>
-        </div>
-    )
-};
-
-
-const FeatureSuperCard = ({
-  feature,
-  visual,
-  motionProps,
-}: {
-  feature: typeof features[0];
-  visual: React.ReactNode;
-  motionProps: any;
-}) => {
-  const isTextLeft = feature.layout === 'text-left';
-  return (
-    <motion.div
-      className="relative rounded-[36px] bg-gradient-to-br from-[#F9FDFB] to-[#F3FBF7] p-12 shadow-[0_24px_80px_rgba(0,0,0,0.04)]"
-      {...motionProps}
-    >
-      <div
-        className="absolute inset-0 opacity-40 bg-[url('data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20width=%2240%22%20height=%2240%22%20viewBox=%220%200%2040%2040%22%3E%3Cg%20fill-rule=%22evenodd%22%3E%3Cg%20fill=%22%239C9C9C%22%20fill-opacity=%220.06%22%3E%3Cpath%20d=%22M0%2038.59l2.83-2.83%201.41%201.41L1.41%2040H0v-1.41zM0%201.4l2.83%202.83%201.41-1.41L1.41%200H0v1.41zM38.59%2040l-2.83-2.83%201.41-1.41L40%2038.59V40h-1.41zM40%201.41l-2.83%202.83-1.41-1.41L38.59%200H40v1.41zM20%2018.6l2.83-2.83%201.41%201.41L21.41%2020l2.83%202.83-1.41%201.41L20%2021.41l-2.83%202.83-1.41-1.41L18.59%2020l-2.83-2.83%201.41-1.41L20%2018.59z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"
-      ></div>
-      <div className="relative grid grid-cols-1 lg:grid-cols-10 gap-8 items-center">
-        <div
-          className={cn(
-            'lg:col-span-4',
-            isTextLeft ? 'lg:order-1' : 'lg:order-2'
-          )}
-        >
-          <TextCard heading={feature.heading} text={feature.text} />
-        </div>
-        <div
-          className={cn(
-            'lg:col-span-6',
-            isTextLeft ? 'lg:order-2' : 'lg:order-1'
-          )}
-        >
-          <VisualCard>{visual}</VisualCard>
-        </div>
-      </div>
-    </motion.div>
-  );
 };
 
 
 export function WhySallySection() {
-    const visuals = [<Feature1Visual />, <Feature2Visual />, <Feature3Visual />];
+    const visuals: { [key: string]: React.ReactNode } = {
+        constellation: <ConstellationVisual />,
+        triangulation: <TriangulationVisual />,
+        orbit: <OrbitVisual />,
+    };
     
     return (
-      <section className="py-24 sm:py-32 bg-[#F9FAF8] relative overflow-hidden">
-         <div className="absolute inset-0 -z-10 opacity-[0.03]" style={{
+      <section className="py-28 sm:py-36 bg-[#FAFAF7] relative overflow-hidden">
+         <div className="absolute inset-0 -z-10 opacity-[0.06]" style={{
           backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")"
          }} />
-         <div className="absolute top-0 right-0 w-1/2 h-full -z-10">
-            <div className="absolute -right-1/4 top-0 w-[800px] h-[800px] bg-primary/5 blur-3xl rounded-full opacity-30"></div>
-         </div>
-         <div className="absolute bottom-0 left-0 w-1/2 h-1/2 -z-10">
-            <div className="absolute -left-1/4 bottom-0 w-[600px] h-[600px] bg-accent/5 blur-3xl rounded-full opacity-30"></div>
-         </div>
   
         <div className="container mx-auto px-6 max-w-7xl">
           <SectionHeader />
           
-          <div className="mt-20 grid grid-cols-1 gap-16 md:gap-24">
+          <div className="mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-                <FeatureSuperCard 
+                <motion.div
                     key={feature.id}
-                    feature={feature}
-                    visual={visuals[index]}
-                    motionProps={{
-                        initial: { opacity: 0, y: 20 },
-                        whileInView: { opacity: 1, y: 0 },
-                        transition: { duration: 0.7, delay: 0.2 + index * 0.1 },
-                        viewport: { once: true },
-                    }}
-                />
+                    className="bg-white rounded-[28px] border border-[#EAF3EE] shadow-[0_22px_60px_rgba(0,0,0,0.045)] p-8 flex flex-col"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, delay: 0.2 + index * 0.1, ease: 'easeOut' }}
+                    viewport={{ once: true }}
+                >
+                    {/* Text Zone */}
+                    <div className="flex-shrink-0">
+                        <div className="inline-flex items-center gap-2 rounded-2xl px-3 py-1 text-xs font-semibold bg-[#EEFFF7] border border-[#D4F6E7] text-primary-foreground">
+                            {feature.tag}
+                        </div>
+                        <h3 className="mt-4 font-headline text-xl font-semibold tracking-tight text-foreground">
+                            {feature.heading}
+                        </h3>
+                        <p className="mt-2 text-base text-black/60 max-w-[85%] leading-relaxed">
+                            {feature.text}
+                        </p>
+                    </div>
+
+                    {/* Divider */}
+                    <div className="my-6 border-t border-gray-200/60"></div>
+                    
+                    {/* Visual Zone */}
+                    <div className="flex-1 relative bg-gradient-to-br from-[#F6FFFB] to-[#F2FBF5] rounded-xl overflow-hidden">
+                         <div className="absolute inset-0 opacity-50" style={{
+                            backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")"
+                        }} />
+                        {visuals[feature.visual]}
+                    </div>
+                </motion.div>
             ))}
           </div>
         </div>
       </section>
     );
   }
-  
+
+// Add a new utility class for soft inner shadow if not present in tailwind.config.ts
+// tailwind.config.ts
+// theme: {
+//   extend: {
+//     boxShadow: {
+//       'inner-soft-sm': 'inset 0 1px 2px rgba(0,0,0,0.06)',
+//     }
+//   }
+// }
