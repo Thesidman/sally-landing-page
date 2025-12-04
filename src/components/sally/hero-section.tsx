@@ -5,27 +5,7 @@ import { RotatingHeadline } from './rotating-headline';
 
 export function HeroSection() {
   return (
-    <section className="relative w-full h-full pt-40 pb-20 overflow-hidden">
-      <div className="absolute inset-0 -z-30 bg-[#F9FAF8]"></div>
-      <div
-        className="absolute inset-0 -z-20 opacity-70"
-        style={{
-          backgroundImage:
-            'radial-gradient(circle at 50% 30%, hsla(155, 60%, 95%, 0.5), transparent 60%), radial-gradient(circle at 20% 80%, hsla(170, 50%, 94%, 0.4), transparent 50%), radial-gradient(circle at 80% 70%, hsla(145, 55%, 96%, 0.4), transparent 50%)',
-        }}
-      ></div>
-      <div
-        className="absolute inset-0 -z-10 opacity-50"
-        style={{
-          backgroundImage:
-            'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 800 800\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
-          backgroundSize: 'cover',
-          opacity: 0.04,
-        }}
-      ></div>
-      <div className="absolute -top-40 -left-40 w-[40rem] h-[40rem] bg-teal-200/10 rounded-full blur-[100px] -z-10 opacity-30"></div>
-      <div className="absolute -bottom-60 -right-60 w-[50rem] h-[50rem] bg-green-200/10 rounded-full blur-[120px] -z-10 opacity-30"></div>
-
+    <section className="relative w-full h-full pt-48 pb-20 overflow-hidden">
       <div className="container mx-auto px-6 text-center flex flex-col items-center">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 bg-gradient-to-r from-accent/50 to-secondary/50 rounded-full border border-primary/20">
           <Sparkles className="size-4 text-primary" />
@@ -47,7 +27,7 @@ export function HeroSection() {
 
         <RotatingHeadline />
 
-        <p className="mt-6 max-w-2xl text-lg md:text-xl text-muted-foreground">
+        <p className="mt-8 max-w-2xl text-lg md:text-xl text-muted-foreground">
           You can’t be everywhere at once. Sally keeps your WhatsApp
           conversations moving and turns your time into outcomes.
         </p>
@@ -81,7 +61,7 @@ export function HeroSection() {
           </Button>
         </div>
 
-        <div className="mt-4 text-sm text-muted-foreground/70">
+        <div className="mt-6 text-sm text-muted-foreground/70">
           Trusted by fast-growing SaaS and B2B teams
         </div>
       </div>

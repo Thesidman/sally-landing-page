@@ -26,7 +26,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="font-body antialiased bg-white bg-gradient-to-b from-secondary/30 via-white to-white">
+      <body className="font-body antialiased bg-background">
         {children}
         <Toaster />
       </body>

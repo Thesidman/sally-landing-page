@@ -1,370 +1,297 @@
+'use client';
 import React from 'react';
+import { motion } from 'framer-motion';
+import { Bot, Check, MessageCircle, TrendingUp } from 'lucide-react';
 import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import {
-  Zap,
-  Check,
-  Sparkles,
-  BrainCircuit,
-  ArrowRight,
-} from 'lucide-react';
 
-const features = [
-  {
-    label: 'Compounding conversations',
-    headline: 'Conversations start compounding automatically',
-    explainer:
-      'Every chat Sally touches becomes stored, understood, and reused. This turns daily messages into a compounding pipeline of insight and momentum.',
-    visual: 'Card1',
-  },
-  {
-    label: 'Intelligence layer',
-    headline: 'Your personal intelligence layer for WhatsApp',
-    explainer:
-      'Sally understands tone, intent, past context, objections, and preferences. She becomes smarter and more effective every day you use her.',
-    visual: 'Card2',
-  },
-  {
-    label: 'Agentic goals',
-    headline: 'Navigate goals with agentic reasoning, not scripts',
-    explainer:
-      'Give Sally a goal like “book a meeting” and she handles discovery, qualification, nurturing, and timing with human-level judgment.',
-    visual: 'Card3',
-  },
-  {
-    label: 'Leverage vs headcount',
-    headline: 'A sales advantage that compounds faster than headcount',
-    explainer:
-      'Instead of hiring more people to chase leads, Sally handles follow-ups, qualification, support, and re-engagement at scale without fatigue.',
-    visual: 'Card4',
-  },
-  {
-    label: 'Full-stack execution',
-    headline: 'Full-stack execution across sales and support',
-    explainer:
-      'From demo booking to issue resolution, Sally answers questions, shares resources, and manages workflows across the entire customer journey end-to-end.',
-    visual: 'Card5',
-  },
-  {
-    label: 'Conversation builder',
-    headline: 'Sally builds conversations, not just replies',
-    explainer:
-      'She drives dialogues: asks questions, uncovers intent, probes needs, resolves blocks, and guides chats toward outcomes with natural pacing.',
-    visual: 'Card6',
-  },
-];
+const Dot = () => (
+  <svg
+    viewBox="0 0 8 8"
+    fill="currentColor"
+    className="size-2 text-primary/70"
+  >
+    <circle cx={4} cy={4} r={4} />
+  </svg>
+);
 
 const FeatureCard = ({
-  feature,
+  children,
+  className,
 }: {
-  feature: (typeof features)[0];
-}) => {
-  return (
-    <div
-      key={feature.label}
-      className="p-8 rounded-3xl bg-gradient-to-br from-white to-secondary/40 border border-primary/10 shadow-[0_0_40px_rgba(37,211,102,0.05)] hover:shadow-[0_0_60px_rgba(37,211,102,0.1)] transition-shadow duration-300 flex flex-col"
-    >
-      <Badge
-        variant="outline"
-        className="text-xs font-semibold self-start bg-white/50 border-primary/20 text-primary"
-      >
-        {feature.label}
-      </Badge>
-      <h3 className="font-headline text-xl font-medium text-foreground mt-3 mb-2 tracking-tight">
-        {feature.headline}
+  children: React.ReactNode;
+  className?: string;
+}) => (
+  <Card
+    className={`relative rounded-3xl bg-white/50 p-8 shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-white/80 backdrop-blur-lg ${className}`}
+  >
+    {children}
+  </Card>
+);
+
+const SectionTag = () => (
+  <motion.div
+    initial={{ opacity: 0, y: 10 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay: 0.1 }}
+    viewport={{ once: true }}
+    className="inline-flex items-center gap-2 rounded-full px-4 py-1.5"
+    style={{
+      background:
+        'linear-gradient(to bottom, hsl(145 63% 49% / 0.05), hsl(145 63% 49% / 0.02))',
+      boxShadow: '0 2px 8px rgba(0,0,0,0.03), inset 0 1px 1px #fff',
+      border: '1px solid hsl(145 63% 49% / 0.1)',
+    }}
+  >
+    <Dot />
+    <span className="text-xs font-medium tracking-wide uppercase text-primary/80">
+      Why Sally
+    </span>
+  </motion.div>
+);
+
+const Feature1 = () => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.7, delay: 0.2 }}
+    viewport={{ once: true }}
+    className="grid lg:grid-cols-2 gap-12 items-center"
+  >
+    <div className="text-left">
+      <h3 className="font-headline text-3xl md:text-4xl font-medium tracking-tighter text-foreground">
+        Get personalised conversations started on WhatsApp instantly
       </h3>
-      <p className="text-sm text-muted-foreground/80 flex-grow">
-        {feature.explainer}
+      <p className="mt-4 text-lg text-muted-foreground/80 max-w-lg">
+        Sally identifies the right moment to engage, starting warm, relevant
+        conversations that feel human, not automated. It turns cold lists into
+        active dialogues.
       </p>
-      <div className="mt-6">
-        {feature.visual === 'Card1' && <Card1Visual />}
-        {feature.visual === 'Card2' && <Card2Visual />}
-        {feature.visual === 'Card3' && <Card3Visual />}
-        {feature.visual === 'Card4' && <Card4Visual />}
-        {feature.visual === 'Card5' && <Card5Visual />}
-        {feature.visual === 'Card6' && <Card6Visual />}
-      </div>
     </div>
-  );
-};
-
-const Card1Visual = () => {
-  const conversations = [
-    {
-      name: 'Ankit',
-      avatar: '10',
-      tag: 'Nurturing',
-      tagVariant: 'accent',
-      time: '2m ago',
-    },
-    {
-      name: 'Sarah L.',
-      avatar: '11',
-      tag: 'Booked',
-      tagVariant: 'primary-ghost',
-      time: '1h ago',
-    },
-    {
-      name: 'Michael P.',
-      avatar: '12',
-      tag: 'Waiting',
-      tagVariant: 'outline',
-      time: '3h ago',
-    },
-    {
-      name: 'Jessica B.',
-      avatar: '13',
-      tag: 'High intent',
-      tagVariant: 'destructive',
-      time: '1d ago',
-    },
-  ];
-  return (
-    <Card className="bg-white/70 backdrop-blur-sm p-3 rounded-xl shadow-inner-white border-white/50">
-      <p className="text-sm font-medium text-foreground px-1 mb-2">
-        Conversations
-      </p>
-      <div className="space-y-2">
-        {conversations.map((conv, i) => (
-          <div
-            key={i}
-            className="flex items-center bg-white/80 p-2 rounded-md shadow-sm"
-          >
-            <img
-              src={`https://picsum.photos/seed/${conv.avatar}/24/24`}
-              alt={conv.name}
-              className="size-6 mr-2 rounded-full"
-            />
-            <p className="text-sm font-medium text-foreground/90 flex-grow">
-              {conv.name}
-            </p>
-            <Badge
-              variant={conv.tagVariant as any}
-              className="text-xs mr-2"
-            >
-              {conv.tag}
-            </Badge>
-            <p className="text-xs text-muted-foreground/70">{conv.time}</p>
-          </div>
-        ))}
+    <motion.div
+      whileHover={{ scale: 1.03 }}
+      transition={{ type: 'spring', stiffness: 300 }}
+      className="relative flex items-center justify-center min-h-[300px]"
+    >
+      <div className="absolute inset-0 bg-primary/5 rounded-full blur-3xl"></div>
+      <div className="relative w-full max-w-sm">
+        {/* Chat bubbles */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="absolute -top-12 -left-8 w-48 p-3 bg-white/70 backdrop-blur-md rounded-2xl shadow-lg border border-white"
+        >
+          <p className="text-sm text-foreground/80">
+            Hey! Saw you were checking out our new integration...
+          </p>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.7 }}
+          className="absolute top-8 right-0 w-52 p-3 bg-white/70 backdrop-blur-md rounded-2xl shadow-lg border border-white"
+        >
+          <p className="text-sm text-foreground/80">
+            Great to connect. Wanted to pick up that thread from last week.
+          </p>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, delay: 0.9 }}
+          className="absolute top-32 -left-16 w-44 p-3 bg-white/70 backdrop-blur-md rounded-2xl shadow-lg border border-white"
+        >
+          <p className="text-sm text-foreground/80">
+            Just following up on your trial, any questions?
+          </p>
+        </motion.div>
       </div>
-    </Card>
-  );
-};
-
-const Card2Visual = () => (
-  <Card className="bg-white/70 backdrop-blur-sm p-3 rounded-xl shadow-inner-white border-white/50 relative overflow-hidden">
-    <div className="absolute top-4 right-4 z-0">
-      <BrainCircuit className="size-16 text-primary/5 opacity-50 -rotate-12" />
-    </div>
-
-    <div className="relative z-10">
-      <div className="p-2 rounded-lg bg-white shadow-sm mb-2">
-        <p className="text-xs text-muted-foreground">
-          Hey, can we look at pricing next week?
-        </p>
-      </div>
-      <div className="p-2 rounded-lg bg-primary/10 border border-primary/20 shadow-sm">
-        <p className="text-xs text-primary-foreground font-medium">
-          Key points detected:
-        </p>
-        <ul className="list-disc list-inside text-xs text-primary-foreground/80 mt-1">
-          <li>Pricing inquiry</li>
-          <li>Timeline: next week</li>
-        </ul>
-      </div>
-    </div>
-  </Card>
+    </motion.div>
+  </motion.div>
 );
 
-const Card3Visual = () => {
-  const steps = ['Qualify', 'Understand', 'Share proof', 'Propose times'];
-  return (
-    <Card className="bg-white/70 backdrop-blur-sm p-3 rounded-xl shadow-inner-white border-white/50">
-      <div className="flex justify-between items-center mb-2">
-        <p className="text-sm font-medium text-foreground px-1">
-          Active Goal
-        </p>
-        <Badge variant="default" className="shadow-sm">
-          Book meeting
-        </Badge>
-      </div>
-      <div className="flex items-center justify-between bg-white/80 p-2 rounded-md shadow-sm text-xs">
-        {steps.map((step, i) => (
-          <React.Fragment key={step}>
-            <div className="flex flex-col items-center text-center">
-              <div
-                className={`size-6 flex items-center justify-center rounded-full ${
-                  i < 2
-                    ? 'bg-primary text-primary-foreground'
-                    : 'bg-gray-200 text-gray-500'
-                }`}
-              >
-                {i < 2 ? (
-                  <Check className="size-4" />
-                ) : (
-                  <span className="text-xs font-bold">{i + 1}</span>
-                )}
-              </div>
-              <p
-                className={`mt-1 text-[10px] font-medium ${
-                  i < 2 ? 'text-primary' : 'text-muted-foreground'
-                }`}
-              >
-                {step}
-              </p>
-            </div>
-            {i < steps.length - 1 && (
-              <div className="flex-1 h-px bg-gray-200 mx-1"></div>
-            )}
-          </React.Fragment>
-        ))}
-      </div>
-    </Card>
-  );
-};
+const Feature2 = () => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.7, delay: 0.2 }}
+    viewport={{ once: true }}
+    className="text-center flex flex-col items-center"
+  >
+    <h3 className="font-headline text-3xl md:text-4xl font-medium tracking-tighter text-foreground max-w-2xl">
+      It understands every reply and drives the conversation for you
+    </h3>
+    <p className="mt-4 text-lg text-muted-foreground/80 max-w-xl">
+      Sally doesn’t use scripts. It uses agentic reasoning to understand
+      intent, handle objections, and navigate conversations toward a goal.
+    </p>
+    <div className="mt-12 w-full max-w-4xl relative min-h-[250px] flex justify-center">
+      <div className="absolute inset-x-0 top-1/2 h-2/3 bg-primary/5 rounded-full blur-3xl -translate-y-1/2"></div>
 
-const Card4Visual = () => (
-  <Card className="bg-white/70 backdrop-blur-sm p-3 rounded-xl shadow-inner-white border-white/50 flex items-center gap-4">
-    <div className="flex flex-col items-center gap-1">
-      <div className="size-10 flex items-center justify-center rounded-full bg-primary/20 border border-primary/30">
-        <Sparkles className="size-5 text-primary" />
-      </div>
-      <p className="text-xs font-bold text-primary">SALLY</p>
+      {/* User Bubble */}
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4 }}
+        className="absolute top-0 p-3 bg-white rounded-t-xl rounded-br-xl shadow-md border border-gray-100 z-10"
+      >
+        <p className="text-sm text-foreground">
+          Can you send over pricing for the Team plan?
+        </p>
+      </motion.div>
+
+      {/* Branching paths */}
+      <svg
+        width="400"
+        height="180"
+        viewBox="0 0 400 180"
+        className="absolute top-12 opacity-30"
+      >
+        {/* Ghosted paths */}
+        <motion.path
+          d="M 200 0 Q 80 50, 50 120"
+          stroke="hsl(var(--border))"
+          fill="none"
+          strokeWidth="2"
+          strokeDasharray="4 4"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ delay: 0.6, duration: 0.8, ease: 'easeInOut' }}
+        />
+        <motion.path
+          d="M 200 0 Q 320 50, 350 120"
+          stroke="hsl(var(--border))"
+          fill="none"
+          strokeWidth="2"
+          strokeDasharray="4 4"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ delay: 0.6, duration: 0.8, ease: 'easeInOut' }}
+        />
+
+        {/* Highlighted path */}
+        <motion.path
+          d="M 200 0 Q 200 50, 200 120"
+          stroke="hsl(var(--primary))"
+          fill="none"
+          strokeWidth="2.5"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ delay: 0.8, duration: 0.6, ease: 'circOut' }}
+        />
+      </svg>
+
+      {/* Sally Reply Bubble */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.4 }}
+        className="absolute bottom-0 flex items-start gap-2 max-w-md"
+      >
+        <div className="size-8 flex-shrink-0 flex items-center justify-center rounded-full bg-primary">
+          <Bot className="size-4 text-white" />
+        </div>
+        <div className="mt-1 p-3 bg-white rounded-t-xl rounded-bl-xl shadow-md border border-gray-100">
+          <p className="text-sm text-foreground">
+            Of course. Are you looking to pay annually for a discount?
+          </p>
+        </div>
+      </motion.div>
     </div>
-    <ArrowRight className="size-5 text-gray-300 flex-shrink-0" />
-    <div className="flex-1 grid grid-cols-2 gap-1.5 text-center">
-      <div className="bg-white/80 p-1.5 rounded-md shadow-sm">
-        <p className="text-[10px] font-medium text-foreground">
-          Replies Sent
-        </p>
-      </div>
-      <div className="bg-white/80 p-1.5 rounded-md shadow-sm">
-        <p className="text-[10px] font-medium text-foreground">
-          Meetings Booked
-        </p>
-      </div>
-      <div className="bg-white/80 p-1.5 rounded-md shadow-sm">
-        <p className="text-[10px] font-medium text-foreground">
-          Issues Resolved
-        </p>
-      </div>
-      <div className="bg-white/80 p-1.5 rounded-md shadow-sm">
-        <p className="text-[10px] font-medium text-foreground">
-          Follow-ups
-        </p>
-      </div>
-    </div>
-  </Card>
+  </motion.div>
 );
 
-const Card5Visual = () => {
-  const items = [
-    { text: 'Demo booking', status: 'Done', icon: <Check className="size-3" /> },
-    {
-      text: 'FAQ answered',
-      status: 'Done',
-      icon: <Check className="size-3" />,
-    },
-    {
-      text: 'Trial extended',
-      status: 'Running',
-      icon: <Zap className="size-3" />,
-    },
-  ];
-  return (
-    <Card className="bg-white/70 backdrop-blur-sm p-3 rounded-xl shadow-inner-white border-white/50">
-      <div className="flex gap-1 mb-2">
-        <Badge variant="default" className="shadow-sm">
-          Sales
-        </Badge>
-        <Badge variant="secondary">Follow-ups</Badge>
-        <Badge variant="secondary">Support</Badge>
-      </div>
-      <div className="space-y-1.5">
-        {items.map((item) => (
-          <div
-            key={item.text}
-            className="flex items-center bg-white/80 p-1.5 rounded-md shadow-sm text-xs"
-          >
-            <div
-              className={`size-5 flex items-center justify-center rounded-sm mr-2 ${
-                item.status === 'Done'
-                  ? 'bg-primary/20 text-primary'
-                  : 'bg-accent/80 text-accent-foreground'
-              }`}
-            >
-              {item.icon}
+const Feature3 = () => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.7, delay: 0.2 }}
+    viewport={{ once: true }}
+    className="grid lg:grid-cols-2 gap-12 items-center"
+  >
+    <div className="relative order-2 lg:order-1 flex justify-center items-center min-h-[300px]">
+      <div
+        className="absolute w-[600px] h-[600px] -bottom-40 opacity-20"
+        style={{
+          background:
+            'radial-gradient(circle, hsl(var(--primary) / 0.2), transparent 60%)',
+        }}
+      ></div>
+      <div className="absolute -bottom-48 w-full h-48 bg-gradient-to-t from-background to-transparent z-10"></div>
+      <div className="relative z-0">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.7 }}
+          className="absolute -top-12 left-0"
+        >
+          <FeatureCard className="flex items-center gap-3">
+            <div className="p-2 bg-primary/10 rounded-lg">
+              <TrendingUp className="size-5 text-primary" />
             </div>
-            <p className="flex-grow font-medium text-foreground/90">
-              {item.text}
-            </p>
-            <p
-              className={
-                item.status === 'Done' ? 'text-primary' : 'text-accent-foreground'
-              }
-            >
-              {item.status}
-            </p>
-          </div>
-        ))}
-      </div>
-    </Card>
-  );
-};
-
-const Card6Visual = () => (
-  <Card className="bg-white/70 backdrop-blur-sm p-3 rounded-xl shadow-inner-white border-white/50">
-    <div className="space-y-2">
-      <div className="p-2 rounded-lg bg-white shadow-sm text-xs text-foreground max-w-[80%] self-start">
-        What are you trying to accomplish?
-      </div>
-      <div className="flex justify-end">
-        <p className="p-2 rounded-lg bg-white shadow-sm text-xs text-foreground max-w-[80%]">
-          We need to scale our outbound sales.
-        </p>
-      </div>
-      <div className="flex items-start gap-2">
-        <div className="size-6 flex-shrink-0 flex items-center justify-center rounded-full bg-primary mt-1">
-          <Sparkles className="size-3 text-white" />
-        </div>
-        <div className="p-2 rounded-lg bg-primary/10 border border-primary/20 text-xs text-primary-foreground max-w-[80%]">
-          Got it. Should I book a demo slot for you?
-        </div>
+            <p className="font-medium text-foreground">Higher conversions</p>
+          </FeatureCard>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7, duration: 0.7 }}
+          className="absolute top-12 -right-24"
+        >
+          <FeatureCard className="flex items-center gap-3">
+            <div className="p-2 bg-primary/10 rounded-lg">
+              <MessageCircle className="size-5 text-primary" />
+            </div>
+            <p className="font-medium text-foreground">Honest conversations</p>
+          </FeatureCard>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9, duration: 0.7 }}
+          className="absolute top-36 -left-16"
+        >
+          <FeatureCard className="flex items-center gap-3">
+            <div className="p-2 bg-primary/10 rounded-lg">
+              <Check className="size-5 text-primary" />
+            </div>
+            <p className="font-medium text-foreground">Faster replies</p>
+          </FeatureCard>
+        </motion.div>
       </div>
     </div>
-  </Card>
+    <div className="text-left order-1 lg:order-2">
+      <h3 className="font-headline text-3xl md:text-4xl font-medium tracking-tighter text-foreground">
+        Built on the channel people trust the most
+      </h3>
+      <p className="mt-4 text-lg text-muted-foreground/80 max-w-lg">
+        Sally works inside WhatsApp, turning the world’s most popular messaging
+        app into your most powerful sales channel. Meet customers where they
+        are.
+      </p>
+    </div>
+  </motion.div>
 );
 
 export function WhySallySection() {
   return (
-    <section className="py-20 sm:py-32 bg-white/50">
+    <section className="py-24 sm:py-32 bg-transparent">
       <div className="container mx-auto px-6">
-        <div className="text-center max-w-3xl mx-auto">
-          <Badge
-            variant="secondary"
-            className="mb-3 text-primary/80 bg-primary/10 border-primary/20"
-          >
-            Why Sally
-          </Badge>
-          <h2 className="font-headline text-4xl md:text-5xl font-medium text-foreground tracking-tighter">
-            Why Sally gives you unfair leverage
+        <div className="text-center max-w-3xl mx-auto flex flex-col items-center">
+          <SectionTag />
+          <h2 className="mt-6 font-headline text-4xl md:text-5xl font-medium text-foreground tracking-tighter">
+            Conversations that feel natural, at scale
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
+          <p className="mt-4 text-lg text-muted-foreground/80">
             Sally turns WhatsApp into a compounding engine your competitors
             simply don’t have.
           </p>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {features.slice(0, 3).map((feature) => (
-            <FeatureCard key={feature.label} feature={feature} />
-          ))}
-        </div>
-        <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {features.slice(3, 6).map((feature) => (
-            <FeatureCard key={feature.label} feature={feature} />
-          ))}
+        <div className="mt-24 space-y-24 md:space-y-32">
+          <Feature1 />
+          <Feature2 />
+          <Feature3 />
         </div>
       </div>
     </section>
