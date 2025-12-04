@@ -6,6 +6,29 @@ import { RotatingHeadline } from './rotating-headline';
 export function HeroSection() {
   return (
     <section className="relative w-full h-full pt-40 pb-20 overflow-hidden">
+        <div 
+            className="absolute inset-0 -z-10"
+            style={{
+                background: 'radial-gradient(ellipse at 50% 30%, hsla(155, 100%, 96%, 0.3) 0%, transparent 70%)',
+            }}
+        />
+        <div 
+            className="absolute inset-0 -z-20 opacity-50"
+            style={{
+                background: 'radial-gradient(circle at 50% 0%, rgba(223, 243, 234, 0.4), transparent 40%), radial-gradient(circle at 20% 70%, rgba(223, 243, 234, 0.3), transparent 50%), radial-gradient(circle at 80% 80%, rgba(215, 251, 233, 0.3), transparent 40%)',
+            }}
+        />
+        <div 
+            className="absolute inset-0 -z-30 bg-white"
+            style={{
+                backgroundImage: 'radial-gradient(hsla(150, 15%, 5%, 0.02) 1px, transparent 1px), radial-gradient(hsla(150, 15%, 5%, 0.02) 1px, transparent 1px)',
+                backgroundSize: '20px 20px',
+                backgroundPosition: '0 0, 10px 10px',
+                opacity: 0.5,
+            }}
+        />
+
+
       <div className="container mx-auto px-6 text-center flex flex-col items-center">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 bg-gradient-to-r from-accent/50 to-secondary/50 rounded-full border border-primary/20">
           <Sparkles className="size-4 text-primary" />
