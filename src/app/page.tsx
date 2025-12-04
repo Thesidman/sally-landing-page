@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className="relative flex flex-col min-h-screen bg-[#F9FAF8]">
       <div
-        className="absolute inset-0 -z-20 opacity-70"
+        className="absolute inset-0 -z-20"
         style={{
           backgroundImage:
             'radial-gradient(circle at 50% 0, hsl(155 60% 95% / 0.5), transparent 40%), radial-gradient(circle at 20% 90%, hsl(170 50% 94% / 0.4), transparent 50%), radial-gradient(circle at 80% 80%, hsl(145 55% 96% / 0.4), transparent 50%)',
