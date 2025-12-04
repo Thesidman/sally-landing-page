@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, CheckCircle } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { PhoneScreenQR } from './how-sally-panels/phone-screen-qr';
 import { PhoneScreenProfile } from './how-sally-panels/phone-screen-profile';
 import { PhoneScreenContacts } from './how-sally-panels/phone-screen-contacts';
@@ -62,39 +62,40 @@ const Step = ({
   isActive: boolean;
 }) => {
   return (
-    <div className="relative flex items-start gap-4">
-       <div className="mt-1.5 flex flex-col items-center h-full">
-         <div className={cn(
-             "size-3.5 rounded-full border-2 transition-all duration-300",
-             isActive ? "bg-primary border-primary shadow-[0_0_12px_hsl(var(--primary))]" : "border-gray-300 bg-white"
-         )}></div>
-      </div>
-      <div className="flex-1 pb-8">
-        <h3
-          className={cn(
-            'font-headline text-2xl font-semibold tracking-tighter transition-colors duration-300',
-            isActive ? 'text-foreground' : 'text-foreground/40'
-          )}
-        >
+    <div className="relative">
+      <h3
+        className={cn(
+          'font-headline text-2xl font-semibold tracking-tighter transition-all duration-300',
+          isActive ? 'text-foreground' : 'text-foreground/40'
+        )}
+      >
+        <span className="relative inline-block">
           {step.title}
-        </h3>
-        <AnimatePresence initial={false}>
           {isActive && (
-            <motion.div
-              initial={{ opacity: 0, height: 0, marginTop: 0 }}
-              animate={{ opacity: 1, height: 'auto', marginTop: '16px' }}
-              exit={{ opacity: 0, height: 0, marginTop: 0 }}
-              transition={{ duration: 0.4, ease: [0.2, 0.9, 0.2, 1] }}
-            >
-              <div className="p-4 rounded-xl bg-white/60 backdrop-blur-md border border-primary/10 shadow-sm">
-                <p className="text-muted-foreground leading-relaxed">
-                  {step.text}
-                </p>
-              </div>
-            </motion.div>
+             <motion.div 
+                layoutId="underline"
+                className="absolute bottom-0 left-0 w-full h-[3px] bg-primary"
+                style={{
+                    boxShadow: '0 0 12px hsl(var(--primary))'
+                }}
+             />
           )}
-        </AnimatePresence>
-      </div>
+        </span>
+      </h3>
+      <AnimatePresence>
+        {isActive && (
+          <motion.div
+            initial={{ opacity: 0, height: 0, y: -5 }}
+            animate={{ opacity: 1, height: 'auto', y: 0, marginTop: '12px' }}
+            exit={{ opacity: 0, height: 0, y: -5, marginTop: 0 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+          >
+            <p className="text-muted-foreground leading-relaxed">
+              {step.text}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
@@ -119,7 +120,7 @@ export function HowSallyWorksSection() {
           });
         },
         {
-          rootMargin: '-20% 0px -75% 0px',
+          rootMargin: '-45% 0px -55% 0px',
           threshold: 0,
         }
       );
@@ -169,25 +170,21 @@ export function HowSallyWorksSection() {
         </motion.header>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 xl:gap-24 items-start">
-          <div className="lg:max-w-md relative">
-            <div className="absolute left-[6px] top-1.5 bottom-0 w-0.5 bg-gray-200"></div>
-            <div className="flex flex-col">
-              {stepsData.steps.map((step, index) => (
-                <div
-                  key={step.id}
-                  id={step.id}
-                  ref={(el) => (stepRefs.current[index] = el)}
-                  className="pl-2"
-                >
-                  <Step
-                    step={step}
-                    isActive={activeStepId === step.id}
-                  />
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-8 pl-8">
+          <div className="lg:max-w-md relative flex flex-col gap-8">
+            {stepsData.steps.map((step, index) => (
+              <div
+                key={step.id}
+                id={step.id}
+                ref={(el) => (stepRefs.current[index] = el)}
+              >
+                <Step
+                  step={step}
+                  isActive={activeStepId === step.id}
+                />
+              </div>
+            ))}
+            
+            <div className="mt-8">
               <Button
                 asChild
                 size="lg"
@@ -213,9 +210,9 @@ export function HowSallyWorksSection() {
             </div>
           </div>
 
-          <div className="relative lg:sticky top-24 h-full min-h-[680px]">
+          <div className="relative lg:sticky top-28 h-full min-h-[680px]">
              <div
-              className="w-full max-w-[360px] mx-auto rounded-[32px] p-2 bg-white/60 backdrop-blur-xl border border-white/80"
+              className="w-full max-w-[360px] mx-auto rounded-[32px] p-2 bg-white/60 backdrop-blur-xl border-2 border-white/80"
               style={{
                 boxShadow: '0 28px 80px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.02)',
               }}
@@ -228,7 +225,7 @@ export function HowSallyWorksSection() {
                       index === activePanelIndex && (
                         <motion.div
                           key={panel.id}
-                          initial={{ opacity: 0, scale: 0.96 }}
+                          initial={{ opacity: 0, scale: 0.98 }}
                           animate={{ opacity: 1, scale: 1 }}
                           exit={{ opacity: 0, scale: 0.98 }}
                           transition={{
