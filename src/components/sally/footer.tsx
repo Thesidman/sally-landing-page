@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button';
 const footerLinks = [
   { name: 'LinkedIn', href: '#' },
   { name: 'Contact', href: '#' },
-  { name: 'Terms', href: '#' },
-  { name: 'Privacy', href: '#' },
+  { name: 'Terms & Conditions', href: '#' },
+  { name: 'Privacy Policy', href: '#' },
 ];
 
 const SallyLogo = () => (
@@ -39,13 +39,13 @@ export function Footer() {
             <SallyLogo />
             <span className="font-headline text-2xl font-medium text-foreground">SALLY</span>
           </div>
-          <div className="flex items-center gap-6">
+          <nav className="flex items-center gap-6">
             {footerLinks.map((link) => (
               <Link href={link.href} key={link.name} className="text-muted-foreground hover:text-foreground transition-colors text-sm">
                 {link.name}
               </Link>
             ))}
-          </div>
+          </nav>
           <div className="text-center md:text-right">
              <p className="text-sm text-muted-foreground">
                 Built by <a href="#" className="font-medium text-foreground hover:text-primary transition-colors">Siddharth Manjrekar</a>
@@ -53,7 +53,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-gray-100 text-center">
-            <p className="text-sm text-muted-foreground">&copy; {new Date().getFullYear()} Sally. All rights reserved.</p>
+            <p className="text-sm text-muted-foreground">&copy; 2025 Sally. All rights reserved.</p>
         </div>
       </div>
     </footer>

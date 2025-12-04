@@ -1,8 +1,21 @@
 'use client';
 import { motion } from 'framer-motion';
 import { CheckCircle } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
-export function QRPanel({ isActive, status, caption }: { isActive: boolean; status: string; caption: string }) {
+export function QRPanel({ isActive, status, caption }: { isActive: boolean; status: 'scanning' | 'connected'; caption: string }) {
+  const [internalStatus, setInternalStatus] = useState<'scanning' | 'connected'>('scanning');
+  
+  useEffect(() => {
+    if (isActive) {
+      setInternalStatus('scanning');
+      const timer = setTimeout(() => {
+        setInternalStatus('connected');
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [isActive]);
+
   return (
     <div className="flex flex-col items-center justify-center h-full p-8 bg-gray-50/70 rounded-xl">
       <div className="relative w-48 h-48">
@@ -18,7 +31,7 @@ export function QRPanel({ isActive, status, caption }: { isActive: boolean; stat
           </div>
         </motion.div>
 
-        {isActive && status !== 'connected' && (
+        {internalStatus === 'scanning' && (
           <motion.div
             className="absolute top-0 left-0 w-full h-1 bg-primary/80"
             animate={{ y: [0, 188] }}
@@ -27,7 +40,7 @@ export function QRPanel({ isActive, status, caption }: { isActive: boolean; stat
           />
         )}
         
-        {status === 'connected' && (
+        {internalStatus === 'connected' && (
            <motion.div 
              className="absolute inset-0 bg-primary/90 backdrop-blur-sm rounded-lg flex items-center justify-center"
              initial={{ opacity: 0, scale: 0.8 }}
