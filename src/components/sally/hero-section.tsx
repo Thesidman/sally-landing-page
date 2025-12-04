@@ -6,30 +6,23 @@ import { RotatingHeadline } from './rotating-headline';
 export function HeroSection() {
   return (
     <section className="relative w-full h-full pt-40 pb-20 overflow-hidden">
+      <div className="absolute inset-0 -z-30 bg-[#F9FAF8]"></div>
+      <div
+        className="absolute inset-0 -z-20"
+        style={{
+          backgroundImage: 'radial-gradient(circle at 50% 30%, hsla(155, 60%, 95%, 0.4), transparent 70%)',
+        }}
+      ></div>
       <div
         className="absolute inset-0 -z-10"
         style={{
-          background:
-            'radial-gradient(ellipse at 50% 30%, hsla(155, 100%, 96%, 0.3) 0%, transparent 70%)',
-        }}
-      />
-      <div
-        className="absolute inset-0 -z-20 opacity-50"
-        style={{
-          background:
-            'radial-gradient(circle at 50% 0%, rgba(223, 243, 234, 0.4), transparent 40%), radial-gradient(circle at 20% 70%, rgba(223, 243, 234, 0.3), transparent 50%), radial-gradient(circle at 80% 80%, rgba(215, 251, 233, 0.3), transparent 40%)',
-        }}
-      />
-      <div
-        className="absolute inset-0 -z-30 bg-white"
-        style={{
           backgroundImage:
-            'radial-gradient(hsla(150, 15%, 5%, 0.02) 1px, transparent 1px), radial-gradient(hsla(150, 15%, 5%, 0.02) 1px, transparent 1px)',
-          backgroundSize: '20px 20px',
-          backgroundPosition: '0 0, 10px 10px',
-          opacity: 0.5,
+            'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%230D1412\' fill-opacity=\'0.02\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
         }}
-      />
+      ></div>
+       <div className="absolute top-0 left-1/4 w-96 h-96 bg-teal-200/20 rounded-full blur-3xl -translate-x-1/2 -z-10 opacity-50"></div>
+       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-green-200/20 rounded-full blur-3xl translate-x-1/2 -z-10 opacity-50"></div>
+
 
       <div className="container mx-auto px-6 text-center flex flex-col items-center">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 bg-gradient-to-r from-accent/50 to-secondary/50 rounded-full border border-primary/20">
@@ -92,7 +85,6 @@ export function HeroSection() {
       </div>
 
       <div className="relative mt-16 flex justify-center">
-        <div className="absolute bottom-0 -z-10 w-[800px] h-[600px] bg-gradient-radial from-secondary via-accent/30 to-transparent blur-3xl opacity-60" />
         <SallyUICard />
       </div>
     </section>
