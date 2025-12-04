@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { WhatsappIcon } from '../icons/whatsapp-icon';
 
 
 const features = [
@@ -196,61 +197,88 @@ const IntelligenceVisual = () => {
 };
 
 const OrbitVisual = () => {
-    const communicationSpheres = [
-      { name: 'Work', size: 80, position: 'top-10 left-12' },
-      { name: 'Family', size: 60, position: 'top-1/3 right-8' },
-      { name: 'Friends', size: 70, position: 'bottom-1/4 left-4' },
-      { name: 'Clients', size: 90, position: 'bottom-8 right-1/4' },
-      { name: 'Leads', size: 50, position: 'top-1/2 left-1/3' },
-      { name: 'Community', size: 75, position: 'top-12 right-1/2' },
-    ];
-  
     return (
-      <div className="relative w-full h-full flex items-center justify-center overflow-hidden p-4">
-        {/* Background elements */}
-        <div className="absolute inset-0 opacity-[0.06]" style={{
-          backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")"
-        }} />
-        <div className="absolute bottom-0 right-0 w-[300px] h-[300px] rounded-full bg-gradient-to-tl from-mint-500/10 to-transparent blur-3xl"></div>
+      <div className="relative w-full h-full flex items-center justify-center p-8 overflow-hidden">
+          <div className="absolute inset-0 opacity-[0.02] mix-blend-multiply" style={{
+            backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")"
+          }} />
+
+        <div className="absolute w-96 h-96 right-0 bottom-0 translate-x-1/3 translate-y-1/3">
+            <div 
+                className="absolute inset-0 rounded-full"
+                style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.15), transparent 60%)' }}
+            ></div>
+        </div>
+
+        <div className="absolute w-80 h-80 right-1/4 top-1/4">
+             <div 
+                className="absolute inset-0 rounded-full opacity-50"
+                style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.08), transparent 70%)' }}
+            ></div>
+        </div>
   
-        {/* Central WhatsApp Node */}
         <motion.div
-          className="relative size-40 rounded-full bg-gradient-radial from-primary/30 to-teal-400/20 flex items-center justify-center"
+          className="relative size-40 rounded-full flex items-center justify-center"
           initial={{ scale: 0.8, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
           viewport={{ once: true }}
         >
-          <div className="absolute inset-0 rounded-full bg-white/10 backdrop-blur-sm"></div>
-          <div className="absolute inset-0 rounded-full shadow-[inset_0_4px_20px_rgba(255,255,255,0.4)]"></div>
+          <div 
+            className="absolute inset-0 rounded-full"
+            style={{background: 'radial-gradient(circle, hsl(var(--primary) / 0.8), hsl(var(--primary) / 0.4))'}}
+          ></div>
+           <div className="absolute inset-0 rounded-full shadow-[inset_0_4px_20px_rgba(255,255,255,0.4)]"></div>
           <div className="absolute inset-0 rounded-full border border-white/20"></div>
           <div className="absolute size-40 rounded-full bg-primary/20 blur-3xl"></div>
+          <WhatsappIcon className="size-16 text-white/90" />
         </motion.div>
   
-        {/* Orbiting Communication Spheres */}
-        {communicationSpheres.map((sphere, i) => (
-          <motion.div
-            key={sphere.name}
-            className="absolute flex flex-col items-center"
-            initial={{ opacity: 0, scale: 0.5 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 + i * 0.1, ease: 'easeOut' }}
-            viewport={{ once: true }}
-            style={{
-              width: sphere.size,
-              height: sphere.size,
-              top: sphere.position.split(' ')[0],
-              left: sphere.position.split(' ')[1],
-              right: sphere.position.split(' ')[1],
-              bottom: sphere.position.split(' ')[0],
-            }}
-          >
-            <div className="relative size-full rounded-full border border-primary/10 bg-white/20 backdrop-blur-sm flex items-center justify-center">
-              <div className="absolute inset-0 rounded-full bg-primary/5"></div>
-            </div>
-            <span className="mt-1.5 text-[10px] font-medium text-muted-foreground">{sphere.name}</span>
-          </motion.div>
-        ))}
+        <motion.div
+          className="absolute top-10 left-12 size-20 rounded-full border border-primary/10 bg-white/20 backdrop-blur-sm flex flex-col items-center justify-center text-center p-2"
+          initial={{ opacity: 0, scale: 0.5 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
+          viewport={{ once: true }}
+        >
+             <p className="text-[10px] font-medium text-muted-foreground">Work</p>
+        </motion.div>
+        <motion.div
+          className="absolute top-1/3 right-8 size-16 rounded-full border border-primary/10 bg-white/20 backdrop-blur-sm flex flex-col items-center justify-center text-center p-2"
+          initial={{ opacity: 0, scale: 0.5 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
+          viewport={{ once: true }}
+        >
+             <p className="text-[10px] font-medium text-muted-foreground">Family</p>
+        </motion.div>
+        <motion.div
+          className="absolute bottom-1/4 left-4 size-[70px] rounded-full border border-primary/10 bg-white/20 backdrop-blur-sm flex flex-col items-center justify-center text-center p-2"
+          initial={{ opacity: 0, scale: 0.5 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.5, ease: 'easeOut' }}
+          viewport={{ once: true }}
+        >
+             <p className="text-[10px] font-medium text-muted-foreground">Friends</p>
+        </motion.div>
+        <motion.div
+          className="absolute bottom-8 right-1/4 size-[90px] rounded-full border border-primary/10 bg-white/20 backdrop-blur-sm flex flex-col items-center justify-center text-center p-2"
+          initial={{ opacity: 0, scale: 0.5 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.6, ease: 'easeOut' }}
+          viewport={{ once: true }}
+        >
+             <p className="text-xs font-medium text-muted-foreground">Clients</p>
+        </motion.div>
+        <motion.div
+          className="absolute top-1/2 left-1/3 size-14 rounded-full border border-primary/10 bg-white/20 backdrop-blur-sm flex flex-col items-center justify-center text-center p-2"
+          initial={{ opacity: 0, scale: 0.5 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.7, ease: 'easeOut' }}
+          viewport={{ once: true }}
+        >
+             <p className="text-[10px] font-medium text-muted-foreground">Leads</p>
+        </motion.div>
       </div>
     );
   };

@@ -214,15 +214,13 @@ export function HowSallyWorksSection() {
           </div>
 
           <div className="relative lg:sticky top-24 h-full min-h-[680px]">
-            <div
-              className="w-full max-w-[360px] mx-auto rounded-3xl p-3 bg-white/60 backdrop-blur-xl border border-white/80"
+             <div
+              className="w-full max-w-[360px] mx-auto rounded-[32px] p-2 bg-white/60 backdrop-blur-xl border border-white/80"
               style={{
-                boxShadow: '0 28px 60px rgba(6,22,15,0.08)',
-                backgroundImage:
-                  'linear-gradient(120deg, rgba(36,211,154,0.12), rgba(19,185,133,0.04))',
+                boxShadow: '0 28px 80px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.02)',
               }}
             >
-              <div className="relative h-[700px] w-full bg-black rounded-[18px] overflow-hidden shadow-inner">
+              <div className="relative h-[700px] w-full bg-black rounded-[24px] overflow-hidden shadow-inner">
                 
                 <AnimatePresence mode="wait">
                   {panels.map(
@@ -230,11 +228,11 @@ export function HowSallyWorksSection() {
                       index === activePanelIndex && (
                         <motion.div
                           key={panel.id}
-                          initial={{ opacity: 0, scale: 0.98, y: 10 }}
-                          animate={{ opacity: 1, scale: 1, y: 0 }}
-                          exit={{ opacity: 0, scale: 0.98, y: -10 }}
+                          initial={{ opacity: 0, scale: 0.96 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.98 }}
                           transition={{
-                            duration: 0.4,
+                            duration: 0.35,
                             ease: [0.2, 0.9, 0.2, 1],
                           }}
                           className="absolute inset-0"
