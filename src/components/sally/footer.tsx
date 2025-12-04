@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Button } from '../ui/button';
 
 const footerLinks = [
   { name: 'LinkedIn', href: '#' },
@@ -27,22 +28,23 @@ const SallyLogo = () => (
       <circle cx="15" cy="10" r="1" fill="white" />
     </svg>
   );
-  
 
 export function Footer() {
   return (
-    <footer className="bg-white border-t">
-      <div className="container mx-auto max-w-7xl px-6 py-20">
+    <footer className="bg-white border-t border-gray-100">
+      <div className="container mx-auto max-w-7xl px-6 py-16">
         <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-3">
             <SallyLogo />
             <span className="font-headline text-2xl font-medium text-foreground">SALLY</span>
-          </div>
-          <nav className="flex items-center gap-6">
+          </Link>
+          <nav className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2">
             {footerLinks.map((link) => (
-              <Link href={link.href} key={link.name} className="text-muted-foreground hover:text-foreground transition-colors text-sm">
-                {link.name}
-              </Link>
+              <Button variant="link" asChild key={link.name} className="text-muted-foreground hover:text-foreground transition-colors text-sm px-0">
+                <Link href={link.href}>
+                    {link.name}
+                </Link>
+              </Button>
             ))}
           </nav>
           <div className="text-center md:text-right">
@@ -51,7 +53,7 @@ export function Footer() {
              </p>
           </div>
         </div>
-        <div className="mt-8 pt-8 border-t border-gray-100 text-center">
+        <div className="mt-12 pt-8 border-t border-gray-100 text-center">
             <p className="text-sm text-muted-foreground">&copy; 2025 Sally. All rights reserved.</p>
         </div>
       </div>
