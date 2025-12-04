@@ -199,9 +199,9 @@ const IntelligenceVisual = () => {
 const OrbitVisual = () => {
     return (
       <div className="relative w-full h-full flex items-center justify-center p-8 overflow-hidden">
-          <div className="absolute inset-0 opacity-[0.02] mix-blend-multiply" style={{
-            backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")"
-          }} />
+        <div className="absolute inset-0 opacity-[0.02] mix-blend-multiply" style={{
+          backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")"
+        }} />
 
         <div className="absolute w-96 h-96 right-0 bottom-0 translate-x-1/3 translate-y-1/3">
             <div 
