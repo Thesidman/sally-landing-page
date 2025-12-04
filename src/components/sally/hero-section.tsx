@@ -37,7 +37,7 @@ export function HeroSection() {
           </span>
         </div>
 
-        <h1 className="font-headline text-4xl md:text-5xl lg:text-6xl font-medium text-foreground !leading-tight tracking-tighter max-w-4xl">
+        <h1 className="font-headline text-5xl md:text-6xl lg:text-7xl font-medium text-foreground !leading-tight tracking-tighter max-w-4xl mt-3">
           <span className="font-normal">Sally</span>{' '}
           <span className="font-light text-foreground/80">gets you</span>{' '}
           <span
