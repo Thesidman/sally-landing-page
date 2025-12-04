@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   Bot,
@@ -7,432 +7,270 @@ import {
   MessageCircle,
   TrendingUp,
   Zap,
-  Sparkles,
-  BrainCircuit,
+  ArrowRight,
 } from 'lucide-react';
 import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 
-const features = [
-  {
-    icon: Zap,
-    title: 'Get personalised conversations started on WhatsApp instantly',
-    description:
-      'Celly finds the right people in your groups and opens natural, human-sounding chats with them. No effort, no prep, no manual typing.',
-    visual: 'constellation',
-  },
-  {
-    icon: BrainCircuit,
-    title: 'It understands every reply and drives the conversation for you',
-    description:
-      'Celly reads context, picks up intent, asks the right questions, qualifies people, and keeps the chat moving. No workflows. No templates. Just smart, adaptive conversations.',
-    visual: 'tree',
-  },
-  {
-    icon: Sparkles,
-    title: 'Built on the channel people trust the most',
-    description:
-      'WhatsApp gets faster, more honest replies than LinkedIn or email. Celly turns this trust into a real advantage — more responses, better conversations, higher conversions.',
-    visual: 'sphere',
-  },
-];
-
-const SectionTag = () => (
-  <motion.div
-    initial={{ opacity: 0, y: 10 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5, delay: 0.1 }}
-    viewport={{ once: true }}
-    className="relative inline-flex items-center gap-2.5 rounded-full px-4 py-2 text-xs font-semibold"
-    style={{
-      background: 'linear-gradient(to bottom, #F3FBF7, #FFFFFF)',
-      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.04)',
-      border: '1px solid rgba(205, 239, 225, 0.25)',
-    }}
-  >
-    <span
-      className="size-1.5 rounded-full bg-[#36B57A]"
-      style={{
-        boxShadow: '0 0 4px 1px rgba(54, 181, 122, 0.5)',
-      }}
-    />
-    <span
-      className="font-medium tracking-widest text-black/80"
-      style={{ fontVariant: 'small-caps' }}
-    >
-      WHY SALLY
-    </span>
-  </motion.div>
-);
-
-const WhatsAppBubble = ({
-  className,
-  text,
-  isSally,
-}: {
-  className?: string;
-  text: string;
-  isSally?: boolean;
-}) => (
-  <div
-    className={cn(
-      'rounded-2xl p-3 text-sm shadow-md',
-      isSally
-        ? 'bg-gradient-to-br from-green-100 to-white text-green-900'
-        : 'bg-white/80 text-gray-700',
-      'backdrop-blur-sm border border-white/50',
-      className
-    )}
-  >
-    <p className="blur-[1px] opacity-70 select-none">{text}</p>
-  </div>
-);
-
-const ConstellationVisual = () => {
-  const [points, setPoints] = useState<Array<{ top: string; left: string }>>([]);
-
-  useEffect(() => {
-    setPoints(
-      [...Array(15)].map(() => ({
-        top: `${10 + Math.random() * 80}%`,
-        left: `${10 + Math.random() * 80}%`,
-      }))
-    );
-  }, []);
-
-  return (
-    <motion.div
-      className="relative flex h-[400px] w-full items-center justify-center"
-      initial="initial"
-      whileInView="animate"
-      viewport={{ once: true }}
-    >
-      <motion.div
-        className="absolute inset-0 rounded-3xl"
-        style={{
-          background:
-            'radial-gradient(circle at center, rgba(227, 247, 238, 0.5), transparent 70%)',
-        }}
-      ></motion.div>
-
-      {points.map((point, i) => (
-        <motion.div
-          key={i}
-          className="absolute h-1 w-1 rounded-full bg-mint-400/50"
-          style={{
-            top: point.top,
-            left: point.left,
-          }}
-          variants={{
-            initial: { opacity: 0 },
-            animate: {
-              opacity: [0, 1, 0],
-              transition: {
-                duration: 2 + Math.random() * 2,
-                repeat: Infinity,
-                delay: Math.random() * 2,
-              },
-            },
-          }}
-        ></motion.div>
-      ))}
-
-      <motion.div
-        variants={{
-          initial: { opacity: 0, scale: 0.8 },
-          animate: {
-            opacity: 1,
-            scale: 1,
-            transition: { delay: 0.3, duration: 0.7, ease: 'easeOut' },
-          },
-        }}
-        className="absolute"
-      >
-        <WhatsAppBubble
-          className="w-48"
-          text="Hey! Saw you were checking out..."
-          isSally
-        />
-      </motion.div>
-      <motion.div
-        variants={{
-          initial: { opacity: 0, x: -20 },
-          animate: {
-            opacity: 1,
-            x: 0,
-            transition: { delay: 0.6, duration: 0.7, ease: 'easeOut' },
-          },
-        }}
-        className="absolute top-1/4 left-0"
-      >
-        <WhatsAppBubble className="w-40" text="Great to connect! I wanted to..." />
-      </motion.div>
-      <motion.div
-        variants={{
-          initial: { opacity: 0, x: 20 },
-          animate: {
-            opacity: 1,
-            x: 0,
-            transition: { delay: 0.8, duration: 0.7, ease: 'easeOut' },
-          },
-        }}
-        className="absolute top-1/3 right-0"
-      >
-        <WhatsAppBubble
-          className="w-36"
-          text="Following up on our last chat..."
-        />
-      </motion.div>
-      <motion.div
-        variants={{
-          initial: { opacity: 0, y: 20 },
-          animate: {
-            opacity: 1,
-            y: 0,
-            transition: { delay: 1, duration: 0.7, ease: 'easeOut' },
-          },
-        }}
-        className="absolute bottom-1/4 left-1/4"
-      >
-        <WhatsAppBubble className="w-32" text="Any questions about the trial?" />
-      </motion.div>
-    </motion.div>
-  );
-};
-
-const IntelligenceTreeVisual = () => (
-  <div className="relative w-full max-w-2xl mx-auto h-[350px]">
-    <div className="absolute top-0 left-1/2 -translate-x-1/2">
-      <WhatsAppBubble
-        className="w-64 !text-gray-800 !bg-white"
-        text="Can you send over pricing for the team plan?"
-      />
-    </div>
-
-    <svg
-      width="100%"
-      height="100%"
-      viewBox="0 0 400 250"
-      className="absolute top-12"
-      fill="none"
-    >
-      <motion.path
-        d="M 200 20 Q 80 100, 50 200"
-        stroke="hsl(var(--border) / 0.3)"
-        strokeWidth="1.5"
-        strokeDasharray="3 3"
-      />
-      <motion.path
-        d="M 200 20 Q 150 120, 150 220"
-        stroke="hsl(var(--border) / 0.3)"
-        strokeWidth="1.5"
-        strokeDasharray="3 3"
-      />
-      <motion.path
-        d="M 200 20 Q 320 100, 350 200"
-        stroke="hsl(var(--border) / 0.3)"
-        strokeWidth="1.5"
-        strokeDasharray="3 3"
-      />
-      <motion.path
-        d="M 200 20 Q 250 120, 250 220"
-        stroke="hsl(var(--border) / 0.3)"
-        strokeWidth="1.5"
-        strokeDasharray="3 3"
-      />
-
-      {/* Highlighted Path */}
-      <motion.path
-        d="M 200 20 Q 200 120, 200 230"
-        stroke="url(#line-gradient)"
-        strokeWidth="2"
-      />
-      <defs>
-        <linearGradient id="line-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#36B57A" />
-          <stop offset="100%" stopColor="#19D76B" />
-        </linearGradient>
-      </defs>
-    </svg>
-
-    <div className="absolute bottom-0 left-1/2 -translate-x-1/2">
-      <WhatsAppBubble
-        className="w-80"
-        isSally
-        text="Of course. Are you looking to pay annually, or do you prefer monthly flexibility?"
-      />
-    </div>
-  </div>
-);
-
-const TrustSphereVisual = () => (
-  <div className="relative h-[400px] w-full overflow-hidden rounded-2xl">
-    <motion.div
-      className="absolute -bottom-1/2 left-1/2 h-[400px] w-[400px] -translate-x-1/2 rounded-full"
-      style={{
-        background:
-          'radial-gradient(circle, hsl(145, 60%, 50%), hsl(155, 70%, 40%))',
-        filter: 'blur(10px)',
-      }}
-      initial={{ y: 50, opacity: 0 }}
-      whileInView={{ y: 0, opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 1, ease: 'easeOut' }}
-    />
-    <div className="absolute inset-0 bg-black/5" style={{
-      backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")'
-    }}></div>
-    <motion.div
-      initial={{ y: 20, opacity: 0 }}
-      whileInView={{ y: 0, opacity: 1 }}
-      transition={{ delay: 0.4, duration: 0.7 }}
-      viewport={{ once: true }}
-      className="absolute top-16 left-8"
-    >
-      <Card className="flex items-center gap-3 p-3 bg-white/70 backdrop-blur-md rounded-2xl shadow-lg border-white/20">
-        <div className="flex size-8 items-center justify-center rounded-full bg-primary/10">
-          <Zap className="size-4 text-primary" />
-        </div>
-        <p className="font-medium text-foreground">Faster replies</p>
-      </Card>
-    </motion.div>
-    <motion.div
-      initial={{ y: 20, opacity: 0 }}
-      whileInView={{ y: 0, opacity: 1 }}
-      transition={{ delay: 0.6, duration: 0.7 }}
-      viewport={{ once: true }}
-      className="absolute top-1/2 right-8"
-    >
-      <Card className="flex items-center gap-3 p-3 bg-white/70 backdrop-blur-md rounded-2xl shadow-lg border-white/20">
-        <div className="flex size-8 items-center justify-center rounded-full bg-primary/10">
-          <MessageCircle className="size-4 text-primary" />
-        </div>
-        <p className="font-medium text-foreground">Honest conversations</p>
-      </Card>
-    </motion.div>
-    <motion.div
-      initial={{ y: 20, opacity: 0 }}
-      whileInView={{ y: 0, opacity: 1 }}
-      transition={{ delay: 0.8, duration: 0.7 }}
-      viewport={{ once: true }}
-      className="absolute bottom-16 left-1/4"
-    >
-      <Card className="flex items-center gap-3 p-3 bg-white/70 backdrop-blur-md rounded-2xl shadow-lg border-white/20">
-        <div className="flex size-8 items-center justify-center rounded-full bg-primary/10">
-          <TrendingUp className="size-4 text-primary" />
-        </div>
-        <p className="font-medium text-foreground">Higher conversions</p>
-      </Card>
-    </motion.div>
-  </div>
-);
-
-const FeatureScene = ({
-  feature,
-  layout,
-}: {
-  feature: (typeof features)[0];
-  layout: 'left' | 'center' | 'right';
-}) => {
-  const isCenter = layout === 'center';
-  const textOrder = layout === 'right' ? 'order-2' : 'order-1';
-  const visualOrder = layout === 'right' ? 'order-1' : 'order-2';
-
-  const renderVisual = () => {
-    switch (feature.visual) {
-      case 'constellation':
-        return <ConstellationVisual />;
-      case 'tree':
-        return <IntelligenceTreeVisual />;
-      case 'sphere':
-        return <TrustSphereVisual />;
-      default:
-        return null;
-    }
-  };
-
-  return (
-    <div
-      className={cn('w-full', {
-        'grid grid-cols-1 items-center gap-16 md:grid-cols-2': !isCenter,
-        'flex flex-col items-center text-center': isCenter,
-      })}
-    >
-      <motion.div
-        className={cn('flex flex-col', textOrder, {
-          'items-center': isCenter,
-        })}
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.2 }}
-        viewport={{ once: true }}
-      >
-        <h3 className="font-headline text-3xl md:text-4xl font-semibold leading-tight tracking-tighter text-foreground max-w-lg">
-          {feature.title}
-        </h3>
-        <p
-          className={cn('mt-4 max-w-md text-base md:text-lg text-foreground/70', {
-            'mx-auto': isCenter,
-          })}
-        >
-          {feature.description}
-        </p>
-      </motion.div>
-      <div className={cn('relative mt-8 md:mt-0', visualOrder, {'w-full': isCenter})}>
-        <div
-          className={cn(
-            'relative rounded-3xl bg-white/40 p-4 shadow-[0_16px_48px_rgba(0,0,0,0.06)] backdrop-blur-xl border border-white/50',
-            {
-                'mt-10': isCenter
-            }
-          )}
-        >
-          {renderVisual()}
-        </div>
-      </div>
-    </div>
-  );
-};
-
+// --- Main Component ---
 export function WhySallySection() {
   return (
-    <section className="relative overflow-hidden py-24 sm:py-32">
+    <section className="relative overflow-hidden py-24 sm:py-32 bg-background">
+      {/* Background elements */}
       <div
         className="absolute inset-0 -z-10"
         style={{
-          background:
-            'linear-gradient(145deg, #E3F7EE 0%, #F9FAF8 50%, #D8F4F4 100%)',
+          backgroundImage:
+            'radial-gradient(circle at 50% 0, hsl(160 50% 98% / 0.7), transparent 50%), radial-gradient(circle at 10% 20%, hsl(170 50% 96% / 0.6), transparent 40%), radial-gradient(circle at 90% 30%, hsl(155 55% 97% / 0.6), transparent 40%)',
         }}
       />
       <div
-        className="absolute inset-0 -z-10 opacity-5"
+        className="absolute inset-0 -z-10 opacity-[0.03]"
         style={{
           backgroundImage:
-            'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 800 800\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
+            "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")",
         }}
       />
-      <div className="absolute top-0 left-1/4 size-96 rounded-full bg-mint-200/10 blur-3xl -translate-x-1/2"></div>
-      <div className="absolute bottom-0 right-1/4 size-96 rounded-full bg-teal-200/10 blur-3xl translate-x-1/2"></div>
 
-      <div className="container mx-auto px-6 max-w-6xl">
-        <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-          <SectionTag />
-          <h2 className="mt-6 font-headline text-4xl font-semibold tracking-tighter text-foreground md:text-5xl">
-            Conversations that feel natural, at scale
-          </h2>
-          <p className="mt-4 max-w-xl text-lg text-foreground/70">
-            Sally turns WhatsApp into a compounding engine your competitors
-            simply don’t have.
-          </p>
-        </div>
-
-        <div className="mt-24 space-y-24 md:mt-32 md:space-y-32">
-          <FeatureScene feature={features[0]} layout="left" />
-          <FeatureScene feature={features[1]} layout="center" />
-          <FeatureScene feature={features[2]} layout="left" />
+      <div className="container mx-auto px-6 max-w-7xl">
+        <SectionHeader />
+        <div className="mt-16 grid grid-cols-1 gap-8">
+          {/* Row 1 */}
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+            <FeatureCard className="lg:col-span-3">
+              <Feature1 />
+            </FeatureCard>
+            <FeatureCard className="lg:col-span-2">
+              <Feature2 />
+            </FeatureCard>
+          </div>
+          {/* Row 2 */}
+          <FeatureCard>
+            <Feature3 />
+          </FeatureCard>
         </div>
       </div>
     </section>
   );
 }
+
+// --- Sub-components ---
+
+const SectionHeader = () => (
+  <div className="text-center max-w-3xl mx-auto flex flex-col items-center">
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      viewport={{ once: true }}
+      className="inline-flex items-center gap-2 rounded-full px-4 py-1.5"
+      style={{
+        background: 'linear-gradient(to bottom, #F3FBF7, #FFFFFF)',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.03), inset 0 1px 1px #fff',
+        border: '1px solid hsl(150 50% 88% / 0.5)',
+      }}
+    >
+      <div
+        className="size-1.5 rounded-full bg-[#36B57A]"
+        style={{ boxShadow: '0 0 4px 1px rgba(54, 181, 122, 0.5)' }}
+      />
+      <span className="text-xs font-semibold tracking-wide uppercase text-[#1A1A1A]/80">
+        WHY SALLY
+      </span>
+    </motion.div>
+    <motion.h2
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.1 }}
+      viewport={{ once: true }}
+      className="mt-6 font-headline text-4xl md:text-5xl font-bold tracking-tighter text-foreground"
+    >
+      Conversations that feel natural, at scale
+    </motion.h2>
+    <motion.p
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.2 }}
+      viewport={{ once: true }}
+      className="mt-4 max-w-xl text-lg text-foreground/70"
+    >
+      Sally turns WhatsApp into a compounding engine your competitors simply
+      don’t have.
+    </motion.p>
+  </div>
+);
+
+const FeatureCard = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
+    viewport={{ once: true }}
+    className={cn(
+      'relative rounded-3xl p-8 bg-white/50 shadow-soft border border-black/5 backdrop-blur-sm',
+      className
+    )}
+  >
+    {children}
+  </motion.div>
+);
+
+const Feature1 = () => {
+    return (
+        <div className="grid lg:grid-cols-2 gap-8 items-center">
+            <div className="text-left">
+                <h3 className="font-headline text-2xl font-semibold tracking-tight text-foreground">
+                    Get personalised conversations started on WhatsApp instantly
+                </h3>
+                <p className="mt-3 text-base text-foreground/70 max-w-md">
+                    Celly finds the right people in your groups and opens natural, human-sounding chats with them. No effort, no prep, no manual typing.
+                </p>
+            </div>
+            <div className="relative flex items-center justify-center min-h-[250px]">
+                <div className="absolute inset-0 bg-primary/5 rounded-full blur-2xl"></div>
+                <motion.div 
+                    className="relative w-full h-full"
+                    whileHover="hover"
+                >
+                    {/* Central Celly icon */}
+                    <motion.div 
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                        variants={{ hover: { scale: 1.1 } }}
+                    >
+                        <div className="size-16 bg-primary/10 rounded-full flex items-center justify-center shadow-lg">
+                            <div className="size-12 bg-primary/20 rounded-full flex items-center justify-center">
+                                <Bot className="size-6 text-primary" />
+                            </div>
+                        </div>
+                         <div className="absolute inset-0 rounded-full bg-primary/20 blur-lg animate-pulse"></div>
+                    </motion.div>
+
+                    {/* Surrounding bubbles */}
+                    {[...Array(7)].map((_, i) => {
+                        const angle = (i / 7) * 2 * Math.PI;
+                        const radius = 100 + (i % 2) * 20;
+                        return (
+                            <motion.div
+                                key={i}
+                                className="absolute top-1/2 left-1/2"
+                                initial={{ opacity: 0, scale: 0.5 }}
+                                animate={{ opacity: 1, scale: 1, x: `calc(-50% + ${radius * Math.cos(angle)}px)`, y: `calc(-50% + ${radius * Math.sin(angle)}px)` }}
+                                transition={{ type: 'spring', stiffness: 100, damping: 10, delay: 0.5 + i * 0.1 }}
+                                variants={{ hover: { scale: 1.1, zIndex: 10 } }}
+                            >
+                                <div className="p-2.5 bg-white/80 backdrop-blur-sm rounded-lg shadow-md border border-white/50 text-xs text-foreground/60 w-28">
+                                    {i % 2 === 0 ? "Hey, saw you're in GrowthX..." : "Quick question about..."}
+                                </div>
+                            </motion.div>
+                        );
+                    })}
+                </motion.div>
+            </div>
+        </div>
+    );
+};
+
+const Feature2 = () => {
+    return (
+        <div className="flex flex-col text-center h-full">
+            <h3 className="font-headline text-2xl font-semibold tracking-tight text-foreground">
+                It understands every reply and drives the conversation for you
+            </h3>
+            <p className="mt-3 text-base text-foreground/70 max-w-md mx-auto">
+                Celly reads context, picks up intent, asks the right questions, qualifies people, and keeps the chat moving. No workflows. No templates. Just smart, adaptive conversations.
+            </p>
+            <div className="flex-1 flex items-center justify-center mt-6">
+                <div className="relative w-full max-w-xs h-48">
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 px-4 py-2 bg-white rounded-xl shadow-md border border-gray-100">
+                        <p className="text-xs text-foreground">Can you send pricing?</p>
+                    </div>
+                    <svg width="100%" height="100%" viewBox="0 0 200 100" className="absolute top-10 left-0">
+                        {/* Ghosted Paths */}
+                        <motion.path d="M 100 0 Q 30 50, 10 90" stroke="hsl(var(--border) / 0.3)" fill="none" strokeWidth="1.5" strokeDasharray="3 3" />
+                        <motion.path d="M 100 0 Q 170 50, 190 90" stroke="hsl(var(--border) / 0.3)" fill="none" strokeWidth="1.5" strokeDasharray="3 3" />
+
+                        {/* Highlighted Path */}
+                        <motion.path
+                            d="M 100 0 Q 100 50, 100 90"
+                            stroke="url(#line-gradient-2)"
+                            fill="none"
+                            strokeWidth="2"
+                            initial={{ pathLength: 0 }}
+                            whileInView={{ pathLength: 1 }}
+                            transition={{ duration: 1, delay: 0.5, ease: "easeInOut" }}
+                        />
+                         <defs>
+                            <linearGradient id="line-gradient-2" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stopColor="#24D39A" />
+                                <stop offset="100%" stopColor="#13B985" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex items-start gap-2">
+                        <div className="size-7 flex-shrink-0 flex items-center justify-center rounded-full bg-primary"><Bot className="size-4 text-white"/></div>
+                        <div className="px-4 py-2 bg-primary/10 rounded-xl">
+                            <p className="text-xs text-primary-foreground font-medium">Annual or monthly?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const Feature3 = () => {
+    return (
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="text-left">
+                <h3 className="font-headline text-2xl font-semibold tracking-tight text-foreground">
+                    Built on the channel people trust the most
+                </h3>
+                <p className="mt-3 text-base text-foreground/70 max-w-md">
+                    WhatsApp gets faster, more honest replies than LinkedIn or email. Celly turns this trust into a real advantage — more responses, better conversations, higher conversions.
+                </p>
+            </div>
+             <div className="relative flex items-center justify-center min-h-[250px] overflow-hidden">
+                {/* Sphere */}
+                <motion.div 
+                    className="absolute w-[400px] h-[400px] -bottom-48 bg-gradient-to-t from-primary/30 to-primary/10 rounded-full"
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+                >
+                     <div className="absolute inset-0 rounded-full opacity-5" style={{
+                         backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 800 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.4' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")"
+                     }}></div>
+                </motion.div>
+                
+                {/* Benefit Cards */}
+                <div className="relative z-10 w-full h-full">
+                    <BenefitCard icon={Zap} text="Faster replies" className="absolute top-0 left-8" delay={0.4} />
+                    <BenefitCard icon={MessageCircle} text="Honest conversations" className="absolute top-16 right-0" delay={0.6} />
+                    <BenefitCard icon={TrendingUp} text="Higher conversions" className="absolute top-32 left-20" delay={0.8} />
+                </div>
+            </div>
+        </div>
+    );
+};
+
+
+const BenefitCard = ({ icon: Icon, text, className, delay }: { icon: React.ElementType, text: string, className?: string, delay: number }) => (
+    <motion.div
+        className={cn("flex items-center gap-3 p-3 bg-white/70 backdrop-blur-md rounded-2xl shadow-lg border-white/20", className)}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay }}
+        viewport={{ once: true }}
+    >
+        <div className="flex size-8 items-center justify-center rounded-full bg-primary/10">
+            <Icon className="size-4 text-primary" />
+        </div>
+        <p className="font-medium text-foreground text-sm">{text}</p>
+    </motion.div>
+);
