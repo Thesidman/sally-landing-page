@@ -4,7 +4,7 @@ import { WhySallySection } from '@/components/sally/why-sally-section';
 
 export default function Home() {
   return (
-    <div className="relative flex flex-col min-h-screen">
+    <div className="relative flex flex-col min-h-screen bg-[#F9FAF8]">
       <div
         className="absolute inset-0 -z-20 opacity-70"
         style={{
@@ -13,12 +13,12 @@ export default function Home() {
         }}
       ></div>
       <div
-        className="absolute inset-0 -z-10 opacity-50"
+        className="absolute inset-0 -z-10"
         style={{
           backgroundImage:
             'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 800 800\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E")',
           backgroundSize: 'cover',
-          opacity: 0.05,
+          opacity: 0.04,
         }}
       ></div>
       <Header />

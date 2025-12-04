@@ -1,7 +1,12 @@
 'use client';
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Bot, Check, MessageCircle, TrendingUp } from 'lucide-react';
+import {
+  Bot,
+  Check,
+  MessageCircle,
+  TrendingUp,
+} from 'lucide-react';
 import { Card } from '@/components/ui/card';
 
 const Dot = () => (
