@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
   Bot,
@@ -9,7 +9,6 @@ import {
   Zap,
   Sparkles,
   BrainCircuit,
-  ArrowRight,
 } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -90,104 +89,117 @@ const WhatsAppBubble = ({
   </div>
 );
 
-const ConstellationVisual = () => (
-  <motion.div
-    className="relative flex h-[400px] w-full items-center justify-center"
-    initial="initial"
-    whileInView="animate"
-    viewport={{ once: true }}
-  >
-    <motion.div
-      className="absolute inset-0 rounded-3xl"
-      style={{
-        background:
-          'radial-gradient(circle at center, rgba(227, 247, 238, 0.5), transparent 70%)',
-      }}
-    ></motion.div>
+const ConstellationVisual = () => {
+  const [points, setPoints] = useState<Array<{ top: string; left: string }>>([]);
 
-    {[...Array(15)].map((_, i) => (
+  useEffect(() => {
+    setPoints(
+      [...Array(15)].map(() => ({
+        top: `${10 + Math.random() * 80}%`,
+        left: `${10 + Math.random() * 80}%`,
+      }))
+    );
+  }, []);
+
+  return (
+    <motion.div
+      className="relative flex h-[400px] w-full items-center justify-center"
+      initial="initial"
+      whileInView="animate"
+      viewport={{ once: true }}
+    >
       <motion.div
-        key={i}
-        className="absolute h-1 w-1 rounded-full bg-mint-400/50"
+        className="absolute inset-0 rounded-3xl"
         style={{
-          top: `${10 + Math.random() * 80}%`,
-          left: `${10 + Math.random() * 80}%`,
-        }}
-        variants={{
-          initial: { opacity: 0 },
-          animate: {
-            opacity: [0, 1, 0],
-            transition: {
-              duration: 2 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-            },
-          },
+          background:
+            'radial-gradient(circle at center, rgba(227, 247, 238, 0.5), transparent 70%)',
         }}
       ></motion.div>
-    ))}
 
-    <motion.div
-      variants={{
-        initial: { opacity: 0, scale: 0.8 },
-        animate: {
-          opacity: 1,
-          scale: 1,
-          transition: { delay: 0.3, duration: 0.7, ease: 'easeOut' },
-        },
-      }}
-      className="absolute"
-    >
-      <WhatsAppBubble
-        className="w-48"
-        text="Hey! Saw you were checking out..."
-        isSally
-      />
+      {points.map((point, i) => (
+        <motion.div
+          key={i}
+          className="absolute h-1 w-1 rounded-full bg-mint-400/50"
+          style={{
+            top: point.top,
+            left: point.left,
+          }}
+          variants={{
+            initial: { opacity: 0 },
+            animate: {
+              opacity: [0, 1, 0],
+              transition: {
+                duration: 2 + Math.random() * 2,
+                repeat: Infinity,
+                delay: Math.random() * 2,
+              },
+            },
+          }}
+        ></motion.div>
+      ))}
+
+      <motion.div
+        variants={{
+          initial: { opacity: 0, scale: 0.8 },
+          animate: {
+            opacity: 1,
+            scale: 1,
+            transition: { delay: 0.3, duration: 0.7, ease: 'easeOut' },
+          },
+        }}
+        className="absolute"
+      >
+        <WhatsAppBubble
+          className="w-48"
+          text="Hey! Saw you were checking out..."
+          isSally
+        />
+      </motion.div>
+      <motion.div
+        variants={{
+          initial: { opacity: 0, x: -20 },
+          animate: {
+            opacity: 1,
+            x: 0,
+            transition: { delay: 0.6, duration: 0.7, ease: 'easeOut' },
+          },
+        }}
+        className="absolute top-1/4 left-0"
+      >
+        <WhatsAppBubble className="w-40" text="Great to connect! I wanted to..." />
+      </motion.div>
+      <motion.div
+        variants={{
+          initial: { opacity: 0, x: 20 },
+          animate: {
+            opacity: 1,
+            x: 0,
+            transition: { delay: 0.8, duration: 0.7, ease: 'easeOut' },
+          },
+        }}
+        className="absolute top-1/3 right-0"
+      >
+        <WhatsAppBubble
+          className="w-36"
+          text="Following up on our last chat..."
+        />
+      </motion.div>
+      <motion.div
+        variants={{
+          initial: { opacity: 0, y: 20 },
+          animate: {
+            opacity: 1,
+            y: 0,
+            transition: { delay: 1, duration: 0.7, ease: 'easeOut' },
+          },
+        }}
+        className="absolute bottom-1/4 left-1/4"
+      >
+        <WhatsAppBubble className="w-32" text="Any questions about the trial?" />
+      </motion.div>
     </motion.div>
-    <motion.div
-      variants={{
-        initial: { opacity: 0, x: -20 },
-        animate: {
-          opacity: 1,
-          x: 0,
-          transition: { delay: 0.6, duration: 0.7, ease: 'easeOut' },
-        },
-      }}
-      className="absolute top-1/4 left-0"
-    >
-      <WhatsAppBubble className="w-40" text="Great to connect! I wanted to..." />
-    </motion.div>
-    <motion.div
-      variants={{
-        initial: { opacity: 0, x: 20 },
-        animate: {
-          opacity: 1,
-          x: 0,
-          transition: { delay: 0.8, duration: 0.7, ease: 'easeOut' },
-        },
-      }}
-      className="absolute top-1/3 right-0"
-    >
-      <WhatsAppBubble
-        className="w-36"
-        text="Following up on our last chat..."
-      />
-    </motion.div>
-    <motion.div
-      variants={{
-        initial: { opacity: 0, y: 20 },
-        animate: {
-          opacity: 1,
-          y: 0,
-          transition: { delay: 1, duration: 0.7, ease: 'easeOut' },
-        },
-      }}
-      className="absolute bottom-1/4 left-1/4"
-    >
-      <WhatsAppBubble className="w-32" text="Any questions about the trial?" />
-    </motion.div>
-  </motion.div>
-);
+  );
+};
 
 const IntelligenceTreeVisual = () => (
   <div className="relative w-full max-w-2xl mx-auto h-[350px]">
