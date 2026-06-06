@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#080808">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>LOOP OS</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080808;--surface:#111;--surface2:#1a1a1a;--border:#222;
+  --text:#e8e8e8;--muted:#555;--muted2:#777;
+  --fire:#ff3b3b;--warn:#ff9500;--win:#30d158;--blue:#0a84ff;--purple:#bf5af2;
+  --font:'SF Mono','Fira Code','Courier New',monospace
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:13px;line-height:1.5;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+#root{max-width:480px;margin:0 auto;min-height:100vh;position:relative}
+::-webkit-scrollbar{width:2px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border)}
+.screen{min-height:100vh;padding-bottom:80px;animation:fadeIn .15s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.header{position:sticky;top:0;background:rgba(8,8,8,.96);backdrop-filter:blur(12px);padding:16px 20px 12px;z-index:100;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:8px}
+.header-title{font-size:11px;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;text-align:center}
+.header-btn{font-size:11px;color:var(--blue);background:none;border:none;cursor:pointer;padding:4px 0;letter-spacing:.05em;white-space:nowrap;font-family:var(--font);min-width:40px}
+.header-btn.right{text-align:right}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(8,8,8,.97);backdrop-filter:blur(12px);border-top:1px solid var(--border);display:flex;align-items:center;padding:8px 0 max(8px,env(safe-area-inset-bottom));z-index:200}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;padding:6px 0;color:var(--muted);font-family:var(--font);font-size:9px;letter-spacing:.1em;text-transform:uppercase;transition:color .15s}
+.nav-btn.active{color:var(--text)}
+.nav-icon{font-size:17px;line-height:1}
+.section{padding:20px}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.section-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase}
+.section-label.fire{color:var(--fire)}.section-label.week{color:var(--warn)}.section-label.watch{color:var(--blue)}
+.section-count{font-size:10px;color:var(--muted)}
+.loop-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:14px;margin-bottom:8px;cursor:pointer;transition:background .1s;position:relative;overflow:hidden}
+.loop-card:active{background:var(--surface2)}
+.loop-card.fire-card{border-left:2px solid var(--fire)}.loop-card.week-card{border-left:2px solid var(--warn)}.loop-card.watch-card{border-left:2px solid var(--blue)}.loop-card.closed-card{border-left:2px solid var(--border);opacity:.6}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
+.card-title{font-size:14px;font-weight:600;color:var(--text);flex:1;line-height:1.3}
+.card-p{font-size:10px;color:var(--muted);white-space:nowrap;padding-top:2px}
+.card-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.meta{font-size:10px;color:var(--muted);letter-spacing:.04em}
+.meta.urgent{color:var(--fire)}.meta.soon{color:var(--warn)}.meta.ok{color:var(--win)}
+.card-note{margin-top:8px;font-size:11px;color:var(--muted2);border-top:1px solid var(--border);padding-top:8px;font-style:italic}
+.badge{display:inline-block;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:2px 6px;border-radius:3px;border:1px solid}
+.badge.not_started{color:var(--muted);border-color:var(--border)}
+.badge.in_progress{color:var(--warn);border-color:var(--warn);background:rgba(255,149,0,.08)}
+.badge.blocked{color:var(--fire);border-color:var(--fire);background:rgba(255,59,59,.08)}
+.badge.won{color:var(--win);border-color:var(--win);background:rgba(48,209,88,.08)}
+.badge.lost{color:var(--muted);border-color:var(--border);text-decoration:line-through}
+.empty{text-align:center;padding:20px;color:var(--muted);font-size:11px;letter-spacing:.05em}
+.divider{height:1px;background:var(--border);margin:0}
+.fab{position:fixed;bottom:72px;right:calc(50% - 220px);width:48px;height:48px;background:var(--text);border-radius:50%;border:none;color:var(--bg);font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.6);z-index:150;transition:transform .15s;font-family:var(--font)}
+.fab:active{transform:scale(.93)}
+@media(max-width:480px){.fab{right:20px}}
+.form{padding:20px}
+.fg{margin-bottom:20px}
+.fl{display:block;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.fl .err{color:var(--fire)}
+input.fi,textarea.fi,select.fi{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:4px;color:var(--text);font-family:var(--font);font-size:13px;padding:10px 12px;outline:none;transition:border-color .15s;-webkit-appearance:none;appearance:none}
+input.fi:focus,textarea.fi:focus,select.fi:focus{border-color:var(--blue)}
+textarea.fi{resize:none;min-height:70px;line-height:1.5}
+select.fi{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23555'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+select.fi option{background:#1a1a1a}
+.range-row{display:flex;align-items:center;gap:12px}
+input[type=range]{flex:1;-webkit-appearance:none;height:2px;background:var(--border);border-radius:1px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--text);cursor:pointer}
+.range-val{font-size:16px;min-width:32px;text-align:right;color:var(--text)}
+.toggle-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.toggle-btn{background:var(--surface);border:1px solid var(--border);border-radius:4px;color:var(--muted);font-family:var(--font);font-size:11px;padding:10px 8px;cursor:pointer;text-align:center;transition:all .15s;letter-spacing:.04em;line-height:1.4}
+.toggle-btn.active{background:var(--surface2);border-color:var(--text);color:var(--text)}
+.btn{display:block;width:100%;background:var(--text);color:var(--bg);border:none;border-radius:4px;font-family:var(--font);font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:14px;cursor:pointer;transition:opacity .15s;margin-bottom:0}
+.btn:active{opacity:.8}
+.btn.danger{background:var(--fire);color:#fff}
+.btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--border)}
+.btn.win{background:var(--win);color:#000}
+.btn.sm{padding:10px;font-size:11px}
+.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ds{padding:16px 20px;border-bottom:1px solid var(--border)}
+.df{margin-bottom:14px}
+.df:last-child{margin-bottom:0}
+.dl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.dv{font-size:13px;color:var(--text)}
+.dv.dim{color:var(--muted);font-style:italic}
+.notes-list{padding:0 20px 20px}
+.note-row{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.note-date{font-size:10px;color:var(--muted);white-space:nowrap;padding-top:1px}
+.note-txt{font-size:12px;color:var(--text);flex:1}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.87);z-index:400;display:flex;align-items:flex-end;animation:olIn .2s ease}
+@keyframes olIn{from{opacity:0}to{opacity:1}}
+.sheet{background:var(--surface);border-top:1px solid var(--border);border-radius:12px 12px 0 0;padding:24px 20px max(24px,env(safe-area-inset-bottom));width:100%;animation:shUp .25s ease}
+@keyframes shUp{from{transform:translateY(100%)}to{transform:none}}
+.sheet-title{font-size:12px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:4px}
+.sheet-sub{font-size:11px;color:var(--muted);margin-bottom:20px;line-height:1.5}
+.status-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.sopt{background:var(--surface2);border:1px solid var(--border);border-radius:4px;color:var(--muted);font-family:var(--font);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:10px 8px;cursor:pointer;text-align:center;transition:all .15s}
+.sopt.active{border-color:var(--text);color:var(--text);background:var(--bg)}
+.sopt.active.won{border-color:var(--win);color:var(--win)}
+.sopt.active.lost{border-color:var(--fire);color:var(--fire)}
+.sopt.active.blocked{border-color:var(--fire);color:var(--fire)}
+.checkin-banner{margin:16px 20px 0;background:rgba(10,132,255,.08);border:1px solid rgba(10,132,255,.25);border-radius:6px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+.checkin-banner-txt{font-size:11px;color:var(--blue);letter-spacing:.05em}
+.ci-card{margin:20px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px}
+.ci-prog{font-size:10px;color:var(--muted);letter-spacing:.1em;text-align:center;padding:16px 0 0}
+.dots{display:flex;justify-content:center;gap:6px;padding:16px 0}
+.dot{width:6px;height:6px;border-radius:50%;transition:background .2s}
+.bw-item{padding:16px 20px;border-bottom:1px solid var(--border)}
+.bar-track{height:3px;background:var(--border);border-radius:2px;margin-top:8px;overflow:hidden}
+.bar-fill{height:100%;border-radius:2px;transition:width .4s ease}
+input[type=date]::-webkit-calendar-picker-indicator{filter:invert(.4);cursor:pointer}
+input[type=date]{color-scheme:dark}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+const STORE = 'loopOS_v2';
+const CI_KEY = 'loopOS_ci';
+
+const uid = () => Math.random().toString(36).slice(2,9) + Date.now().toString(36).slice(-4);
+const todayStr = () => new Date().toISOString().slice(0,10);
+
+function daysUntil(d) {
+  const target = new Date(d + 'T00:00:00');
+  const now = new Date(); now.setHours(0,0,0,0);
+  return Math.round((target - now) / 86400000);
+}
+
+function dlLabel(d) {
+  const n = daysUntil(d);
+  if (n < 0) return `${Math.abs(n)}d overdue`;
+  if (n === 0) return 'due today';
+  if (n === 1) return 'due tomorrow';
+  return `${n}d left`;
+}
+
+function dlClass(d) {
+  const n = daysUntil(d);
+  return n < 0 ? 'urgent' : n <= 2 ? 'soon' : 'ok';
+}
+
+const isActive = l => l.status !== 'won' && l.status !== 'lost';
+
+function onFire(l) {
+  if (!isActive(l)) return false;
+  return l.status === 'blocked' || daysUntil(l.deadline) < 0;
+}
+
+function watching(l) {
+  if (!isActive(l) || onFire(l)) return false;
+  return l.type === 'delegate';
+}
+
+function thisWeek(l) {
+  if (!isActive(l) || onFire(l) || watching(l)) return false;
+  return true;
+}
+
+function cardSection(l) {
+  if (onFire(l)) return 'fire';
+  if (watching(l)) return 'watch';
+  if (thisWeek(l)) return 'week';
+  return 'closed';
+}
+
+function lastNote(l) {
+  return l.dailyNotes?.length ? l.dailyNotes[l.dailyNotes.length - 1] : null;
+}
+
+function checkedInToday(loops) {
+  if (!loops.filter(isActive).length) return true;
+  return localStorage.getItem(CI_KEY) === todayStr();
+}
+
+const blankLoop = () => ({
+  id: uid(), title: '', type: 'execute', priority: 5, bandwidth: 10,
+  deadline: '', winCondition: '', lossCondition: '', quantMetric: '',
+  qualMetric: '', status: 'not_started', blocker: '',
+  dailyNotes: [], closureNote: '', createdAt: new Date().toISOString()
+});
+
+// ── Badge ──────────────────────────────────────────────────────────────────
+function Badge({ status }) {
+  const map = { not_started:'Not Started', in_progress:'In Progress', blocked:'Blocked', won:'Won', lost:'Lost' };
+  return <span className={`badge ${status}`}>{map[status]}</span>;
+}
+
+// ── Loop Card ──────────────────────────────────────────────────────────────
+function LoopCard({ loop, onClick }) {
+  const sec = cardSection(loop);
+  const ln = lastNote(loop);
+  return (
+    <div className={`loop-card ${sec}-card`} onClick={onClick}>
+      <div className="card-top">
+        <div className="card-title">{loop.title}</div>
+        <div className="card-p">P{loop.priority}</div>
+      </div>
+      <div className="card-meta">
+        <Badge status={loop.status} />
+        {isActive(loop) && <span className={`meta ${dlClass(loop.deadline)}`}>{dlLabel(loop.deadline)}</span>}
+        <span className="meta">{loop.bandwidth}% bw</span>
+        {loop.type === 'delegate' && <span className="meta" style={{color:'var(--blue)'}}>delegated</span>}
+      </div>
+      {loop.status === 'blocked' && loop.blocker &&
+        <div className="card-note" style={{color:'var(--fire)'}}>⚠ {loop.blocker}</div>}
+      {ln && ln.date === todayStr() &&
+        <div className="card-note">↳ {ln.note}</div>}
+    </div>
+  );
+}
+
+// ── Closure Sheet ──────────────────────────────────────────────────────────
+function ClosureSheet({ outcome, onConfirm, onCancel }) {
+  const [note, setNote] = useState('');
+  const ta = useRef();
+  useEffect(() => { setTimeout(() => ta.current?.focus(), 300); }, []);
+  return (
+    <div className="overlay" onClick={onCancel}>
+      <div className="sheet" onClick={e => e.stopPropagation()}>
+        <div className="sheet-title" style={{color: outcome==='won'?'var(--win)':'var(--fire)'}}>
+          {outcome === 'won' ? 'Close as Win' : 'Close as Loss'}
+        </div>
+        <div className="sheet-sub">One sentence. What happened? No closure without reflection.</div>
+        <div className="fg">
+          <textarea ref={ta} className="fi" style={{minHeight:80}}
+            placeholder="What actually happened with this loop?"
+            value={note} onChange={e => setNote(e.target.value)} />
+        </div>
+        <button className={`btn ${outcome==='won'?'win':'danger'}`}
+          style={{opacity: note.trim() ? 1 : .35, marginBottom:8}}
+          onClick={() => note.trim() && onConfirm(note.trim())}>
+          {outcome === 'won' ? 'Mark Won ✓' : 'Mark Lost ✗'}
+        </button>
+        <button className="btn ghost" onClick={onCancel}>Cancel</button>
+      </div>
+    </div>
+  );
+}
+
+// ── Home ───────────────────────────────────────────────────────────────────
+function HomeView({ loops, onSelect, onNew, onCheckin }) {
+  const fire = loops.filter(onFire).sort((a,b) => daysUntil(a.deadline)-daysUntil(b.deadline));
+  const week = loops.filter(thisWeek).sort((a,b) => daysUntil(a.deadline)-daysUntil(b.deadline));
+  const watch = loops.filter(watching).sort((a,b) => b.priority-a.priority);
+  const needCI = !checkedInToday(loops);
+  const activeN = loops.filter(isActive).length;
+
+  return (
+    <div className="screen">
+      <div className="header">
+        <div style={{width:40}} />
+        <div className="header-title">LOOP OS</div>
+        <div style={{fontSize:10,color:'var(--muted)',width:40,textAlign:'right'}}>{activeN} open</div>
+      </div>
+      {needCI && activeN > 0 && (
+        <div className="checkin-banner" onClick={onCheckin}>
+          <div className="checkin-banner-txt">Morning check-in pending →</div>
+        </div>
+      )}
+      <div className="section">
+        <div className="section-header">
+          <span className="section-label fire">On Fire</span>
+          <span className="section-count">{fire.length}</span>
+        </div>
+        {fire.length ? fire.map(l => <LoopCard key={l.id} loop={l} onClick={() => onSelect(l)} />)
+          : <div className="empty">Nothing burning</div>}
+      </div>
+      <div className="divider" />
+      <div className="section">
+        <div className="section-header">
+          <span className="section-label week">This Week</span>
+          <span className="section-count">{week.length}</span>
+        </div>
+        {week.length ? week.map(l => <LoopCard key={l.id} loop={l} onClick={() => onSelect(l)} />)
+          : <div className="empty">Clear runway</div>}
+      </div>
+      <div className="divider" />
+      <div className="section">
+        <div className="section-header">
+          <span className="section-label watch">Watching</span>
+          <span className="section-count">{watch.length}</span>
+        </div>
+        {watch.length ? watch.map(l => <LoopCard key={l.id} loop={l} onClick={() => onSelect(l)} />)
+          : <div className="empty">Nothing delegated</div>}
+      </div>
+      <button className="fab" onClick={onNew}>+</button>
+    </div>
+  );
+}
+
+// ── All Loops ──────────────────────────────────────────────────────────────
+function AllView({ loops, onSelect, onNew }) {
+  const [tab, setTab] = useState('active');
+  const list = loops
+    .filter(l => tab === 'active' ? isActive(l) : !isActive(l))
+    .sort((a,b) => {
+      if (!isActive(a) && isActive(b)) return 1;
+      if (isActive(a) && !isActive(b)) return -1;
+      return daysUntil(a.deadline) - daysUntil(b.deadline);
+    });
+  const tabBtn = (id, label) => (
+    <button onClick={() => setTab(id)} style={{
+      background:'none',border:'none',cursor:'pointer',fontFamily:'var(--font)',
+      fontSize:10,letterSpacing:'.1em',textTransform:'uppercase',padding:'4px 0',
+      color: tab===id ? 'var(--text)' : 'var(--muted)', borderBottom: tab===id ? '1px solid var(--text)' : '1px solid transparent'
+    }}>{label}</button>
+  );
+  return (
+    <div className="screen">
+      <div className="header">
+        <div style={{width:40}} />
+        <div className="header-title">All Loops</div>
+        <div style={{display:'flex',gap:16,width:80,justifyContent:'flex-end'}}>
+          {tabBtn('active','Active')}
+          {tabBtn('closed','Closed')}
+        </div>
+      </div>
+      <div className="section">
+        {list.length ? list.map(l => <LoopCard key={l.id} loop={l} onClick={() => onSelect(l)} />)
+          : <div className="empty">No loops here</div>}
+      </div>
+      <button className="fab" onClick={onNew}>+</button>
+    </div>
+  );
+}
+
+// ── New Loop Form ──────────────────────────────────────────────────────────
+function NewLoopView({ onSave, onBack }) {
+  const [f, setF] = useState(blankLoop());
+  const [errs, setErrs] = useState({});
+  const set = (k,v) => setF(p => ({...p, [k]:v}));
+
+  function submit() {
+    const e = {};
+    if (!f.title.trim()) e.title = true;
+    if (!f.deadline) e.deadline = true;
+    if (!f.winCondition.trim()) e.win = true;
+    if (!f.lossCondition.trim()) e.loss = true;
+    setErrs(e);
+    if (!Object.keys(e).length) onSave(f);
+  }
+
+  return (
+    <div className="screen">
+      <div className="header">
+        <button className="header-btn" onClick={onBack}>← Back</button>
+        <div className="header-title">New Loop</div>
+        <div style={{width:40}} />
+      </div>
+      <div className="form">
+        <div className="fg">
+          <label className="fl">Title {errs.title && <span className="err">*required</span>}</label>
+          <input className="fi" placeholder="What is this loop?" value={f.title}
+            onChange={e => set('title', e.target.value)} />
+        </div>
+        <div className="fg">
+          <label className="fl">Type</label>
+          <div className="toggle-row">
+            <button className={`toggle-btn ${f.type==='execute'?'active':''}`} onClick={() => set('type','execute')}>Execute myself</button>
+            <button className={`toggle-btn ${f.type==='delegate'?'active':''}`} onClick={() => set('type','delegate')}>Delegate + monitor</button>
+          </div>
+        </div>
+        <div className="fg">
+          <label className="fl">Priority</label>
+          <div className="range-row">
+            <input type="range" min="1" max="10" value={f.priority} onChange={e => set('priority', +e.target.value)} />
+            <span className="range-val">{f.priority}</span>
+          </div>
+        </div>
+        <div className="fg">
+          <label className="fl">Bandwidth allocation</label>
+          <div className="range-row">
+            <input type="range" min="5" max="100" step="5" value={f.bandwidth} onChange={e => set('bandwidth', +e.target.value)} />
+            <span className="range-val">{f.bandwidth}%</span>
+          </div>
+        </div>
+        <div className="fg">
+          <label className="fl">Hard deadline {errs.deadline && <span className="err">*required</span>}</label>
+          <input className="fi" type="date" value={f.deadline} onChange={e => set('deadline', e.target.value)} />
+        </div>
+        <div className="fg">
+          <label className="fl">Win condition {errs.win && <span className="err">*required</span>}</label>
+          <textarea className="fi" placeholder="Specific, measurable. What does done look like?"
+            value={f.winCondition} onChange={e => set('winCondition', e.target.value)} />
+        </div>
+        <div className="fg">
+          <label className="fl">Loss condition {errs.loss && <span className="err">*required</span>}</label>
+          <textarea className="fi" placeholder="At what point do you kill this and call it a loss?"
+            value={f.lossCondition} onChange={e => set('lossCondition', e.target.value)} />
+        </div>
+        <div className="fg">
+          <label className="fl">Quantitative metric</label>
+          <input className="fi" placeholder="The number that moves if this is working"
+            value={f.quantMetric} onChange={e => set('quantMetric', e.target.value)} />
+        </div>
+        <div className="fg">
+          <label className="fl">Qualitative metric</label>
+          <input className="fi" placeholder="What can you feel/observe if this is working?"
+            value={f.qualMetric} onChange={e => set('qualMetric', e.target.value)} />
+        </div>
+        <div className="fg">
+          <label className="fl">Initial status</label>
+          <select className="fi" value={f.status} onChange={e => set('status', e.target.value)}>
+            <option value="not_started">Not Started</option>
+            <option value="in_progress">In Progress</option>
+            <option value="blocked">Blocked</option>
+          </select>
+        </div>
+        {f.status === 'blocked' && (
+          <div className="fg">
+            <label className="fl">Blocker</label>
+            <input className="fi" placeholder="What is blocking this?" value={f.blocker}
+              onChange={e => set('blocker', e.target.value)} />
+          </div>
+        )}
+        <button className="btn" onClick={submit}>Open Loop →</button>
+      </div>
+    </div>
+  );
+}
+
+// ── Loop Detail ────────────────────────────────────────────────────────────
+function DetailView({ loop, onBack, onUpdate, onDelete }) {
+  const [editing, setEditing] = useState(false);
+  const [ef, setEf] = useState({...loop});
+  const [newNote, setNewNote] = useState('');
+  const [closure, setClosure] = useState(null);
+  const eset = (k,v) => setEf(p => ({...p,[k]:v}));
+  const closed = !isActive(loop);
+
+  useEffect(() => { setEf({...loop}); }, [loop.id]);
+
+  function changeStatus(s) {
+    if (s === 'won' || s === 'lost') { setClosure(s); return; }
+    onUpdate({...loop, status:s, blocker: s !== 'blocked' ? '' : loop.blocker});
+  }
+
+  function handleClosure(note) {
+    onUpdate({...loop, status: closure, closureNote: note});
+    setClosure(null);
+  }
+
+  function addNote() {
+    if (!newNote.trim()) return;
+    onUpdate({...loop, dailyNotes: [...(loop.dailyNotes||[]), {date:todayStr(), note:newNote.trim()}]});
+    setNewNote('');
+  }
+
+  function saveEdit() {
+    onUpdate({...ef});
+    setEditing(false);
+  }
+
+  function updateBlocker(val) {
+    onUpdate({...loop, blocker: val, status: val ? 'blocked' : loop.status==='blocked' ? 'in_progress' : loop.status});
+  }
+
+  const dlN = daysUntil(loop.deadline);
+  const dlColor = dlN < 0 ? 'var(--fire)' : dlN <= 2 ? 'var(--warn)' : 'var(--win)';
+
+  if (editing) return (
+    <div className="screen">
+      <div className="header">
+        <button className="header-btn" onClick={() => setEditing(false)}>← Cancel</button>
+        <div className="header-title">Edit Loop</div>
+        <button className="header-btn right" style={{color:'var(--win)'}} onClick={saveEdit}>Save</button>
+      </div>
+      <div className="form">
+        <div className="fg"><label className="fl">Title</label>
+          <input className="fi" value={ef.title} onChange={e => eset('title',e.target.value)} /></div>
+        <div className="fg"><label className="fl">Type</label>
+          <div className="toggle-row">
+            <button className={`toggle-btn ${ef.type==='execute'?'active':''}`} onClick={() => eset('type','execute')}>Execute myself</button>
+            <button className={`toggle-btn ${ef.type==='delegate'?'active':''}`} onClick={() => eset('type','delegate')}>Delegate + monitor</button>
+          </div></div>
+        <div className="fg"><label className="fl">Priority</label>
+          <div className="range-row"><input type="range" min="1" max="10" value={ef.priority} onChange={e => eset('priority',+e.target.value)} />
+          <span className="range-val">{ef.priority}</span></div></div>
+        <div className="fg"><label className="fl">Bandwidth</label>
+          <div className="range-row"><input type="range" min="5" max="100" step="5" value={ef.bandwidth} onChange={e => eset('bandwidth',+e.target.value)} />
+          <span className="range-val">{ef.bandwidth}%</span></div></div>
+        <div className="fg"><label className="fl">Deadline</label>
+          <input className="fi" type="date" value={ef.deadline} onChange={e => eset('deadline',e.target.value)} /></div>
+        <div className="fg"><label className="fl">Win condition</label>
+          <textarea className="fi" value={ef.winCondition} onChange={e => eset('winCondition',e.target.value)} /></div>
+        <div className="fg"><label className="fl">Loss condition</label>
+          <textarea className="fi" value={ef.lossCondition} onChange={e => eset('lossCondition',e.target.value)} /></div>
+        <div className="fg"><label className="fl">Quantitative metric</label>
+          <input className="fi" value={ef.quantMetric} onChange={e => eset('quantMetric',e.target.value)} /></div>
+        <div className="fg"><label className="fl">Qualitative metric</label>
+          <input className="fi" value={ef.qualMetric} onChange={e => eset('qualMetric',e.target.value)} /></div>
+        <div style={{height:16}} />
+        <button className="btn danger" onClick={() => { if(confirm('Delete this loop?')) onDelete(); }}>Delete Loop</button>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="screen">
+      {closure && <ClosureSheet outcome={closure} onConfirm={handleClosure} onCancel={() => setClosure(null)} />}
+      <div className="header">
+        <button className="header-btn" onClick={onBack}>← Back</button>
+        <div className="header-title">{loop.title}</div>
+        {!closed && <button className="header-btn right" onClick={() => setEditing(true)}>Edit</button>}
+        {closed && <div style={{width:40}} />}
+      </div>
+
+      {/* Closed banner */}
+      {closed && (
+        <div className="ds" style={{background: loop.status==='won' ? 'rgba(48,209,88,.05)' : 'rgba(255,59,59,.05)'}}>
+          <div style={{display:'flex',alignItems:'center',gap:10,marginBottom: loop.closureNote ? 8 : 0}}>
+            <span style={{fontSize:22}}>{loop.status==='won' ? '✓' : '✗'}</span>
+            <span style={{fontSize:10,letterSpacing:'.15em',textTransform:'uppercase',color: loop.status==='won'?'var(--win)':'var(--fire)'}}>
+              {loop.status==='won' ? 'WON' : 'LOST'}
+            </span>
+          </div>
+          {loop.closureNote && <div style={{fontSize:13,fontStyle:'italic',color:'var(--muted2)'}}>"{loop.closureNote}"</div>}
+        </div>
+      )}
+
+      {/* Status controls */}
+      {!closed && (
+        <div className="ds">
+          <div className="dl" style={{marginBottom:10}}>Status</div>
+          <div className="status-grid">
+            {['not_started','in_progress','blocked','won','lost'].map(s => (
+              <button key={s} className={`sopt ${loop.status===s?'active '+s:''}`} onClick={() => changeStatus(s)}>
+                {s==='not_started'?'Not Started':s==='in_progress'?'In Progress':s==='blocked'?'Blocked':s==='won'?'Won ✓':'Lost ✗'}
+              </button>
+            ))}
+          </div>
+          {loop.status === 'blocked' && (
+            <div>
+              <label className="fl" style={{marginBottom:6}}>Blocker</label>
+              <div style={{display:'flex',gap:8}}>
+                <input className="fi" style={{flex:1}} placeholder="What is blocking this?"
+                  defaultValue={loop.blocker}
+                  onBlur={e => updateBlocker(e.target.value)}
+                  onKeyDown={e => e.key==='Enter' && updateBlocker(e.target.value)} />
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Core info */}
+      <div className="ds">
+        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:16,marginBottom:14}}>
+          <div className="df" style={{marginBottom:0}}>
+            <div className="dl">Deadline</div>
+            <div className="dv" style={{color:dlColor}}>{dlLabel(loop.deadline)}</div>
+            <div style={{fontSize:11,color:'var(--muted)',marginTop:2}}>
+              {new Date(loop.deadline+'T00:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}
+            </div>
+          </div>
+          <div className="df" style={{marginBottom:0}}>
+            <div className="dl">Type</div>
+            <div className="dv" style={{fontSize:11}}>{loop.type==='execute'?'Execute myself':'Delegate + monitor'}</div>
+          </div>
+        </div>
+        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:16}}>
+          <div className="df" style={{marginBottom:0}}>
+            <div className="dl">Priority</div>
+            <div className="dv">{loop.priority}/10</div>
+          </div>
+          <div className="df" style={{marginBottom:0}}>
+            <div className="dl">Bandwidth</div>
+            <div className="dv">{loop.bandwidth}%</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Conditions */}
+      <div className="ds">
+        <div className="df">
+          <div className="dl">Win condition</div>
+          <div className="dv">{loop.winCondition || <span className="dim">—</span>}</div>
+        </div>
+        <div className="df">
+          <div className="dl">Loss condition</div>
+          <div className="dv">{loop.lossCondition || <span className="dim">—</span>}</div>
+        </div>
+      </div>
+
+      {/* Metrics */}
+      {(loop.quantMetric || loop.qualMetric) && (
+        <div className="ds">
+          {loop.quantMetric && <div className="df">
+            <div className="dl">Quant metric</div>
+            <div className="dv">{loop.quantMetric}</div>
+          </div>}
+          {loop.qualMetric && <div className="df">
+            <div className="dl">Qual metric</div>
+            <div className="dv">{loop.qualMetric}</div>
+          </div>}
+        </div>
+      )}
+
+      {/* Today's note */}
+      {!closed && (
+        <div className="ds">
+          <div className="dl" style={{marginBottom:8}}>Today's note</div>
+          <div style={{display:'flex',gap:8}}>
+            <input className="fi" style={{flex:1}} placeholder="One line update..."
+              value={newNote} onChange={e => setNewNote(e.target.value)}
+              onKeyDown={e => e.key==='Enter' && addNote()} />
+            <button onClick={addNote} style={{background:'none',border:'1px solid var(--border)',borderRadius:4,color:'var(--text)',padding:'0 14px',cursor:'pointer',fontSize:16}}>↵</button>
+          </div>
+        </div>
+      )}
+
+      {/* Notes history */}
+      {loop.dailyNotes?.length > 0 && (
+        <div className="notes-list" style={{paddingTop:16}}>
+          <div className="dl" style={{marginBottom:8}}>History</div>
+          {[...loop.dailyNotes].reverse().map((n,i) => (
+            <div key={i} className="note-row">
+              <div className="note-date">{n.date}</div>
+              <div className="note-txt">{n.note}</div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── Check-In ───────────────────────────────────────────────────────────────
+function CheckInView({ loops, onUpdate, onBack, onComplete }) {
+  const active = loops.filter(isActive);
+  const [idx, setIdx] = useState(0);
+  const [status, setStatus] = useState('');
+  const [note, setNote] = useState('');
+  const [blocker, setBlocker] = useState('');
+  const [closure, setClosure] = useState(null);
+
+  useEffect(() => {
+    if (active[idx]) {
+      setStatus(active[idx].status);
+      setNote('');
+      setBlocker(active[idx].blocker || '');
+    }
+  }, [idx]);
+
+  if (!active.length) return (
+    <div className="screen">
+      <div className="header">
+        <button className="header-btn" onClick={onBack}>← Back</button>
+        <div className="header-title">Check-in</div>
+        <div style={{width:40}} />
+      </div>
+      <div className="empty" style={{paddingTop:80}}>No active loops to check in on.</div>
+    </div>
+  );
+
+  const loop = active[idx];
+  const isLast = idx === active.length - 1;
+
+  function handleStatus(s) {
+    if (s === 'won' || s === 'lost') { setClosure(s); return; }
+    setStatus(s);
+  }
+
+  function handleClosure(closureNote) {
+    const updates = { ...loop, status: closure, closureNote };
+    if (note.trim()) updates.dailyNotes = [...(loop.dailyNotes||[]), {date:todayStr(), note:note.trim()}];
+    onUpdate(updates);
+    setClosure(null);
+    if (isLast) { localStorage.setItem(CI_KEY, todayStr()); onComplete(); }
+    else setIdx(i => i+1);
+  }
+
+  function advance() {
+    const updates = {...loop, status};
+    if (note.trim()) updates.dailyNotes = [...(loop.dailyNotes||[]), {date:todayStr(), note:note.trim()}];
+    if (status === 'blocked') updates.blocker = blocker;
+    else updates.blocker = '';
+    onUpdate(updates);
+    if (isLast) { localStorage.setItem(CI_KEY, todayStr()); onComplete(); }
+    else setIdx(i => i+1);
+  }
+
+  return (
+    <div className="screen">
+      {closure && <ClosureSheet outcome={closure} onConfirm={handleClosure} onCancel={() => setClosure(null)} />}
+      <div className="header">
+        <button className="header-btn" onClick={onBack}>← Exit</button>
+        <div className="header-title">Morning Check-in</div>
+        <div style={{width:40}} />
+      </div>
+      <div className="ci-prog">{idx+1} / {active.length}</div>
+      <div className="ci-card">
+        <div style={{marginBottom:16}}>
+          <div className="dl" style={{marginBottom:4}}>Loop</div>
+          <div style={{fontSize:16,fontWeight:600,lineHeight:1.3}}>{loop.title}</div>
+          <div style={{fontSize:11,color:'var(--muted)',marginTop:6}}>
+            {dlLabel(loop.deadline)} · P{loop.priority} · {loop.bandwidth}% bw
+          </div>
+          {loop.winCondition && (
+            <div style={{marginTop:8,fontSize:11,color:'var(--muted2)',borderTop:'1px solid var(--border)',paddingTop:8}}>
+              Win: {loop.winCondition}
+            </div>
+          )}
+        </div>
+
+        <div className="dl" style={{marginBottom:8}}>Status</div>
+        <div className="status-grid">
+          {['not_started','in_progress','blocked','won','lost'].map(s => (
+            <button key={s} className={`sopt ${status===s?'active '+s:''}`} onClick={() => handleStatus(s)}>
+              {s==='not_started'?'Not Started':s==='in_progress'?'In Progress':s==='blocked'?'Blocked':s==='won'?'Won ✓':'Lost ✗'}
+            </button>
+          ))}
+        </div>
+
+        {status === 'blocked' && (
+          <div className="fg" style={{marginBottom:12}}>
+            <label className="fl">Blocker</label>
+            <input className="fi" placeholder="What's blocking this?"
+              value={blocker} onChange={e => setBlocker(e.target.value)} />
+          </div>
+        )}
+
+        <div className="fg" style={{marginBottom:16}}>
+          <label className="fl">One-line note</label>
+          <input className="fi" placeholder="State of this loop today?"
+            value={note} onChange={e => setNote(e.target.value)}
+            onKeyDown={e => e.key==='Enter' && advance()} />
+        </div>
+
+        <button className="btn" onClick={advance}>
+          {isLast ? 'Complete Check-in →' : 'Next →'}
+        </button>
+      </div>
+      <div className="dots">
+        {active.map((_,i) => (
+          <div key={i} className="dot" style={{
+            background: i < idx ? 'var(--win)' : i === idx ? 'var(--text)' : 'var(--border)'
+          }} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── Bandwidth ──────────────────────────────────────────────────────────────
+function BandwidthView({ loops }) {
+  const active = loops.filter(isActive).sort((a,b) => b.bandwidth-a.bandwidth);
+  const total = active.reduce((s,l) => s+l.bandwidth, 0);
+  const over = total > 100;
+  const colors = ['var(--blue)','var(--win)','var(--warn)','var(--purple)','var(--fire)'];
+
+  return (
+    <div className="screen">
+      <div className="header">
+        <div style={{width:40}} />
+        <div className="header-title">Bandwidth</div>
+        <div style={{width:40}} />
+      </div>
+      <div style={{padding:'24px 20px 8px',display:'flex',alignItems:'flex-end',justifyContent:'space-between'}}>
+        <div>
+          <div style={{fontSize:10,letterSpacing:'.15em',textTransform:'uppercase',color:'var(--muted)',marginBottom:4}}>Total allocated</div>
+          <div style={{fontSize:36,fontWeight:700,color: over?'var(--fire)':total>80?'var(--warn)':'var(--win)',lineHeight:1}}>
+            {total}%
+          </div>
+        </div>
+        <div style={{textAlign:'right',fontSize:11}}>
+          {over && <div style={{color:'var(--fire)'}}>OVER by {total-100}%</div>}
+          {!over && <div style={{color:'var(--muted)'}}>{100-total}% free</div>}
+          <div style={{color:'var(--muted)',marginTop:2}}>{active.length} active loops</div>
+        </div>
+      </div>
+      <div style={{padding:'0 20px 20px'}}>
+        <div className="bar-track" style={{height:5}}>
+          <div className="bar-fill" style={{
+            width:`${Math.min(total,100)}%`,
+            background: over?'var(--fire)':total>80?'var(--warn)':'var(--win)'
+          }} />
+        </div>
+      </div>
+      <div className="divider" />
+      {!active.length && <div className="empty" style={{paddingTop:40}}>No active loops</div>}
+      {active.map((l,i) => (
+        <div key={l.id} className="bw-item">
+          <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:4}}>
+            <div style={{fontSize:13,flex:1,paddingRight:12,lineHeight:1.3}}>{l.title}</div>
+            <div style={{fontSize:16,fontWeight:700,color:colors[i%colors.length]}}>{l.bandwidth}%</div>
+          </div>
+          <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:6}}>
+            <Badge status={l.status} />
+            <span style={{fontSize:10,color:'var(--muted)'}}>P{l.priority}</span>
+            <span style={{fontSize:10,color:'var(--muted)'}}>{dlLabel(l.deadline)}</span>
+          </div>
+          <div className="bar-track">
+            <div className="bar-fill" style={{width:`${l.bandwidth}%`,background:colors[i%colors.length]}} />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ── App Root ───────────────────────────────────────────────────────────────
+function App() {
+  const [loops, setLoops] = useState(() => {
+    try { return JSON.parse(localStorage.getItem(STORE)) || []; }
+    catch { return []; }
+  });
+  const [view, setView] = useState('home');
+  const [tab, setTab] = useState('home');
+  const [sel, setSel] = useState(null);
+
+  useEffect(() => { localStorage.setItem(STORE, JSON.stringify(loops)); }, [loops]);
+
+  // Keep sel in sync
+  useEffect(() => {
+    if (sel) { const fresh = loops.find(l => l.id===sel.id); if (fresh) setSel(fresh); }
+  }, [loops]);
+
+  function updateLoop(updated) {
+    setLoops(prev => prev.map(l => l.id===updated.id ? updated : l));
+  }
+
+  function addLoop(loop) {
+    setLoops(prev => [...prev, loop]);
+    setView(tab);
+  }
+
+  function deleteLoop() {
+    setLoops(prev => prev.filter(l => l.id!==sel.id));
+    setSel(null); setView(tab);
+  }
+
+  function openLoop(loop) { setSel(loop); setView('detail'); }
+
+  function goNew() { setView('new'); }
+
+  function goBack() { setView(tab); setSel(null); }
+
+  function switchTab(t) { setTab(t); setView(t); setSel(null); }
+
+  const showNav = view !== 'new' && view !== 'checkin';
+
+  return (
+    <>
+      {view === 'home' && <HomeView loops={loops} onSelect={openLoop} onNew={goNew} onCheckin={() => setView('checkin')} />}
+      {view === 'all' && <AllView loops={loops} onSelect={openLoop} onNew={goNew} />}
+      {view === 'bandwidth' && <BandwidthView loops={loops} />}
+      {view === 'new' && <NewLoopView onSave={addLoop} onBack={goBack} />}
+      {view === 'detail' && sel && <DetailView loop={sel} onBack={goBack} onUpdate={updateLoop} onDelete={deleteLoop} />}
+      {view === 'checkin' && <CheckInView loops={loops} onUpdate={updateLoop} onBack={() => setView('home')} onComplete={() => setView('home')} />}
+
+      {showNav && (
+        <nav className="bottom-nav">
+          <button className={`nav-btn ${tab==='home'?'active':''}`} onClick={() => switchTab('home')}>
+            <span className="nav-icon">⌂</span><span>Home</span>
+          </button>
+          <button className={`nav-btn ${tab==='all'?'active':''}`} onClick={() => switchTab('all')}>
+            <span className="nav-icon">≡</span><span>Loops</span>
+          </button>
+          <button className="nav-btn" onClick={() => setView('checkin')}>
+            <span className="nav-icon">◈</span><span>Check-in</span>
+          </button>
+          <button className={`nav-btn ${tab==='bandwidth'?'active':''}`} onClick={() => switchTab('bandwidth')}>
+            <span className="nav-icon">▤</span><span>Bandwidth</span>
+          </button>
+        </nav>
+      )}
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  const sw = `
+    const C='loopOS-v1';
+    self.addEventListener('install',e=>{
+      e.waitUntil(caches.open(C).then(c=>c.addAll([
+        self.registration.scope,
+        'https://unpkg.com/react@18/umd/react.production.min.js',
+        'https://unpkg.com/react-dom@18/umd/react-dom.production.min.js',
+        'https://unpkg.com/@babel/standalone/babel.min.js'
+      ])).catch(()=>{}));
+      self.skipWaiting();
+    });
+    self.addEventListener('activate',e=>{e.waitUntil(self.clients.claim())});
+    self.addEventListener('fetch',e=>{
+      e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{
+        if(res.ok){const c=res.clone();caches.open(C).then(ca=>ca.put(e.request,c));}
+        return res;
+      }).catch(()=>caches.match(e.request))));
+    });
+  `;
+  const blob = new Blob([sw], {type:'application/javascript'});
+  navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(()=>{});
+}
+</script>
+</body>
+</html>
